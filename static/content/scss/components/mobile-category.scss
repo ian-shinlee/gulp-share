@@ -1,0 +1,243 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.mobile-category {
+    --mo-quick-height: 64px;
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    @include mediaForPc {
+        display: none;
+    }
+}
+.m-category-menu {
+    flex-shrink: 0;
+    pointer-events: all;
+    margin-top: auto;
+    background-color: var.$bfff;
+    @include notch(padding, left, 0px);
+    @include notch(padding, right, 0px);
+    @include notch(padding, bottom, 0px);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: var(--mo-quick-height);
+        border-top: 1px solid var.$lineNormal;
+        @include typo('body3');
+        --typo-custom-c: #{var.$b333};
+        --typo-custom-w: 500;
+        @include beforeImage(20px, 20px, var(--mo-quick-icon)) {
+            margin-bottom: 4px;
+        };
+        &.on:before {
+            --mo-quick-icon: var(--mo-quick-icon-on);
+        }
+        &:nth-child(1) {
+            --mo-quick-icon: url('../image/header/mo-quick-bars.svg');
+            --mo-quick-icon-on: url('../image/header/mo-quick-bars-on.svg');
+            --mo-quick-icon-preparing: url('../image/header/mo-quick-bars-disabled.svg');
+        }
+        &:nth-child(2) {
+            --mo-quick-icon: url('../image/header/mo-quick-order.svg');
+            --mo-quick-icon-on: url('../image/header/mo-quick-order-on.svg');
+        }
+        &:nth-child(3) {
+            --mo-quick-icon: url('../image/header/mo-quick-home.svg');
+            --mo-quick-icon-on: url('../image/header/mo-quick-home-on.svg');
+        }
+        &:nth-child(4) {
+            --mo-quick-icon: url('../image/header/mo-quick-manager.svg');
+            --mo-quick-icon-on: url('../image/header/mo-quick-manager-on.svg');
+            --mo-quick-icon-preparing: url('../image/header/mo-quick-manager-disabled.svg');
+        }
+        &:nth-child(5) {
+            --mo-quick-icon: url('../image/header/mo-quick-user.svg');
+            --mo-quick-icon-on: url('../image/header/mo-quick-user-on.svg');
+            --mo-quick-icon-preparing: url('../image/header/mo-quick-user-disabled.svg');
+        }
+        &.preparing:not(.on) {
+            color: var.$disabled;
+            &:before {
+                --mo-quick-icon: var(--mo-quick-icon-preparing);
+            }
+        }
+    }
+}
+.m-gnb-wrap {
+    display: none;
+    pointer-events: all;
+    flex: 1;
+    order: -1;
+    background-color: var.$bfff;
+    @include notch(padding, top, 0px);
+    @include notch(padding, left, 0px);
+    @include notch(padding, right, 0px);
+    // width: 100%;
+    // height: 100vh;
+    flex-direction: column;
+    min-height: 0;
+
+    &.on {
+        display: flex;
+    }
+
+    header {
+        height: 45px;
+        padding: 0 12px;
+        display: grid;
+        grid-template-columns: 32px 1fr 32px;
+        align-items: center;
+        text-align: center;
+        border-bottom: 1px solid var.$primary;
+        @include notch(padding, left, 0px);
+        @include notch(padding, right, 0px);
+        .m-gnb-close {
+            order: -1;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-image: url('../image/header/back.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 24px auto;
+            font-size: 0;
+        }
+        .my-mneu {
+            a {
+                @include typo('lnb2');
+                --typo-custom-c: #{var.$b000};
+                --typo-custom-w: 600;
+            }
+        }
+
+    }
+    .m-gnb {
+        min-height: 0;
+        flex: 1;
+        display: grid;
+        grid-template-columns: 41fr 59fr;
+        gap: 1px;
+        background-color: var.$lineNormal;
+        > div {
+            background-color: var.$bfff;
+            min-width: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            max-height: 100%;
+        }
+    }
+    [class*='depth'] {
+        display: flex;
+        flex-direction: column;
+    }
+    [class*='-item'] {
+        flex-shrink: 0;
+        position: relative;
+        display: inline-block;
+        text-align: left;
+        width: 100%;
+        @include typo('tab');
+        --typo-custom-w: 500;
+        @include ellipse;
+        padding: var(--gnb-item-p);
+        @include after {
+            // display: none;
+            position: absolute;
+            top: 50%;
+            right: 11px;
+            width: 16px;
+            height: 16px;
+            background-image: url('../image/icon/chevron-down.svg');
+            background-size: 16px auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        &.on {
+            background-color: var(--gnb-item-on-bgc);
+            --typo-custom-c: #{var.$bfff};
+            --typo-custom-w: 600;
+            --gnb-item-p: var(--gnb-item-on-p);
+            &:after {
+                // display: block;
+                background-image: url("../image/icon/chevron-down-bfff.svg");
+            }
+        }
+    }
+    .menu-item {
+        --gnb-item-on-bgc: #{var.$primary};
+        --gnb-item-p: 0 36px 0 11px;
+        --gnb-item-on-p: 0 36px 0 11px;
+        line-height: 39px;
+        @include notch(padding, left, 11px);
+        &:after {
+            transform: translateY(-50%) rotate(-90deg);
+            background-image: url("../image/icon/chevron-down.svg");
+        }
+    }
+    .submenu-item {
+        --typo-custom-c: #555;
+        --gnb-item-on-bgc: #{var.$primarySecondary};
+        --gnb-item-p: 0 36px 0 15px;
+        --gnb-item-on-p: 0 36px 0 11px;
+        @include notch(padding, right, 36px);
+        line-height: 34px;
+        &:after {
+            transform: translateY(-50%);
+            background-image: url("../image/icon/chevron-down-b555.svg");
+            @include notchPosition(right, right, 11px);
+        }
+        &:only-child:after {
+            content: unset;
+        }
+        &.on {
+            line-height: 39px;
+            &:after {
+                transform: rotate(180deg) translateY(50%);
+            }
+        }
+    }
+    .depth2 > ul {
+        &:not(.on) {
+            display: none;
+        }
+        > li:not(:first-child) .submenu-item.on {
+        margin-top: 8px;
+    }
+    }
+    .thirdmenu-item {
+        --typo-custom-c: #{var.$b777};
+        --gnb-item-p: 0 23px;
+        --gnb-item-on-p: 0 23px;
+        line-height: 34px;
+        &:after {
+            content: unset;
+        }
+    }
+    .depth1 {
+        padding: 3px 0;
+    }
+    .depth2 {
+        padding: 3px 0;
+    }
+    .depth3 {
+        padding: 8px 0;
+        @include notch(padding, right, 0px);
+        background-color: var.$bgNormal;
+        &:not(.on) {
+            display: none;
+        }
+    }
+}

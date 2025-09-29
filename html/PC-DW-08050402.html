@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>VIP포인트 전용상품 주문서</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> VIP포인트 전용상품 주문서 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="point-order-modal">
+          <div class="toggle-title toggle-order-list">
+            <h2>주문상품</h2>
+          </div>
+          <div class="toggle-content">
+            <div class="bg-white">
+              <div class="toggle-hide-show">
+                <div class="order-prd-table">
+                  <div class="only-pc">
+                    <div class="th">상품명</div>
+                    <div class="td">
+                      <p class="body1">판매금액 </p>
+                      <p class="body1">주문금액</p>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="th">
+                      <p class="prd-name"><span class="ellipsis">[판매자명]&nbsp;상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명</span>&nbsp;|&nbsp;n개</p>
+                    </div>
+                    <div class="td">
+                      <p class="body1 only-mo">판매금액</p>
+                      <p class="body1">12,233,333P</p>
+                      <p class="body1 only-mo">주문금액</p>
+                      <p class="body1">12,233,333P</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="brand-price">
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">차감할 VIP포인트</p>
+                  <p class="price c-red"><span>9,999,999,999</span>P</p>
+                </div>
+              </div>
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">보유 VIP포인트</p>
+                  <p class="price"><span>150,000</span>P</p>
+                </div>
+                <div class="flex">
+                  <p class="title">주문 후 잔여 VIP포인트</p>
+                  <p class="price"><span>150,000</span>P</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="toggle-title active">
+            <h2>배송지</h2>
+          </div>
+          <div class="toggle-content">
+            <p class="body1">상품권/기프티콘 유형의 상품은 휴대전화번호로 교환권이 발송됩니다.</p>
+            <div class="delivery-info-wrap">
+              <!-- [D 07.14] p.h3 타이틀 영역 삭제 -->
+              <div class="delivery-info">
+                <!-- [D 07.14] 입력방식 변경됨 -->
+                <div class="detail-area">
+                  <em>약국주소</em>
+                  <p>(01234) 서울특별시 광진구 12길 34(암사동) 1O1호 <!-- [D 08.27] 제약사, 의약품, VIP상품일 경우 주소뒤에 약국명 추가 -->빛나리 약국</p>
+                  <em>받으시는 분</em>
+                  <p>김대원</p>
+                  <em>약국전화번호</em>
+                  <p>01O-1234-1234</p>
+                  <em>휴대전화번호</em>
+                  <p>01O-1234-1234</p>
+                </div>
+                <div class="message-area">
+                  <div class="message-box">
+                    <div class="message-form-wrap">
+                      <!-- [D 08.27] placeholder 문구 변경 -->
+                      <input type="text" class="form-basic " value="" placeholder="배송메시지를 입력해 주세요(최대 50자)." />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4 class="h2 caution">결제 정보 확인 및 주문 약관 동의</h4>
+          <ul class="dot-list">
+            <li>개인정보 제3자 제공동의 : 애플스토어&nbsp;&nbsp;&nbsp; <button class="btn cta black-outline xs">
+                <span><!-- [D 07.14] 띄어쓰기 수정 -->자세히 보기</span>
+              </button>
+            </li>
+            <li>위의 약관 및 주문 상품의 상품명, 배송정보를 확인하였으며, 구매에 동의합니다.</li>
+          </ul>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <button class="btn cta gray md">
+            <span>취소</span>
+          </button>
+          <a href="#none" class="btn cta filled md">
+            <!-- [D] span이 추가됨 -->
+            <span>주문하기</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

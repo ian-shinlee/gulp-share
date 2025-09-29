@@ -1,0 +1,471 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+form {
+  margin: 0;
+}
+
+html,
+body {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    -webkit-overflow-scrolling: none;
+    scroll-behavior: smooth;
+    background-color: var.$bfff;
+    @include typo('body1');
+}
+html {
+  height: 100%;
+}
+.bg-page {
+  background-color: var.$pageBg;
+}
+.scroll-fixed, // as dev[main page]
+.scrolllock {
+  overflow: hidden !important;
+}
+.ellipsis {
+  @include ellipse;
+}
+body {
+  min-height: 100%;
+  min-width: 1360px;
+  display: grid;
+  grid-template-areas:
+    "topbanner"
+    "header"
+    "title"
+    "content"
+    "footer"
+  ;
+  grid-template-rows: auto auto auto 1fr auto;
+  @include media {
+    min-width: 280px;
+  }
+}
+.top-banner-area {
+  grid-area: topbanner;
+}
+.header-join,
+.header {
+  grid-area: header;
+}
+.header-depth {
+  grid-area: title;
+}
+.content-inner {
+  grid-area: content;
+}
+#footer {
+  grid-area: footer;
+}
+
+.relative {
+  position: relative;
+}
+.sr-only {
+  @include sr-only;
+}
+.w-full {
+    width: 100%;
+}
+
+.space-x-8,
+.space-x-10 {
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--item-gap) * -1);
+  > :not([hidden]):not(:last-child) {
+      margin-right: var(--space-gap);
+  }
+  > :not([hidden]) {
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-top: var(--item-gap);
+  }
+}
+.space-x-8 {
+  --space-gap: 8px;
+}
+.space-x-10 {
+  --space-gap: 10px;
+}
+
+.flex {
+    vertical-align: top;
+    display: flex;
+    align-items: center;
+
+    .select-wrap,
+    .input-file-download,
+    input {
+        flex: 1;
+    }
+    button,
+    a {
+        flex-shrink: 0;
+    }
+
+    @at-root .form-line & {
+        margin-top: calc(var(--item-gap) * -1);
+        > :not([hidden]):not(:last-child) {
+            margin-right: var(--item-gap);
+        }
+        > :not([hidden]) {
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-top: var(--item-gap);
+        }
+    }
+}
+
+.col {
+  flex-direction: column;
+}
+.justify-center {
+  justify-content: center;
+}
+.space-between,
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+  justify-content: end;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: var(--grid-columns, 1fr);
+  gap: var(--grid-gap, 20px);
+}
+.grid-item {
+  min-width: 0;
+}
+.grid-auto-1fr {
+  --grid-columns: auto 1fr;
+  align-items: center;
+}
+
+.c-b000 {
+  color: var.$b000 !important;
+}
+.c-b333 {
+    color: var.$b333 !important;
+  }
+.c-b777 {
+  color: var(--c-b777-custom, var.$b777) !important;
+}
+.c-orange {
+  color: var(--c-orange-custom, var.$p_orange) !important;
+}
+.c-primary {
+  color: var.$primary !important;
+}
+.c-positive {
+  color: var.$positive !important;
+}
+.c-purple {
+  color: var.$ac_purple !important;
+}
+.c-red {
+  color: var(--c-red-custom, var.$p_red) !important;
+}
+.fw-normal {
+  font-weight: 400 !important;
+}
+.fw-medium {
+  font-weight: 500 !important;
+}
+.fw-semibold {
+  font-weight: 600 !important;
+}
+.ta-center {
+  text-align: center;
+}
+.ta-right {
+  text-align: right;
+}
+.word-break {
+  @include word-break;
+}
+.head-wrap {
+  display: grid;
+  grid-template-columns: var(--head-wrap-columns, 1fr auto);
+  align-items: end;
+  margin-bottom: var(--head-mb, 32px);
+  .h1 {
+    img {
+      max-height: 36px;
+      margin-top: -7px; // + 2
+    }
+  }
+  > div:nth-child(2) {
+    > :not([hidden]):not(.search) {
+      margin-left: 8px;
+    }
+  }
+  + .head-wrap { // mypage only? or common? need
+    margin-bottom: 16px;
+  }
+  @include media {
+    --head-mb: 28px;
+    &.head-search {
+      --head-wrap-columns: 1fr;
+      > div:first-child {
+          display: none;
+      }
+    }
+    &.head-col-1 {
+      --head-wrap-columns: 1fr;
+      gap: 28px;
+    }
+  }
+  + .tab.line {
+    @include mediaForPc {
+      margin-top: -16px;
+    }
+  }
+}
+.sub-title-area {
+  flex-shrink: 0;
+  .head-wrap {
+    margin-bottom: 0;
+  }
+  @include mediaForPc {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var.$lineNormal;
+    + .section,
+    + .section-full {
+      padding-top: var(--subtitle-pt, 40px);
+      @include media {
+        --subtitle-pt: 28px;
+      }
+    }
+  }
+  @include media {
+    display: none;
+  }
+}
+.h1,
+.h2,
+.h3 {
+  + input[type="hidden"] + [class*="body"], // as dev[evnet page]
+  + [class*="body"] {
+    margin-top: 8px;
+  }
+}
+.h1 {
+  @include typo('h1');
+}
+.h2 {
+  @include typo('h2');
+}
+.h3 {
+  @include typo('h3');
+}
+.body1 {
+  @include typo('body1');
+}
+.body2 {
+  @include typo('body2');
+}
+.body3 {
+  @include typo('body3');
+}
+.truncate {
+  @include ellipse;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  @include typo('body1');
+  --typo-custom-w: 500;
+  --typo-custom-c: #{var.$b777};
+  > a:not(:first-child),
+  > button:not(:first-child) {
+      display: inline-flex;
+      align-items: center;
+      @include before {
+          width: 1px;
+          height: 12px;
+          background-color: var.$lineNormal;
+          margin-left: 8px;
+          margin-right: 8px;
+      }
+  }
+}
+
+.only-pc {
+  @include media {
+    display: none !important;
+  }
+}
+.only-mo {
+  @include mediaForPc {
+    display: none !important;
+  }
+}
+.hidden {
+  display: none !important;
+}
+.image-area {
+  text-align: center;
+  img {
+    max-width: 100%;
+  }
+}
+.white-normal {
+  white-space: normal !important;
+}
+.white-space {
+  white-space: nowrap;
+}
+.divider-vertical-line {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background-color: var.$lineNormal;
+  margin: 0 12px;
+}
+
+
+.swiper {
+  position: relative;
+}
+.swiper-arrow[class*="swiper-button-"] {
+  display: var(--swiper-arrow-display, flex);
+  top: var(--swiper-arrow-top, 50%);
+  width: var(--swiper-arrow-size, 52px);
+  height: var(--swiper-arrow-size, 52px);
+  z-index: 1;
+  margin-top: 0;
+  border-radius: 99px;
+  border: 1px solid var.$lineWeak;
+  background: var.$bfff;
+  box-shadow: var(--swiper-arrow-shadow, 0px 4px 20px 0px rgba(0, 0, 0, 0.12));
+  &:after {
+    font-size: 0;
+    display: inline-block;
+    width: var(--swiper-arrow-icon-size, 24px);
+    height: var(--swiper-arrow-icon-size, 24px);
+    background: var(--swiper-arrow-custom, url("../image/icon/chevron-down.svg"));
+    background-size: contain;
+  }
+  @include media {
+    --swiper-arrow-display: none;
+  }
+  &.swiper-button-next {
+    right: var(--swiper-arrow-x, -26px);
+    transform: translateY(-50%) rotate(-90deg);
+  }
+  &.swiper-button-prev {
+    left: var(--swiper-arrow-x, -26px);
+    transform: translateY(-50%) rotate(90deg);
+  }
+  &.swiper-button-disabled { // @@
+    opacity: 1;
+    --swiper-arrow-custom: url("../image/icon/chevron-down-disabled.svg");
+  }
+}
+
+.swiper:not(.swiper-horizontal) {
+  .swiper-controller {
+      display: none;
+  }
+}
+.swiper-controller {
+  z-index: 1;
+  position: absolute;
+  left: var(--swiper-slide-ctrl-left, 24px);
+  // transform: translateX(-50%);
+  bottom: var(--swiper-slide-ctrl-bottom, 23px);
+  display: flex;
+  align-items: center;
+  @include mediaForPc {
+      transform: var(--swiper-slide-ctrl-trans, none);
+  }
+  @include media {
+      padding: 0 8px;
+      min-height: 28px;
+      border-radius: 14px;
+      background-color: rgba(var.$b000, 0.3);
+      left: auto !important;
+      transform: none !important;
+      @include notchPosition(right, right, 8px);
+      bottom: 8px;
+  }
+  > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: static;
+      z-index: 1;
+      @include mediaForPc {
+          padding: 0 14px;
+          min-height: 44px;
+          border-radius: 24px;
+          background-color: rgba(var.$b000, 0.3);
+      }
+  }
+  .btn.icon-circle-pause {
+      --button-bgc-hover: transparent;
+      --button-icon-size: 12px;
+      &:before {
+          --button-icon-size: 20px;
+      }
+      &.on {
+          --icon-url: url('../image/product/play.svg');
+      }
+  }
+  .swiper-arrow {
+      position: static;
+      --swiper-arrow-size: 20px;
+      background-color: transparent;
+      box-shadow: none;
+      border: none;
+      @include mediaForPc {
+          margin-left: 5px;
+      }
+      @include media {
+          --swiper-arrow-display: flex;
+      }
+      &:after {
+          width: 100%;
+          height: 100%;
+          --swiper-arrow-custom: url("../image/icon/chevron-down-bfff.svg");
+      }
+      &.swiper-button-next {
+        transform: rotate(-90deg);
+      }
+      &.swiper-button-prev {
+        transform: rotate(90deg);
+          @include media {
+              order: -1;
+          }
+      }
+  }
+  .swiper-pagination {
+      margin-left: 6px;
+      width: auto;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(var.$bfff, 0.6);
+      @include media {
+          margin-left: 4px;
+          font-size: 12px;
+          font-weight: 400;
+      }
+      .swiper-pagination-current {
+          margin-right: 5px;
+          font-weight: 600;
+          color: var.$bfff;
+          @include media {
+              font-weight: 400;
+              margin-right: 4px;
+          }
+      }
+      .swiper-pagination-total {
+          margin-left: 4px;
+      }
+  }
+}

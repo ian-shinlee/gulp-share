@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>낱알반품 신청 | 마이페이지</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./includes/header.ejs', {
+            title: '낱알반품 신청',
+            innerNav: [
+                ['회원정보 변경', true],
+                ['요양기관번호 등록', true],
+            ],
+            depth1Active: 3,
+        }) %>
+        <div class="content-inner ">
+            <div class="section-full sub-title-area">
+                <div>
+                    <%- include('./atoms/title.ejs', {
+                        con: '마이페이지',
+                    }) %>
+                </div>
+            </div>
+            <div class="section-full sub-detail-page">
+                <!-- snb area -->
+                <div class="snb-grid">
+                    <%- include('./includes/snb_list.ejs', {
+                        menuListType: 'mypage',
+                        depth1: '<!-- [D 07.30] 문구 수정 -->반품 관리',
+                        depth2: '낱알반품 신청',
+                    }) %>
+                    <div>
+                        <!-- SNB content -->
+                        <div class="mypage">
+                            <%- include('./atoms/title.ejs', {
+                                type: '2',
+                                con: '낱알반품 신청',
+                                custom: 'only-pc',
+                            }) %>
+                            <div class="only-pc">
+                                <div class="grid grid-fr-auto">
+                                    <%- include('./atoms/dotlist.ejs', {
+                                        content: [
+                                            '낱알반품은 온다몰에서 구매하신 급여의약품에 한하여 신청 가능하며, 반드시 해당 제품의 완통이 필요합니다.',
+                                            '낱알반품의 보상 기준 금액은 처리 시점의 보건복지부 고시가격에 준하여 금융비용 및 반품비용 차감 후 예치금으로 적립됩니다.',
+                                            '업체별로 반품정책이 상이하므로, 반품 신청 전 반드시 해당 판매자의 반품정책을 확인해 주세요.',
+                                        ]
+                                    })%>
+                                    <%- include('./atoms/button.ejs', { value: '낱알반품 안내'}) %>
+                                </div>
+                                <%- include('./molecules/amount.ejs', {
+                                    colType: 'amount-col-1',
+                                    data: {
+                                        "보유 낱알반품 포인트": ['999,999,999', 'P', true, `<!-- [D 07.30] 문구 수정 -->30일 이내 소멸예정 <span>999,999,999P</span>` ],
+                                    },
+                                }) %>
+                                <%- include('./atoms/title.ejs', {
+                                    tag: 'h4',
+                                    type: '3',
+                                    con: '신청 가능 주문 내역',
+                                })%>
+                                <%- include('./molecules/sub_table_filter.ejs', {
+                                    caption: '조회기간, 입점업체, 보험코드, 검색조건',
+                                    returnPeriod: true,
+                                    data: [
+                                        { filterTitle:"입점업체" , selectType: true},
+                                        { filterTitle:"보험코드" , colspan: '3'},
+                                    ],
+                                    search: true,
+                                    searchOptions: ["선택","상품명","입점업체","통합주문번호","상품번호"],
+                                })%>
+                                <%
+                                    let cell = ( text, long = false) => {
+                                        let number = long ? '999,999,999': '1,000';
+                                        return `
+                                            <tr>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>1234567</span>
+                                                        <span class="c-b777">2025.03.18</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>백제약국</span>
+                                                        ${include('./atoms/button.ejs', { value: '반품정책', size: 'xs' })}
+                                                    </div>
+                                                </td>
+                                                <td class="align-left">
+                                                    <div class="text-group">
+                                                        <span>보험코드</span>
+                                                        <div class="flex">
+                                                            <span class="truncate-line2">
+                                                                ${text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right"><span>${number}</span></td>
+                                                <td class="align-right">
+                                                    ${include('./atoms/input.ejs', {type: 'number', placeholder: '입력'})}
+                                                </td>
+                                                <td>
+                                                    ${include('./atoms/button.ejs', { value: '반품담기', size: 'xs' })}
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }
+                                    let table = ( nodata = false ) => {
+                                        return `
+                                        <div class="table-wrap table-return-order">
+                                            <table class="table">
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            통합주문번호<br>
+                                                            주문일
+                                                        </th>
+                                                        <th>입점업체</th>
+                                                        <th>상품명</th>
+                                                        <th>
+                                                            낱알단가<br>
+                                                            상품단가
+                                                        </th>
+                                                        <th>신청가능수량</th>
+                                                        <th>신청수량</th>
+                                                        <th>담기</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    ${ !nodata ?
+                                                        cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위', true)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                        + cell('제조사 상품명 규격 단위', false)
+                                                    :''}
+                                                </tbody>
+                                            </table>
+                                            ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                                img: 'icon/no-results.svg',
+                                                desc: '조회 결과가 없습니다.',
+                                            })}
+                                        </div>
+                                    `}
+                                %>
+                                <%
+                                    let orderCell = ( text, long = false) => {
+                                        let number = long ? '999,999,999': '1,000';
+                                        return `
+                                            <tr>
+                                                <td>${include('./atoms/checkbox.ejs', { checkboxList: [''] , checked: true}) }</td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>12345678</span>
+                                                        <span class="c-b777">2025.03.18</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-left">
+                                                    <div class="text-group">
+                                                        <span>보험코드</span>
+                                                        <div class="flex">
+                                                            <span class="truncate-line2">
+                                                                ${text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    <span>${number}</span>
+                                                </td>
+                                                <td>
+                                                    ${include('./atoms/input.ejs', {type: 'number', placeholder: '입력'})}
+                                                </td>
+                                                <td>
+                                                    ${include('./atoms/selectbox.ejs', { options: ['처방 변경','주문착오','유효기간 임박','오배송','배송중 파손','약가인하','제품하자','제조사 회수','폐업','단순변심'] })}
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }
+                                    let orderTable = `
+                                        <div class="table-wrap table-return-order">
+                                            <table>
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            ${include('./atoms/checkbox.ejs', { checkboxList: [''] , checked: true}) }
+                                                        </th>
+                                                        <th>
+                                                            통합주문번호<br>
+                                                            주문일
+                                                        </th>
+                                                        <th>상품명</th>
+                                                        <th>낱알단가</th>
+                                                        <th>신청수량</th>
+                                                        <th>사유</th>
+                                                        <th>
+                                                            환불금액<br>
+                                                            금융비용
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    ${orderCell('제조사 상품명 규격 단위', false)}
+                                                    ${orderCell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위', true)}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    `
+                                %>
+                                <%  let orderAllCheck = ( notice = false , checked= false ) => {
+                                    return `
+                                        <div class="select-all-wrap">
+                                            ${include('./atoms/checkbox.ejs', { checkboxList: ['전체 선택'], checked: checked })}
+                                            <span class="body2">낱알반품 신청금액 합계 1,234,456원</span>
+                                            ${notice ? '<!-- [D] 낱알반품 포인트 초과 시 --><span class="body2 c-red">(낱알반품 포인트를 1,234원 초과했습니다.)</span>' :''}
+                                            ${include('./atoms/button.ejs', { value: '선택상품 삭제', size: 'xs' })}
+                                        </div>
+                                    `
+                                    }
+                                    let  orderNodata = `
+                                            ${include('./atoms/title.ejs', {
+                                                tag: 'h4',
+                                                type: '3',
+                                                con: '반품 신청 상품',
+                                            })}
+                                            <div class="return-list">
+                                                ${include('./molecules/nodata.ejs', {
+                                                    img: 'icon/icon-no-return.svg',
+                                                    desc: '반품할 상품을 추가해 주세요.',
+                                                })}
+                                            </div>
+                                        `;
+                                        let orderBtns = (total = false, btnValue1,btnValue2, over ) => {
+                                            return `
+                                                <div class="btn-wrap ${total? 'total':''}">
+                                                    ${ !over ? `
+                                                        ${include('./atoms/button.ejs', { size: 'md', value: `${btnValue1}`, type: 'secondary' })}
+                                                    ` : ''}
+                                                        <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                                                        ${include('./atoms/button.ejs', { size: 'md', value: `${btnValue2}`, type: 'secondary', disabled: true }) }
+                                                </div>
+                                        `}
+                                        let orderTitle = ( info, hasBtn = false , checked = false) => {
+                                            return `
+                                                ${include('./atoms/checkbox.ejs', { name: 'check1', checkboxList: ["<span>대원제약(주)</span>"] , checked: checked})}
+                                                <div class="flex">
+                                                    <span class="order-cutoff">${info}</span>
+                                                    ${hasBtn ? `${include('./atoms/button.ejs', { value: '내역/쿠폰', size: 'xs' })}`: ''}
+                                                </div>
+                                                ${include('./atoms/button.ejs', { value: '반품정책', size: 'xs' })}
+                                            `
+                                        }
+                                %>
+                                <!-- [D] 결과값이 있을 때 -->
+                                <%- table(false)%>
+                                <%- include('./atoms/pagination.ejs')%>
+                                <!-- // [D] 결과값이 있을 때 -->
+                                <!-- [D] 결과값이 없을 때 -->
+                                <%- table(true)%>
+                                <!-- // [D] 결과값이 없을 때 -->
+
+                                <!-- [D] 반품 신청 상품이 있을 경우 -->
+                                <%- include('./atoms/title.ejs', {
+                                    tag: 'h4',
+                                    type: '3',
+                                    con: '반품 신청 상품',
+                                }) %>
+                                <div class="return-list">
+                                    <%- orderAllCheck(false, true) %>
+                                    <div class="brand-container">
+                                        <div class="brand-name">
+                                            <%- orderTitle('7월 무료반품 1회 가능', false, true) %>
+                                        </div>
+                                        <div class="brand-wrap">
+                                            <%-orderTable %>
+                                        </div>
+                                        <div class="brand-price">
+                                            <%-orderBtns(false, '<em>대원제약</em><span>12건 반품 신청</span>', '<em>대원제약</em><span>반품 신청</span>', false) %>
+                                        </div>
+                                    </div>
+                                    <%- orderBtns(true, '<em>전체</em><span>12건 반품 신청</span>', '<em>전체</em><span>반품 신청</span>', false) %>
+                                </div>
+                                <!-- [D] 낱알반품 포인트 초과한 경우 -->
+                                <div class="return-list">
+                                    <%- orderAllCheck(true, true) %>
+                                    <div class="brand-container">
+                                        <div class="brand-name">
+                                            <%- orderTitle('반품비용 5,000원', true, true) %>
+                                        </div>
+                                        <div class="brand-wrap">
+                                            <%-orderTable %>
+                                        </div>
+                                        <div class="brand-price">
+                                            <%-orderBtns(false, '<em>대원제약 반품 신청</em><span>12건 반품 신청</span>', '<em>대원제약</em><span>반품 신청</span>', true) %>
+                                        </div>
+                                    </div>
+                                    <%- orderBtns(true, '<em>전체</em><span>12건 반품 신청</span>', '<em>전체</em><span>반품 신청</span>', true) %>
+                                </div>
+                                <!-- // [D] 반품 신청 상품이 있을 경우 -->
+                                <!-- [D] 반품 신청 상품이 없을 경우 -->
+                                <%- orderNodata %>
+                                <!-- // [D] 반품 신청 상품이 없을 경우 -->
+                            </div>
+                            <%- include('./molecules/nomobile.ejs', { custom: 'line-box' }) %>
+
+                        </div>
+                        <!-- //SNB content -->
+                    </div>
+                </div>
+                <!-- //snb area -->
+            </div>
+        </div>
+
+        <%- include('./includes/footer.ejs', { datepicker: true }) %>
+        <!-- modal area -->
+        <!-- //modal area -->
+    </body>
+</html>

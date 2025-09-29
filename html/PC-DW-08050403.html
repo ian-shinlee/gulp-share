@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>VIP포인트 전용상품 주문완료</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> VIP포인트 전용상품 주문완료 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="point-order-modal">
+          <div class="order-complete-head">
+            <img src="../static/content/image/order/icon-order-complete.svg" alt="">
+            <h4 class="h3">주문을 완료했습니다.</h4>
+            <p class="body1">주문번호:<b>1234556787990</b></p>
+          </div>
+          <div class="toggle-title toggle-order-list">
+            <h2>주문상품</h2>
+          </div>
+          <div class="toggle-content">
+            <div class="bg-white">
+              <div class="toggle-hide-show">
+                <div class="order-prd-table">
+                  <div class="only-pc">
+                    <div class="th">상품명</div>
+                    <div class="td">
+                      <p class="body1">판매금액 </p>
+                      <p class="body1">주문금액</p>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="th">
+                      <p class="prd-name"><span class="ellipsis">[판매자명]&nbsp;상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명</span>&nbsp;|&nbsp;n개</p>
+                    </div>
+                    <div class="td">
+                      <p class="body1 only-mo">판매금액</p>
+                      <p class="body1">12,233,333원</p>
+                      <p class="body1 only-mo">주문금액</p>
+                      <p class="body1">12,233,333원</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="brand-price">
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">차감한 VIP포인트</p>
+                  <p class="price c-red"><span>9,999,999,999</span>P</p>
+                </div>
+              </div>
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">주문 전 VIP포인트</p>
+                  <p class="price"><span>150,000</span>P</p>
+                </div>
+                <div class="flex">
+                  <p class="title">잔여 VIP포인트</p>
+                  <p class="price"><span>150,000</span>P</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="toggle-title active">
+            <h2>배송지</h2>
+          </div>
+          <div class="toggle-content">
+            <div class="delivery-info-wrap">
+              <!-- [D 07.14] p.h3 타이틀 영역 삭제 -->
+              <div class="delivery-info">
+                <!-- [D 07.14] 입력방식 변경됨 -->
+                <div class="detail-area">
+                  <em>약국주소</em>
+                  <p>(01234) 서울특별시 광진구 12길 34(암사동) 1O1호 <!-- [D 08.27] 제약사, 의약품, VIP상품일 경우 주소뒤에 약국명 추가 -->빛나리 약국</p>
+                  <em>받으시는 분</em>
+                  <p>김대원</p>
+                  <em>약국전화번호</em>
+                  <p>01O-1234-1234</p>
+                  <em>휴대전화번호</em>
+                  <p>01O-1234-1234</p>
+                </div>
+                <div class="message-area">
+                  <div class="message-box">
+                    <p class="memo"><!-- [D 07.14] 배송메지시 확인 버튼은 스펙아웃 -->오실 때 초인종 눌러 주세요. 오실 때 초인종 눌러 주세요. 오실 때 초인종 눌러 주세요</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="order-complete-footer">
+            <p class="body1"> 관리자의 변경 승인 이후 배송이 가능하며,<br> 변경 신청일로부터 승인까지 약 1~2영업일이 소요됩니다. </p>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>주문내역 조회</span>
+          </a>
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

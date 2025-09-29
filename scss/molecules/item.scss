@@ -1,0 +1,116 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+// item
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    .image-wrap {
+        position: relative;
+        padding-bottom: var(--item-img-radio, 100%);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 18px;
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .text-wrap {
+        display: flex;
+        flex-direction: column;
+        .tag {
+            align-self: flex-start;
+            margin-bottom: 4px;
+        }
+        .h3 {
+            --h3: 16px;
+            --custom-typo-lh: 21px;
+            min-height: var(--item-title-min-h, unset);
+            @include ellipseMulti(var(--item-title-line, 1));
+            @include media {
+                --item-title-min-h: var(--item-title-min-h-mo, unset);
+            }
+        }
+        .body2 {
+            // margin-top: 8px;
+            margin-top: auto;
+            padding-top: 8px;
+        }
+    }
+    .btn-wrap {
+        margin-top: auto;
+        padding-top: 8px;
+        @include flex(center, space-between);
+        button, a {
+            flex:1 1 0;
+            &:not(:last-child) {
+                margin-right: var(--item-gap);
+            }
+        }
+    }
+}
+
+
+
+// .information-list,
+// .apply-list {
+//     --grid-columns: repeat(3, 1fr);
+//     --grid-gap: 32px 24px;
+//     --item-img-radio: 73.1707%; // need to check
+//     @include media {
+//         --grid-columns: repeat(2, 1fr);
+//         --grid-gap: 20px;
+//     }
+//     .body2 {
+//         display: flex;
+//         align-items: center;
+//         white-space: nowrap;
+//         span {
+//             --typo-custom-w: 500;
+//             &:first-child {
+//                 flex-shrink: 0;
+//             }
+//             &:not(:first-child) {
+//                 position: relative;
+//                 margin-left: var(--item-gap);
+//                 padding-left: var(--item-gap);
+//                 @include ellipse;
+//                 &::before {
+//                     content:'';
+//                     display: inline-block;
+//                     width: 1px;
+//                     height: 12px;
+//                     position: absolute;
+//                     top: 50%;
+//                     left: 0;
+//                     transform: translateY(-50%);
+//                     background: var.$lineNormal;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// .pop-list {
+//     --grid-columns: repeat(4, 1fr);
+//     --grid-gap: 32px 24px;
+//     .grid-item {
+//         .h3 {
+//             justify-content: center;
+//         }
+//     }
+//     @include media {
+//         --grid-columns: repeat(2, 1fr);
+//         --grid-gap: 20px;
+//         --item-title-line: 2;
+
+//         .btn.icon-print {
+//             display: none;
+//         }
+//     }
+// }

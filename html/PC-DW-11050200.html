@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>맞춤설정 선택</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            const additionalInfo =  `
+                <!-- [D 06.16] 추가 -->
+                <p class="modal-desc">온다몰의 메인페이지 구성을 설정합니다.<br/>온다몰 내에서 제공되는 혜택과 정보는 동일하며, 설정한 내용은 마이페이지에서 언제든지 변경할 수 있습니다.</p>
+
+                <!-- [D 1차 회원수정] step-additional 클래스 추가 -->
+                <div class="join step-additional">
+                    <form>
+                        <!-- [D 06.16] head-wrap 삭제 -->
+                        <div class="form-wrap">
+                            <!-- [D 06.16] form-title 삭제 -->
+                            <div class="form-line form-personal-setting">
+                                <div class="flex">
+                                    <!-- [D 1차 회원수정] 순서변경 -->
+                                    <div>
+                                        <!-- [D 1차 회원수정] 확대기능 제거로 인한 button 삭제 및 span.thumb 추가 -->
+                                        <!-- <button>
+                                            <img src="../static/content/image/join/personal-setting-2.png" alt="주문특화형 확대 보기">
+                                        </button> -->
+                                        ${include('./atoms/radio.ejs', { name: 'rd2', radioList: ['주문특화형<span>빠른 재주문과 인기상품을<br>바로 확인할 수 있는 주문특화형</span><span class="thumb"></span>'] })}
+                                    </div>
+                                    <div>
+                                        <!-- [D 1차 회원수정] 확대기능 제거로 인한 button 삭제 및 span.thumb 추가 -->
+                                        <!-- <button>
+                                            <img src="../static/content/image/join/personal-setting-1.png" alt="혜택특화형 확대 보기">
+                                        </button> -->
+                                        ${include('./atoms/radio.ejs', { name: 'rd2', radioList: ['혜택특화형<span>최대한의 혜택과 이벤트를<br>우선적으로 알려드리는 혜택특화형</span><span class="thumb"></span>'], checked: false })}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- [D 06.16] 마케팅 영역 삭제 -->
+                        </div>
+                        <!-- // 맞춤정보 설정 -->
+                        <!-- [D 05.26] 추가 운영자정보 입력 / 추천인 코드 입력 삭제  -->
+                        <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+                        <div class="btn-wrap">
+                            <!-- [D 06.16] 미입력 버튼 삭제 -->
+                            ${include('./atoms/button.ejs', {
+                                value: '입력한 정보로 가입',
+                                size: 'md',
+                                type: 'filled'
+                            })}
+                        </div>
+                    </form>
+                </div>`
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '맞춤설정 선택',
+            content: additionalInfo
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>

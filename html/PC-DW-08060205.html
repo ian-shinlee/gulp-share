@@ -1,0 +1,2726 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>일반/완통반품 신청 | 마이페이지</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./includes/header.ejs', {
+            title: '일반/완통반품 신청',
+            innerNav: [
+                ['회원정보 변경', true],
+                ['요양기관번호 등록', true],
+            ],
+            depth1Active: 3,
+        }) %>
+        <div class="content-inner ">
+            <div class="section-full sub-title-area">
+                <div>
+                    <%- include('./atoms/title.ejs', {
+                        con: '마이페이지',
+                    }) %>
+                </div>
+            </div>
+            <div class="section-full sub-detail-page">
+                <!-- snb area -->
+                <div class="snb-grid">
+                    <%- include('./includes/snb_list.ejs', {
+                        menuListType: 'mypage',
+                        depth1: '<!-- [D 07.30] 문구 수정 -->반품 관리',
+                        depth2: '<!-- [D 07.28] 완통 => 일반/완통으로 문구 변경, 반품사이 띄어쓰기 없음! -->일반/완통반품 신청',
+                    }) %>
+                    <div>
+                        <!-- SNB content -->
+                        <div class="mypage">
+                            <%- include('./atoms/title.ejs', {
+                                type: '2',
+                                con: '일반/완통반품 신청',
+                                custom: 'only-pc',
+                            }) %>
+                            <div class="only-pc">
+                                <div class="grid grid-fr-auto">
+                                    <%- include('./atoms/dotlist.ejs', {
+                                        content: [
+                                            '일반/완통반품은 약사몰에서 구매하신 상품에 한하여 신청이 가능합니다.',
+                                            '업체별로 반품정책이 상이하므로, 반품 신청 전 반드시 해당 판매자의 반품정책을 확인해 주세요.',
+                                            '일반/완통반품이 완료되면 예치금으로 환불됩니다.(단 쿠폰/포인트 등은 해당 결제수단으로 환불)',
+                                        ]
+                                    })%>
+                                    <%- include('./atoms/button.ejs', { value: '일반/완통반품 안내'}) %>
+                                </div>
+                                <%
+                                    let cell = ( text , deadline, lotType = false, lotNum, noForm = false, long = false) => {
+                                        let number = long ? '999,999,999': '1,000';
+                                        return `
+                                            <tr>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>1234567</span>
+                                                        <span class="c-b777">2025.03.18</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>백제약국</span>
+                                                        ${include('./atoms/button.ejs', { value: '반품정책', size: 'xs' })}
+                                                    </div>
+                                                </td>
+                                                <td class="align-left">
+                                                    <div class="text-group">
+                                                        <span>1234567</span>
+                                                        <div class="flex">
+                                                            <span class="truncate-line2">
+                                                                ${text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><span>${deadline}</span></td>
+                                                ${lotType ? `<td><span>${lotNum}</span></td>` : ''}
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                                ${!noForm ? `
+                                                        <td class="align-right">
+                                                            ${include('./atoms/input.ejs', {type: 'number', placeholder: '입력'})}
+                                                        </td>
+                                                        <td>
+                                                            ${include('./atoms/button.ejs', { value: '반품담기', size: 'xs' })}
+                                                        </td>
+                                                        ` : `
+                                                        <td class="align-right">
+                                                            <span>0</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>반품불가</span>
+                                                        </td>
+                                                    `}
+                                            </tr>
+                                        `;
+                                    }
+                                    let thead = (lotType = false) => {
+                                        return `
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        통합주문번호<br>
+                                                        주문일
+                                                    </th>
+                                                    <th>입점업체</th>
+                                                    <th>상품명</th>
+                                                    <th>반품기한</th>
+                                                    ${lotType ? ` <th>로트번호</th>` : ''}
+                                                    <th>
+                                                        상품단가<br>
+                                                        구매수량
+                                                    </th>
+                                                    <th>신청가능수량</th>
+                                                    <th>담기</th>
+                                                </tr>
+                                            </thead>
+                                        `;
+                                    }
+                                    let table1 = ( nodata = false ) => {
+                                        return `
+                                        <div class="table-wrap table-return-order">
+                                            <table class="table">
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                ${thead(false)}
+                                                <tbody>
+                                                    ${ !nodata ?
+                                                        cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위','D-23',false,'1234567', false, true)
+                                                        + cell('제조사 상품명 규격 단위','기한만료',false,'-', true, false)
+                                                        + cell('제조사 상품명 규격 단위','반품불가',false, '1234567', true, false)
+                                                        + cell('제조사 상품명 규격 단위','임박상품',false, '1234567', true, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', false,'1234567', false, false)
+                                                    :''}
+                                                </tbody>
+                                            </table>
+                                            ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                                img: 'icon/no-results.svg',
+                                                desc: '조회 결과가 없습니다.',
+                                            })}
+                                        </div>
+                                    `}
+                                    let table2 = ( nodata = false ) => {
+                                        return `
+                                        <div class="table-wrap table-return-order">
+                                            <table class="table">
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                ${thead(true)}
+                                                <tbody>
+                                                    ${ !nodata ?
+                                                        cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위','D-23',true,'1234567', false, true)
+                                                        + cell('제조사 상품명 규격 단위','기한만료', true,'-', true, false)
+                                                        + cell('제조사 상품명 규격 단위','반품불가',true, '1234567', true, false)
+                                                        + cell('제조사 상품명 규격 단위','임박상품',true, '1234567', true, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                        + cell('제조사 상품명 규격 단위','D-23', true,'1234567', false, false)
+                                                    :''}
+                                                </tbody>
+                                            </table>
+                                            ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                                img: 'icon/no-results.svg',
+                                                desc: '조회 결과가 없습니다.',
+                                            })}
+                                        </div>
+                                    `}
+                                    %>
+                                    <%
+                                    let orderCell = ( text, lotType = false, lotNum, long = false) => {
+                                        let number = long ? '999,999,999': '1,000';
+                                        return `
+                                            <tr>
+                                                <td>${include('./atoms/checkbox.ejs', { checkboxList: [''], checked: true }) }</td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>12345678</span>
+                                                        <span class="c-b777">2025.03.18</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-left">
+                                                    <div class="text-group">
+                                                        <span>보험코드</span>
+                                                        <div class="flex">
+                                                            <span class="truncate-line2">
+                                                                ${text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                ${lotType ?`
+                                                    <td>
+                                                        <div class="text-group">
+                                                            <span>${lotNum}</span>
+                                                            <span class="c-b777">D-31</span>
+                                                        </div>
+                                                    </td>
+                                                ` :`
+                                                    <td>
+                                                        <div class="text-group">
+                                                            <span>D-31</span>
+                                                        </div>
+                                                    </td>
+                                                `}
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    ${include('./atoms/input.ejs', {type: 'number', placeholder: '입력'})}
+                                                </td>
+                                                <td>
+                                                    ${include('./atoms/selectbox.ejs', { options: ['처방 변경','주문착오','유효기간 임박','오배송','배송중 파손','약가인하','제품하자','제조사 회수','폐업','단순변심'] })}
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }
+                                    let orderThead = (lotType = false) => {
+                                        return `
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        ${include('./atoms/checkbox.ejs', { checkboxList: [''], checked: true }) }
+                                                    </th>
+                                                    <th>통합주문번호<br/>주문일</th>
+                                                    <th>상품명</th>
+                                                    <th>${lotType ? '로트번호<br/>' : ''}반품기한</th>
+                                                    <th>상품단가<br/>구매수량</th>
+                                                    <th>신청수량</th>
+                                                    <th>사유</th>
+                                                    <th>환불금액<br/>금융비용</th>
+                                                </tr>
+                                            </thead>
+                                        `
+                                    }
+                                    let orderTable1 = `
+                                        <div class="table-wrap table-return-order">
+                                            <table>
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                ${orderThead(false)}
+                                                <tbody>
+                                                    ${orderCell('제조사 상품명 규격 단위', false,'', false)}
+                                                    ${orderCell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위',false,'', true)}
+                                                </tbody>
+                                            </table>
+                                        </div>`,
+                                        orderTable2 = `
+                                        <div class="table-wrap table-return-order">
+                                            <table>
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                ${orderThead(true)}
+                                                <tbody>
+                                                    ${orderCell('제조사 상품명 규격 단위', true,'1234567', false)}
+                                                    ${orderCell('제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위',true,'1234567', true)}
+                                                    ${orderCell('제조사 상품명 규격 단위',true,'1234567', false)}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    `;
+                                    %>
+                                    <%
+                                    let orderAllCheck = `
+                                        <div class="select-all-wrap">
+                                            ${include('./atoms/checkbox.ejs', { checkboxList: ['전체 선택'] , checked: true})}
+                                            ${include('./atoms/button.ejs', { value: '선택상품 삭제', size: 'xs' })}
+                                        </div>`,
+                                        orderNodata = `
+                                            ${include('./atoms/title.ejs', {
+                                                tag: 'h4',
+                                                type: '3',
+                                                con: '반품 신청 상품',
+                                            })}
+                                            <div class="return-list">
+                                                ${include('./molecules/nodata.ejs', {
+                                                    img: 'icon/icon-no-return.svg',
+                                                    desc: '반품할 상품을 추가해 주세요.',
+                                                })}
+                                            </div>
+                                        `;
+                                    let orderBtns = (total = false, btnValue1,btnValue2 ) => {
+                                        return `
+                                            <div class="btn-wrap ${total? 'total':''}">
+                                                ${include('./atoms/button.ejs', { size: 'md', value: `${btnValue1}`, type: 'secondary' })}
+                                                <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                                                ${include('./atoms/button.ejs', { size: 'md', value: `${btnValue2}`, type: 'secondary', disabled: true }) }
+                                            </div>
+                                    `}
+                                    let orderTitle = ( info, hasBtn = false) => {
+                                        return `
+                                            ${include('./atoms/checkbox.ejs', { name: 'check1', checkboxList: ["<span>대원제약(주)</span>"], checked: true })}
+                                            <div class="flex">
+                                                <span class="order-cutoff">${info}</span>
+                                                ${hasBtn ? `${include('./atoms/button.ejs', { value: '내역/쿠폰', size: 'xs' })}`: ''}
+                                            </div>
+                                            ${include('./atoms/button.ejs', { value: '반품정책', size: 'xs' })}
+                                        `
+                                    }
+                                %>
+                                <%
+                                    let tabCont1 = `
+                                        ${include('./atoms/title.ejs', {
+                                            tag: 'h4',
+                                            type: '3',
+                                            con: '신청 가능 주문 내역',
+                                        })}
+                                        ${include('./molecules/sub_table_filter.ejs', {
+                                            caption: '조회기간, 입점업체, 보험코드, 검색조건',
+                                            returnPeriod: true,
+                                            data: [
+                                                { filterTitle:"입점업체" , selectType: true},
+                                                { filterTitle:"보험코드" , colspan: '3'},
+                                            ],
+                                            search: true,
+                                            searchOptions: ["선택","상품명","입점업체","통합주문번호","상품번호"],
+                                            checkbox : true,
+                                            checkCustom: 'checkbox-tab',
+                                            checkboxList: ["<span>1개월 내 미주문</span>", "<span>3개월 내 미주문</span>", "<span>6개월 내 미주문</span>", "<span>약가인하 예정품목</span>", "<span>반품불가상품 제외</span>"],
+                                        })}
+                                        <!-- [D] 결과값이 있을 때 -->
+                                        ${table1(false)}
+                                        ${include('./atoms/pagination.ejs')}
+                                        <!-- // [D] 결과값이 있을 때 -->
+                                        <!-- [D] 결과값이 없을 때 -->
+                                        ${table1(true)}
+                                        <!-- // [D] 결과값이 없을 때 -->
+
+                                        <!-- [D] 반품 신청 상품이 있을 경우 -->
+                                        ${include('./atoms/title.ejs', {
+                                            tag: 'h4',
+                                            type: '3',
+                                            con: '반품 신청 상품',
+                                        })}
+                                        <div class="return-list">
+                                            ${orderAllCheck}
+                                            <div class="brand-container">
+                                                <div class="brand-name">
+                                                    ${orderTitle('7월 무료반품 1회 가능', false)}
+                                                </div>
+                                                <div class="brand-wrap">
+                                                    ${orderTable1}
+                                                </div>
+                                                <div class="brand-price">
+                                                    ${orderBtns(false, '<em>대원제약</em><span>12건 반품 신청</span>', '<em>대원제약</em><span>반품 신청</span>')}
+                                                </div>
+                                            </div>
+                                            ${orderBtns(true, '<em>전체</em><span>12건 반품 신청</span>', '<em>전체</em><span>반품 신청</span>')}
+                                        </div>
+                                        <!-- // [D] 반품 신청 상품이 있을 경우 -->
+                                        <!-- [D] 반품 신청 상품이 없을 경우 -->
+                                        ${orderNodata}
+                                        <!-- // [D] 반품 신청 상품이 없을 경우 -->
+                                    `,
+                                    tabCont2 = `
+                                        ${include('./atoms/title.ejs', {
+                                            tag: 'h4',
+                                            type: '3',
+                                            con: '신청 가능 주문 내역',
+                                        })}
+                                        ${include('./molecules/sub_table_filter.ejs', {
+                                            caption: '조회기간, 입점업체, 보험코드, 로트번호, 검색조건',
+                                            returnPeriod: true,
+                                            data: [
+                                                { filterTitle:"입점업체" , selectType: true},
+                                                { filterTitle:"보험코드" },
+                                                { filterTitle:"로트번호" }
+                                            ],
+                                            search: true,
+                                            searchOptions: ["선택","상품명","입점업체","통합주문번호","상품번호"],
+                                            checkbox : true,
+                                            checkCustom: 'checkbox-tab',
+                                            checkboxList: ["<span>1개월 내 미주문</span>", "<span>3개월 내 미주문</span>", "<span>6개월 내 미주문</span>", "<span>약가인하 예정품목</span>", "<span>반품불가상품 제외</span>"],
+                                        })}
+                                        <!-- [D] 결과값이 있을 때 -->
+                                        ${table2(false)}
+                                        ${include('./atoms/pagination.ejs')}
+                                        <!-- // [D] 결과값이 있을 때 -->
+                                        <!-- [D] 결과값이 없을 때 -->
+                                        ${table2(true)}
+                                        <!-- // [D] 결과값이 없을 때 -->
+                                        <!-- [D] 반품 신청 상품이 있을 경우 -->
+                                        ${include('./atoms/title.ejs', {
+                                            tag: 'h4',
+                                            type: '3',
+                                            con: '반품 신청 상품',
+                                        })}
+                                        <div class="return-list">
+                                            ${orderAllCheck}
+                                            <div class="brand-container">
+                                                <div class="brand-name">
+                                                    ${orderTitle('7월 무료반품 1회 가능', false)}
+                                                </div>
+                                                <div class="brand-wrap">
+                                                    ${orderTable2}
+                                                </div>
+                                                <div class="brand-price">
+                                                    ${orderBtns(false, '<em>대원제약</em><span>12건 반품 신청</span>', '<em>대원제약</em><span>반품 신청</span>')}
+                                                </div>
+                                            </div>
+                                            <div class="brand-container">
+                                                <div class="brand-name">
+                                                    ${orderTitle('반품비용 5,000원', true)}
+                                                </div>
+                                                <div class="brand-wrap">
+                                                    ${orderTable2}
+                                                </div>
+                                                <div class="brand-price">
+                                                    ${orderBtns(false, '<em>대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약</em><span>12건 반품 신청</span>', '<em>대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약</em><span>반품 신청</span>')}
+                                                </div>
+                                            </div>
+                                            <div class="brand-container">
+                                                <div class="brand-name">
+                                                    ${orderTitle('무료반품 쿠폰 사용', true)}
+                                                </div>
+                                                <div class="brand-wrap">
+                                                    ${orderTable2}
+                                                </div>
+                                                <div class="brand-price">
+                                                    ${orderBtns(false, '<em>대원제약</em><span>12건 반품 신청</span>', '<em>대원제약</em><span>반품 신청</span>')}
+                                                </div>
+                                            </div>
+                                            ${orderBtns(true, '<em>전체</em><span>12건 반품 신청</span>', '<em>전체</em><span>반품 신청</span>')}
+                                        </div>
+                                        <!-- // [D] 반품 신청 상품이 있을 경우 -->
+                                        <!-- [D] 반품 신청 상품이 없을 경우 -->
+                                        ${orderNodata}
+                                        <!-- // [D] 반품 신청 상품이 없을 경우 -->
+                                    `;
+                                %>
+                                <%- include('./atoms/tab.ejs', {
+                                    data: {
+                                        "주문기준 반품": `<form>${tabCont1}</form>`,
+                                        "로트번호기준 반품": `<form>${tabCont2}</form>`,
+                                    }
+                                }) %>
+                            </div>
+                            <%- include('./molecules/nomobile.ejs', { custom: 'line-box' }) %>
+
+                        </div>
+                        <!-- //SNB content -->
+                    </div>
+                </div>
+                <!-- //snb area -->
+            </div>
+        </div>
+
+        <%- include('./includes/footer.ejs', { datepicker: true }) %>
+        <!-- modal area -->
+        <!-- //modal area -->
+    </body>
+</html>
+<i></i>
+                                      <span>반품불가상품 제외</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="filter-btn-wrap">
+                        <button class="btn cta filled xs">
+                          <span>조회</span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- [D] 결과값이 있을 때 -->
+                    <div class="table-wrap table-return-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th> 통합주문번호<br> 주문일 </th>
+                            <th>입점업체</th>
+                            <th>상품명</th>
+                            <th>반품기한</th>
+                            <th> 상품단가<br> 구매수량 </th>
+                            <th>신청가능수량</th>
+                            <th>담기</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>기한만료</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>반품불가</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>임박상품</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="pagination">
+                      <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                      <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                      <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                      <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                      <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                      <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                      <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                      <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                    </p>
+                    <!-- // [D] 결과값이 있을 때 -->
+                    <!-- [D] 결과값이 없을 때 -->
+                    <div class="table-wrap table-return-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th> 통합주문번호<br> 주문일 </th>
+                            <th>입점업체</th>
+                            <th>상품명</th>
+                            <th>반품기한</th>
+                            <th> 상품단가<br> 구매수량 </th>
+                            <th>신청가능수량</th>
+                            <th>담기</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>조회 결과가 없습니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 결과값이 없을 때 -->
+                    <!-- [D] 반품 신청 상품이 있을 경우 -->
+                    <div class="head-wrap">
+                      <div>
+                        <h4 class="h3"> 반품 신청 상품 </h4>
+                      </div>
+                    </div>
+                    <div class="return-list">
+                      <div class="select-all-wrap">
+                        <div class="check-wrap">
+                          <label type="checkbox" class="input-checkbox" for="checkbox0">
+                            <input type="checkbox" checked name="checkbox" id="checkbox0">
+                            <i></i> 전체 선택 </label>
+                        </div>
+                        <button class="btn cta xs">
+                          <span>선택상품 삭제</span>
+                        </button>
+                      </div>
+                      <div class="brand-container">
+                        <div class="brand-name">
+                          <div class="check-wrap">
+                            <label type="checkbox" class="input-checkbox" for="check10">
+                              <input type="checkbox" checked name="check1" id="check10">
+                              <i></i>
+                              <span>대원제약(주)</span>
+                            </label>
+                          </div>
+                          <div class="flex">
+                            <span class="order-cutoff">7월 무료반품 1회 가능</span>
+                          </div>
+                          <button class="btn cta xs">
+                            <span>반품정책</span>
+                          </button>
+                        </div>
+                        <div class="brand-wrap">
+                          <div class="table-wrap table-return-order">
+                            <table>
+                              <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </th>
+                                  <th>통합주문번호<br />주문일</th>
+                                  <th>상품명</th>
+                                  <th>반품기한</th>
+                                  <th>상품단가<br />구매수량</th>
+                                  <th>신청수량</th>
+                                  <th>사유</th>
+                                  <th>환불금액<br />금융비용</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="brand-price">
+                          <div class="btn-wrap ">
+                            <button class="btn cta secondary md">
+                              <span><em>대원제약</em><span>12건 반품 신청</span></span>
+                            </button>
+                            <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                            <button class="btn cta secondary md" disabled>
+                              <span><em>대원제약</em><span>반품 신청</span></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="btn-wrap total">
+                        <button class="btn cta secondary md">
+                          <span><em>전체</em><span>12건 반품 신청</span></span>
+                        </button>
+                        <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                        <button class="btn cta secondary md" disabled>
+                          <span><em>전체</em><span>반품 신청</span></span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- // [D] 반품 신청 상품이 있을 경우 -->
+                    <!-- [D] 반품 신청 상품이 없을 경우 -->
+                    <div class="head-wrap">
+                      <div>
+                        <h4 class="h3"> 반품 신청 상품 </h4>
+                      </div>
+                    </div>
+                    <div class="return-list">
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/icon-no-return.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>반품할 상품을 추가해 주세요.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 반품 신청 상품이 없을 경우 -->
+                  </form>
+                </div>
+                <div class="tabs-content" role="tabpanel" id="panel-2" aria-labelledby="tab-2" aria-hidden="true">
+                  <form>
+                    <div class="head-wrap">
+                      <div>
+                        <h4 class="h3"> 신청 가능 주문 내역 </h4>
+                      </div>
+                    </div>
+                    <div class="page-filter-wrap">
+                      <div class="table-wrap">
+                        <table class="table">
+                          <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                          </colgroup>
+                          <tbody>
+                            <tr>
+                              <th>조회기간</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="flex period">
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                    <span class="divider">~</span>
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                  </div>
+                                  <div class="flex period-picker">
+                                    <button class="btn cta">
+                                      <span>3개월</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>6개월</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>1년</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>2년</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>입점업체</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>보험코드</th>
+                              <td>
+                                <input type="text" class="form-basic " value="" placeholder="입력" />
+                              </td>
+                              <th>로트번호</th>
+                              <td>
+                                <input type="text" class="form-basic " value="" placeholder="입력" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>검색조건</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="select-wrap">
+                                    <select class="input-select" name="">
+                                      <option value="선택">선택</option>
+                                      <option value="상품명">상품명</option>
+                                      <option value="입점업체">입점업체</option>
+                                      <option value="통합주문번호">통합주문번호</option>
+                                      <option value="상품번호">상품번호</option>
+                                    </select>
+                                  </div>
+                                  <input type="text" class="form-basic " value="" placeholder="입력" />
+                                  <div class="check-wrap checkbox-tab">
+                                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                      <input type="checkbox" name="checkbox" id="checkbox0">
+                                      <i></i>
+                                      <span>1개월 내 미주문</span>
+                                    </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox1">
+                                      <input type="checkbox" name="checkbox" id="checkbox1">
+                                      <i></i>
+                                      <span>3개월 내 미주문</span>
+                                    </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox2">
+                                      <input type="checkbox" name="checkbox" id="checkbox2">
+                                      <i></i>
+                                      <span>6개월 내 미주문</span>
+                                    </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox3">
+                                      <input type="checkbox" name="checkbox" id="checkbox3">
+                                      <i></i>
+                                      <span>약가인하 예정품목</span>
+                                    </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox4">
+                                      <input type="checkbox" name="checkbox" id="checkbox4">
+                                      <i></i>
+                                      <span>반품불가상품 제외</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="filter-btn-wrap">
+                        <button class="btn cta filled xs">
+                          <span>조회</span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- [D] 결과값이 있을 때 -->
+                    <div class="table-wrap table-return-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th> 통합주문번호<br> 주문일 </th>
+                            <th>입점업체</th>
+                            <th>상품명</th>
+                            <th>반품기한</th>
+                            <th>로트번호</th>
+                            <th> 상품단가<br> 구매수량 </th>
+                            <th>신청가능수량</th>
+                            <th>담기</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>기한만료</span></td>
+                            <td><span>-</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>반품불가</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>임박상품</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td>
+                              <span>반품불가</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <span class="c-b777">2025.03.18</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>백제약국</span>
+                                <button class="btn cta xs">
+                                  <span>반품정책</span>
+                                </button>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>1234567</span>
+                                <div class="flex">
+                                  <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td><span>D-23</span></td>
+                            <td><span>1234567</span></td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <input type="number" class="form-basic " value="" placeholder="입력" />
+                            </td>
+                            <td>
+                              <button class="btn cta xs">
+                                <span>반품담기</span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="pagination">
+                      <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                      <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                      <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                      <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                      <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                      <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                      <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                      <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                    </p>
+                    <!-- // [D] 결과값이 있을 때 -->
+                    <!-- [D] 결과값이 없을 때 -->
+                    <div class="table-wrap table-return-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th> 통합주문번호<br> 주문일 </th>
+                            <th>입점업체</th>
+                            <th>상품명</th>
+                            <th>반품기한</th>
+                            <th>로트번호</th>
+                            <th> 상품단가<br> 구매수량 </th>
+                            <th>신청가능수량</th>
+                            <th>담기</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>조회 결과가 없습니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 결과값이 없을 때 -->
+                    <!-- [D] 반품 신청 상품이 있을 경우 -->
+                    <div class="head-wrap">
+                      <div>
+                        <h4 class="h3"> 반품 신청 상품 </h4>
+                      </div>
+                    </div>
+                    <div class="return-list">
+                      <div class="select-all-wrap">
+                        <div class="check-wrap">
+                          <label type="checkbox" class="input-checkbox" for="checkbox0">
+                            <input type="checkbox" checked name="checkbox" id="checkbox0">
+                            <i></i> 전체 선택 </label>
+                        </div>
+                        <button class="btn cta xs">
+                          <span>선택상품 삭제</span>
+                        </button>
+                      </div>
+                      <div class="brand-container">
+                        <div class="brand-name">
+                          <div class="check-wrap">
+                            <label type="checkbox" class="input-checkbox" for="check10">
+                              <input type="checkbox" checked name="check1" id="check10">
+                              <i></i>
+                              <span>대원제약(주)</span>
+                            </label>
+                          </div>
+                          <div class="flex">
+                            <span class="order-cutoff">7월 무료반품 1회 가능</span>
+                          </div>
+                          <button class="btn cta xs">
+                            <span>반품정책</span>
+                          </button>
+                        </div>
+                        <div class="brand-wrap">
+                          <div class="table-wrap table-return-order">
+                            <table>
+                              <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </th>
+                                  <th>통합주문번호<br />주문일</th>
+                                  <th>상품명</th>
+                                  <th>로트번호<br />반품기한</th>
+                                  <th>상품단가<br />구매수량</th>
+                                  <th>신청수량</th>
+                                  <th>사유</th>
+                                  <th>환불금액<br />금융비용</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="brand-price">
+                          <div class="btn-wrap ">
+                            <button class="btn cta secondary md">
+                              <span><em>대원제약</em><span>12건 반품 신청</span></span>
+                            </button>
+                            <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                            <button class="btn cta secondary md" disabled>
+                              <span><em>대원제약</em><span>반품 신청</span></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="brand-container">
+                        <div class="brand-name">
+                          <div class="check-wrap">
+                            <label type="checkbox" class="input-checkbox" for="check10">
+                              <input type="checkbox" checked name="check1" id="check10">
+                              <i></i>
+                              <span>대원제약(주)</span>
+                            </label>
+                          </div>
+                          <div class="flex">
+                            <span class="order-cutoff">반품비용 5,000원</span>
+                            <button class="btn cta xs">
+                              <span>내역/쿠폰</span>
+                            </button>
+                          </div>
+                          <button class="btn cta xs">
+                            <span>반품정책</span>
+                          </button>
+                        </div>
+                        <div class="brand-wrap">
+                          <div class="table-wrap table-return-order">
+                            <table>
+                              <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </th>
+                                  <th>통합주문번호<br />주문일</th>
+                                  <th>상품명</th>
+                                  <th>로트번호<br />반품기한</th>
+                                  <th>상품단가<br />구매수량</th>
+                                  <th>신청수량</th>
+                                  <th>사유</th>
+                                  <th>환불금액<br />금융비용</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="brand-price">
+                          <div class="btn-wrap ">
+                            <button class="btn cta secondary md">
+                              <span><em>대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약</em><span>12건 반품 신청</span></span>
+                            </button>
+                            <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                            <button class="btn cta secondary md" disabled>
+                              <span><em>대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약 대원제약</em><span>반품 신청</span></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="brand-container">
+                        <div class="brand-name">
+                          <div class="check-wrap">
+                            <label type="checkbox" class="input-checkbox" for="check10">
+                              <input type="checkbox" checked name="check1" id="check10">
+                              <i></i>
+                              <span>대원제약(주)</span>
+                            </label>
+                          </div>
+                          <div class="flex">
+                            <span class="order-cutoff">무료반품 쿠폰 사용</span>
+                            <button class="btn cta xs">
+                              <span>내역/쿠폰</span>
+                            </button>
+                          </div>
+                          <button class="btn cta xs">
+                            <span>반품정책</span>
+                          </button>
+                        </div>
+                        <div class="brand-wrap">
+                          <div class="table-wrap table-return-order">
+                            <table>
+                              <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                                <col>
+                              </colgroup>
+                              <thead>
+                                <tr>
+                                  <th>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </th>
+                                  <th>통합주문번호<br />주문일</th>
+                                  <th>상품명</th>
+                                  <th>로트번호<br />반품기한</th>
+                                  <th>상품단가<br />구매수량</th>
+                                  <th>신청수량</th>
+                                  <th>사유</th>
+                                  <th>환불금액<br />금융비용</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>999,999,999</span>
+                                      <span class="c-b777">999,999,999</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="check-wrap">
+                                      <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                        <input type="checkbox" checked name="checkbox" id="checkbox0">
+                                        <i></i>
+                                      </label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>12345678</span>
+                                      <span class="c-b777">2025.03.18</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-left">
+                                    <div class="text-group">
+                                      <span>보험코드</span>
+                                      <div class="flex">
+                                        <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="text-group">
+                                      <span>1234567</span>
+                                      <span class="c-b777">D-31</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <input type="number" class="form-basic " value="" placeholder="입력" />
+                                  </td>
+                                  <td>
+                                    <div class="select-wrap">
+                                      <select class="input-select" name="">
+                                        <option value="처방 변경">처방 변경</option>
+                                        <option value="주문착오">주문착오</option>
+                                        <option value="유효기간 임박">유효기간 임박</option>
+                                        <option value="오배송">오배송</option>
+                                        <option value="배송중 파손">배송중 파손</option>
+                                        <option value="약가인하">약가인하</option>
+                                        <option value="제품하자">제품하자</option>
+                                        <option value="제조사 회수">제조사 회수</option>
+                                        <option value="폐업">폐업</option>
+                                        <option value="단순변심">단순변심</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="align-right">
+                                    <div class="text-group">
+                                      <span>1,000</span>
+                                      <span class="c-b777">1,000</span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="brand-price">
+                          <div class="btn-wrap ">
+                            <button class="btn cta secondary md">
+                              <span><em>대원제약</em><span>12건 반품 신청</span></span>
+                            </button>
+                            <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                            <button class="btn cta secondary md" disabled>
+                              <span><em>대원제약</em><span>반품 신청</span></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="btn-wrap total">
+                        <button class="btn cta secondary md">
+                          <span><em>전체</em><span>12건 반품 신청</span></span>
+                        </button>
+                        <!-- [D] 비활성화시 disabled 추가 및 신청건수 문구(nn건) 삭제 -->
+                        <button class="btn cta secondary md" disabled>
+                          <span><em>전체</em><span>반품 신청</span></span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- // [D] 반품 신청 상품이 있을 경우 -->
+                    <!-- [D] 반품 신청 상품이 없을 경우 -->
+                    <div class="head-wrap">
+                      <div>
+                        <h4 class="h3"> 반품 신청 상품 </h4>
+                      </div>
+                    </div>
+                    <div class="return-list">
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/icon-no-return.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>반품할 상품을 추가해 주세요.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 반품 신청 상품이 없을 경우 -->
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="only-mo line-box">
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/icon/no-mobile.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>현재 PC에서만 이용이 가능합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //SNB content -->
+        </div>
+      </div>
+      <!-- //snb area -->
+    </div>
+  </div>
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <script src="../static/content/js/jquery-3.7.1.min.js"></script>
+  <script src="../static/content/js/jquery-ui.js"></script>
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <!-- modal area -->
+  <!-- //modal area -->
+</body>
+
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>약가인하 보상 관리 | 약가인하 관리</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./includes/header.ejs', {
+            title: '약가인하 보상 관리',
+            innerNav: [
+                ['회원정보 변경', true],
+                ['요양기관번호 등록', true],
+            ],
+            depth1Active: 2,
+        }) %>
+        <div class="content-inner ">
+            <div class="section-full sub-title-area">
+                <div>
+                    <%- include('./atoms/title.ejs', {
+                        con: '마이페이지',
+                    }) %>
+                </div>
+            </div>
+            <div class="section-full sub-detail-page">
+                <!-- snb area -->
+                <div class="snb-grid">
+                    <%- include('./includes/snb_list.ejs', {
+                        menuListType: 'mypage',
+                        depth1: '약가인하 관리',
+                        depth2: '<!-- [D 07.25] 띄어쓰기 삭제 -->약가인하 보상 관리',
+                    }) %>
+                    <div>
+                        <!-- SNB content -->
+                        <div class="mypage">
+                            <%- include('./atoms/title.ejs', {
+                                type: '2',
+                                con: '약가인하 보상 관리',
+                                custom: 'only-pc',
+                            }) %>
+                            <div class="only-pc">
+
+                                <div class="grid grid-fr-auto">
+                                    <%- include('./atoms/dotlist.ejs', {
+                                        content: ['보상 금액 및 수량은 시행일 기준 약사몰을 통해 주문한 2개월간의 주문내역을 기준으로 산출됩니다(반품완료 수량 제외).', '예상 보상 수량은 완통 기준 30%에서 반올림하여 계산됩니다.']
+                                    })%>
+                                    <%- include('./atoms/button.ejs', { value: '약가인하 보상 목록', isLink: true }) %>
+                                </div>
+                                <%- include('./atoms/title.ejs', {
+                                    tag: 'h5',
+                                    type: '3',
+                                    typeCustom: 'c-primary',
+                                    con: '약가인하 대상 반품신청 마감 안내',
+                                })%>
+                                <%-include('./atoms/dotlist.ejs', {
+                                    custom: 'type-info',
+                                    content: [
+                                        '<span class="c-orange">yyyy.mm.dd</span> 시행일 기준 약가인하 보상대상 의약품의 완통반품 신청 마감일시 각 업체별 보상정책을 확인하세요.<br>마감일시까지 반품 신청이 이루어지지 않은 상품은 자동보상신청 처리됩니다.'
+                                    ]
+                                })%>
+                                <%- include('./molecules/amount.ejs', {
+                                    colType: 'amount-col-1',
+                                    data: {
+                                        "자동보상 예상금액<span>(2025.05.12 시행일 기준, 금융비용 1.8% 제외)</span>": ['999,999,999', '원', true, '<b>자동보상 예상금액은 실제 보상금과 일치하지 않을 수 있습니다.</b>'],
+                                    },
+                                }) %>
+                                <%- include('./molecules/sub_table_filter.ejs', {
+                                    caption: '시행일, 검색조건, 입점업체, 보험코드, 상품명',
+                                    noPeriod: true,
+                                    data: [
+                                        { filterTitle:"입점업체" , selectType: true },
+                                        { filterTitle:"보험코드" },
+                                        { filterTitle:"상품명" }
+                                    ],
+                                }) %>
+
+                                <%
+                                    let checkComp = (name, num, disabled = false) => {
+                                        return `<label type="checkbox"class="input-checkbox" for="${name}${num}" >
+                                            <input type="checkbox" name="${name}" id="${name}${num}"${disabled ? ' disabled' : ''}>
+                                            <i></i>
+                                        </label>`
+                                    }
+                                    let cell = (checkNum, store, code , text , subtext, long = false, disabled = false, state ) => {
+                                        let number = long ? '999,999,999': '1,000';
+                                        return `
+                                            <tr${disabled ? ' class="disabled"' : ''}>
+                                                <td>${checkComp('check', checkNum, disabled )}</td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>2025.05.01</span>
+                                                        ${disabled ? `<span class="c-b777">${state}</span>` : ''}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-group">
+                                                        <span>${store}</span>
+                                                        ${include('./atoms/button.ejs', { value: '보상정책', size: 'xs' })}
+                                                    </div>
+                                                </td>
+                                                <td class="align-left">
+                                                    <div class="text-group">
+                                                        <span>${code}</span>
+                                                        <div class="flex">
+                                                            <span class="truncate-line2">
+                                                                ${text}
+                                                            </span>
+                                                        </div>
+                                                        ${subtext ? `<span class="c-b777">${subtext}</span>` :''}
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span class="c-b777 text-through">${number}</span>
+                                                        <span>${number}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    <span>${number}</span>
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="align-right">
+                                                    <div class="text-group">
+                                                        <span>${number}</span>
+                                                        <span class="c-b777">${number}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }
+                                    let table = ( nodata = false ) => {
+                                        return `
+                                        <div class="table-wrap table-reduction">
+                                            <table class="table">
+                                                <colgroup>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                    <col>
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>${checkComp('allCheck', 0, false )}</th>
+                                                        <th>시행일</th>
+                                                        <th>입점업체</th>
+                                                        <th><!-- [D 07.30] 문구 수정 -->상품명</th>
+                                                        <th>변경전/후단가</th>
+                                                        <th>차액</th>
+                                                        <th>구매수량<br/>2개월/6개월</th>
+                                                        <th>자동보상금액<br/>자동보상수량</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- [D 07.30] 콘텐츠 수정: 제조사 상품명 규격 단위 -->
+                                                    ${ !nodata ?
+                                                        cell(1, '입점업체','보험코드','제조사 상품명 규격 단위', '', false, false)
+                                                        + cell(2, '백제약국백제약국백제약국','12345678','제조사 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea', '', true, false)
+                                                        + cell(3, '백제약국','12345678','제조사 콜대원 시럽 100ml 1ea', '', false, false)
+                                                        + cell(4, '백제약국','12345678','제조사 콜대원 시럽 100ml 1ea', '', false, true, '자동보상신청')
+                                                        + cell(5, '백제약국','12345678','제조사 콜대원 시럽 100ml 1ea', '', false, true, '보상신청완료')
+                                                        + cell(6, '백제약국','12345678','제조사 콜대원 시럽 100ml 1ea', '처방전 변경', false, true, '반품환불완료')
+
+                                                    :''}
+                                                </tbody>
+                                            </table>
+                                            ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                                img: 'icon/no-results.svg',
+                                                desc: '조회 결과가 없습니다.',
+                                            })}
+                                        </div>
+                                    `}
+                                %>
+                                <%
+                                    const radioComp = (name, num, title, checked) => {
+                                        return `<label type="radio" for="${name}${num}" class="input-radio">
+                                            <input type="radio" ${checked ? 'checked' : ''} name="${name}" id="${name}${num}">
+                                            <i></i>
+                                            <span>${title}</span>
+                                        </label>`
+                                    }
+                                %>
+                                <div class="flex justify-end">
+                                    <div class="radio-wrap type-divider">
+                                        <%-radioComp('filter', 0, '자동보상금액 고액 순', true)%>
+                                        <span class="divider-vertical-line"></span>
+                                        <%-radioComp('filter', 1, '자동보상금액 소액 순', false)%>
+                                        <span class="divider-vertical-line"></span>
+                                        <%-radioComp('filter', 2, '입점업체 순', false)%>
+                                    </div>
+                                    <%- include('./atoms/button.ejs', { icon: 'excel', size: 'xs', value: 'EXCEL', type: '' })  %>
+                                </div>
+                                <!-- [D] 결과 있을 때 -->
+                                <%- table(false) %>
+
+                                <div class="btn-wrap">
+                                    <%- include('./atoms/button.ejs', { value: '일반/완통반품 신청', type: 'gray', size: 'md', isLink: true }) %>
+                                    <%- include('./atoms/button.ejs', { value: '자동보상 신청', type: 'filled', size: 'md' }) %>
+                                </div>
+                                <!-- // [D] 결과 있을 때 -->
+                                <!-- [D] 결과 없을 때 -->
+                                <%- table(true ) %>
+                                <!-- // [D] 결과 없을 때 -->
+                            </div>
+                            <%- include('./molecules/nomobile.ejs', { custom: 'line-box' }) %>
+                        </div>
+                        <!-- //SNB content -->
+                    </div>
+                </div>
+                <!-- //snb area -->
+            </div>
+        </div>
+
+        <%- include('./includes/footer.ejs', { datepicker: true }) %>
+
+        <!-- modal area -->
+        <!-- //modal area -->
+    </body>
+</html>
+��스로 제어되는 것은 동일 -->
+          <button class="btn-selectbox"><span>입점업체</span></button>
+          <div class="menu-item">
+            <div class="depth2">
+              <ul>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>제약사</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약외품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>라이프</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D] 메인 메뉴 추가 -->
+        <a href="#none" class="menu-depth1 only-pc">통합주문</a>
+        <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+        <a href="#none" class="menu-depth1">브랜드관</a>
+        <a href="#none" class="menu-depth1">기획전</a>
+        <a href="#none" class="menu-depth1">이벤트</a>
+        <a href="#none" class="menu-depth1 only-pc">약톡톡</a>
+        <a href="#none" class="menu-depth1 only-mr">MR상품주문</a>
+        <div class="to-brand">
+          <button class="btn text icon-chevron-down icon-right">
+            <span>브랜드관 바로가기</span>
+          </button>
+          <div class="to-brand-wrap">
+            <div class="brand-link">
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관브랜드관브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="inner-nav only-mo">
+      <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+      <a href="#none" class="menu-depth1">회원정보 변경</a>
+      <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+      <a href="#none" class="menu-depth1">요양기관번호 등록</a>
+    </div>
+    <div class="sub-title only-mo">
+      <div>
+        <button type="button" class="btn-back btn-history" onclick="history.back();">
+          <!-- [D] 기존 img태그 삭제 후 span추가 -->
+          <span class="sr-only">뒤로가기</span>
+        </button>
+        <h1 class="title-h1-mobile">약가인하 보상 관리</h1>
+      </div>
+    </div>
+  </header>
+  <!-- //header -->
+  <div class="content-inner ">
+    <div class="section-full sub-title-area">
+      <div>
+        <div class="head-wrap">
+          <div>
+            <h3 class="h1"> 마이페이지 </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-full sub-detail-page">
+      <!-- snb area -->
+      <div class="snb-grid">
+        <aside>
+          <nav>
+            <ul>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <a href="#none"> 마이페이지 홈 </a>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button> 회원정보 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 회원정보 변경 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 요양기관번호 등록 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button> 주문/배송 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 주문/배송 조회 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 거래처 원장 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 카드결제내역 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 추가 수정 -->결제/환불 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 예치금 조회 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 예치금 충전 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 간편결제 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 환불계좌 관리 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 수정 -->혜택 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 포인트 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 낱알반품 포인트 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 쿠폰 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> VIP포인트 관리 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 수정 -->반품 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none">
+                      <!-- [D 07.28] 띄어쓰기 추가 -->반품 진행 현황 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none">
+                      <!-- [D 07.28] 완통 => 일반/완통으로 문구 변경, 반품사이 띄어쓰기 없음! -->일반/완통반품 신청 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 낱알반품 신청 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 반품 완료 내역 조회 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button class="on active"> 약가인하 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none" class="on">
+                      <!-- [D 07.25] 띄어쓰기 삭제 -->약가인하 보상 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 보상완료내역 조회 </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <div>
+          <!-- SNB content -->
+          <div class="mypage">
+            <div class="head-wrap only-pc">
+              <div>
+                <h3 class="h2"> 약가인하 보상 관리 </h3>
+              </div>
+            </div>
+            <div class="only-pc">
+              <div class="grid grid-fr-auto">
+                <ul class="dot-list">
+                  <li>보상 금액 및 수량은 시행일 기준 약사몰을 통해 주문한 2개월간의 주문내역을 기준으로 산출됩니다(반품완료 수량 제외).</li>
+                  <li>예상 보상 수량은 완통 기준 30%에서 반올림하여 계산됩니다.</li>
+                </ul>
+                <a href="#none" class="btn cta">
+                  <!-- [D] span이 추가됨 -->
+                  <span>약가인하 보상 목록</span>
+                </a>
+              </div>
+              <div class="head-wrap">
+                <div>
+                  <h5 class="h3 c-primary"> 약가인하 대상 반품신청 마감 안내 </h5>
+                </div>
+              </div>
+              <ul class="dot-list type-info">
+                <li><span class="c-orange">yyyy.mm.dd</span> 시행일 기준 약가인하 보상대상 의약품의 완통반품 신청 마감일시 각 업체별 보상정책을 확인하세요.<br>마감일시까지 반품 신청이 이루어지지 않은 상품은 자동보상신청 처리됩니다.</li>
+              </ul>
+              <div class="amount-wrap">
+                <div class="amount-box amount-col-1">
+                  <p>
+                    <em>자동보상 예상금액<span>(2025.05.12 시행일 기준, 금융비용 1.8% 제외)</span></em>
+                    <span class="on"><strong>999,999,999</strong>원</span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                    <span class="amount-desc"><b>자동보상 예상금액은 실제 보상금과 일치하지 않을 수 있습니다.</b></span>
+                  </p>
+                </div>
+              </div>
+              <div class="page-filter-wrap">
+                <div class="table-wrap">
+                  <table class="table">
+                    <colgroup>
+                      <col>
+                      <col>
+                      <col>
+                      <col>
+                      <col>
+                      <col>
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>시행일</th>
+                        <td>
+                          <div class="select-wrap">
+                            <select class="input-select" name="">
+                              <option value="2025.05.12">2025.05.12</option>
+                              <option value="2025.05.13">2025.05.13</option>
+                            </select>
+                          </div>
+                        </td>
+                        <th>검색조건</th>
+                        <td colspan="3">
+                          <div class="radio-wrap radio-button">
+                            <label type="radio" for="option10" class="input-radio">
+                              <input type="radio" checked name="option1" id="option10">
+                              <i></i>
+                              <span>2개월이내 주문</span>
+                            </label>
+                            <label type="radio" for="option11" class="input-radio">
+                              <input type="radio" name="option1" id="option11">
+                              <i></i>
+                              <span>6개월이내 주문</span>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>입점업체</th>
+                        <td>
+                          <div class="select-wrap">
+                            <select class="input-select" name="">
+                              <option value="전체">전체</option>
+                            </select>
+                          </div>
+                        </td>
+                        <th>보험코드</th>
+                        <td>
+                          <input type="text" class="form-basic " value="" placeholder="입력" />
+                        </td>
+                        <th>상품명</th>
+                        <td>
+                          <input type="text" class="form-basic " value="" placeholder="입력" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="filter-btn-wrap">
+                  <button class="btn cta filled xs">
+                    <span>조회</span>
+                  </button>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <div class="radio-wrap type-divider">
+                  <label type="radio" for="filter0" class="input-radio">
+                    <input type="radio" checked name="filter" id="filter0">
+                    <i></i>
+                    <span>자동보상금액 고액 순</span>
+                  </label>
+                  <span class="divider-vertical-line"></span>
+                  <label type="radio" for="filter1" class="input-radio">
+                    <input type="radio" name="filter" id="filter1">
+                    <i></i>
+                    <span>자동보상금액 소액 순</span>
+                  </label>
+                  <span class="divider-vertical-line"></span>
+                  <label type="radio" for="filter2" class="input-radio">
+                    <input type="radio" name="filter" id="filter2">
+                    <i></i>
+                    <span>입점업체 순</span>
+                  </label>
+                </div>
+                <button class="btn cta xs icon-excel">
+                  <span>EXCEL</span>
+                </button>
+              </div>
+              <!-- [D] 결과 있을 때 -->
+              <div class="table-wrap table-reduction">
+                <table class="table">
+                  <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th><label type="checkbox" class="input-checkbox" for="allCheck0">
+                          <input type="checkbox" name="allCheck" id="allCheck0">
+                          <i></i>
+                        </label></th>
+                      <th>시행일</th>
+                      <th>입점업체</th>
+                      <th><!-- [D 07.30] 문구 수정 -->상품명</th>
+                      <th>변경전/후단가</th>
+                      <th>차액</th>
+                      <th>구매수량<br />2개월/6개월</th>
+                      <th>자동보상금액<br />자동보상수량</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- [D 07.30] 콘텐츠 수정: 제조사 상품명 규격 단위 -->
+                    <tr>
+                      <td><label type="checkbox" class="input-checkbox" for="check1">
+                          <input type="checkbox" name="check" id="check1">
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>입점업체</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>보험코드</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 상품명 규격 단위 </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">1,000</span>
+                          <span>1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>1,000</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><label type="checkbox" class="input-checkbox" for="check2">
+                          <input type="checkbox" name="check" id="check2">
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>백제약국백제약국백제약국</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>12345678</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea 대원제약 콜대원 시럽 100ml 1ea </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">999,999,999</span>
+                          <span>999,999,999</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>999,999,999</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>999,999,999</span>
+                          <span class="c-b777">999,999,999</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>999,999,999</span>
+                          <span class="c-b777">999,999,999</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><label type="checkbox" class="input-checkbox" for="check3">
+                          <input type="checkbox" name="check" id="check3">
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>백제약국</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>12345678</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 콜대원 시럽 100ml 1ea </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">1,000</span>
+                          <span>1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>1,000</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="disabled">
+                      <td><label type="checkbox" class="input-checkbox" for="check4">
+                          <input type="checkbox" name="check" id="check4" disabled>
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                          <span class="c-b777">자동보상신청</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>백제약국</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>12345678</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 콜대원 시럽 100ml 1ea </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">1,000</span>
+                          <span>1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>1,000</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="disabled">
+                      <td><label type="checkbox" class="input-checkbox" for="check5">
+                          <input type="checkbox" name="check" id="check5" disabled>
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                          <span class="c-b777">보상신청완료</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>백제약국</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>12345678</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 콜대원 시럽 100ml 1ea </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">1,000</span>
+                          <span>1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>1,000</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="disabled">
+                      <td><label type="checkbox" class="input-checkbox" for="check6">
+                          <input type="checkbox" name="check" id="check6" disabled>
+                          <i></i>
+                        </label></td>
+                      <td>
+                        <div class="text-group">
+                          <span>2025.05.01</span>
+                          <span class="c-b777">반품환불완료</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="text-group">
+                          <span>백제약국</span>
+                          <button class="btn cta xs">
+                            <span>보상정책</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="align-left">
+                        <div class="text-group">
+                          <span>12345678</span>
+                          <div class="flex">
+                            <span class="truncate-line2"> 제조사 콜대원 시럽 100ml 1ea </span>
+                          </div>
+                          <span class="c-b777">처방전 변경</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span class="c-b777 text-through">1,000</span>
+                          <span>1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <span>1,000</span>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                      <td class="align-right">
+                        <div class="text-group">
+                          <span>1,000</span>
+                          <span class="c-b777">1,000</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="btn-wrap">
+                <a href="#none" class="btn cta gray md">
+                  <!-- [D] span이 추가됨 -->
+                  <span>일반/완통반품 신청</span>
+                </a>
+                <button class="btn cta filled md">
+                  <span>자동보상 신청</span>
+                </button>
+              </div>
+              <!-- // [D] 결과 있을 때 -->
+              <!-- [D] 결과 없을 때 -->
+              <div class="table-wrap table-reduction">
+                <table class="table">
+                  <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th><label type="checkbox" class="input-checkbox" for="allCheck0">
+                          <input type="checkbox" name="allCheck" id="allCheck0">
+                          <i></i>
+                        </label></th>
+                      <th>시행일</th>
+                      <th>입점업체</th>
+                      <th><!-- [D 07.30] 문구 수정 -->상품명</th>
+                      <th>변경전/후단가</th>
+                      <th>차액</th>
+                      <th>구매수량<br />2개월/6개월</th>
+                      <th>자동보상금액<br />자동보상수량</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- [D 07.30] 콘텐츠 수정: 제조사 상품명 규격 단위 -->
+                  </tbody>
+                </table>
+                <div class="no-contents">
+                  <div class="img-wrap">
+                    <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="text-wrap">
+                    <p>조회 결과가 없습니다.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- // [D] 결과 없을 때 -->
+            </div>
+            <div class="only-mo line-box">
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/icon/no-mobile.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>현재 PC에서만 이용이 가능합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //SNB content -->
+        </div>
+      </div>
+      <!-- //snb area -->
+    </div>
+  </div>
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <script src="../static/content/js/jquery-3.7.1.min.js"></script>
+  <script src="../static/content/js/jquery-ui.js"></script>
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <!-- modal area -->
+  <!-- //modal area -->
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.content-inner {
+    min-width: 0;
+    padding-top: var(--content-pt);
+    padding-bottom: var(--content-pb);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .content-inner {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .section,
+    .section-full,
+    .section-narrow {
+        width: 100%;
+    }
+}
+
+.section-full {
+    > div {
+        @include content-width;
+    }
+}
+.section {
+    @include content-width;
+}
+.section-narrow {
+    padding-right: var(--side-padding);
+    padding-left: var(--side-padding);
+    max-width: calc(var(--content-width-narrow) + (var(--side-padding) * 2));
+    margin-left: auto;
+    margin-right: auto;
+    @include layoutMedia;
+    @include media {
+        @include notch(padding, right, var(--side-padding));
+        @include notch(padding, left, var(--side-padding));
+    }
+}
+
+.snb-grid {
+    display: grid;
+    grid-template-columns: var(--lnb-grid-columns, 200px 1fr);
+    gap: var(--lnb-grid-gap, 24px);
+    @include media {
+        --lnb-grid-columns: 1fr;
+        --lnb-grid-gap: 0;
+        aside {
+            display: none;
+        }
+    }
+
+    aside {
+        // color: var.$b000;
+        // font-weight: 600;
+        nav {
+            background-color: var.$bfff;
+            border-radius: 12px;
+            box-shadow: inset 0 0 0 1px var.$lineNormal;
+            a,
+            button {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                &.on {
+                    color: var.$primary;
+                }
+            }
+            > ul {
+                > li {
+                    margin-top: var(--snb-a-mt, 0);
+                    &:not(:last-child) {
+                        box-shadow: inset 0 -1px 0 var.$lineNormal;
+                    }
+                    > a, button {
+                        height: 55px;
+                        padding: 12px 24px;
+                        @include typo('h3');
+                        --typo-custom-c: #{var.$b000};
+                    }
+                    > button {
+                        padding-right: 50px;
+                        position: relative;
+                        @include afterImage(16px, 16px, url("../image/icon/chevron-down.svg")){
+                            position: absolute;
+                            top: 50%;
+                            right: 24px;
+                            transform: translateY(-50%);
+                        };
+                        &.active {
+                            &:after {
+                                transform: rotate(180deg) translateY(50%);
+                            }
+                            ~ ul {
+                                display: block;
+                            }
+                        }
+                    }
+                    ul {
+                        display: none;
+                        a, button {
+                            height: 45px;
+                            padding: 12px 32px;
+                            @include typo('lnb2');
+                            --typo-custom-w: 500;
+                            --lnb2: 16px;
+                        }
+                    }
+                    // &.hr {  // 디자인 체크
+                    //     height: 1px;
+                    //     background-color: var.$lineNormal;
+                    //     margin-top: -1px;
+                    // }
+                }
+            }
+        }
+    }
+    > div {
+        min-width: 0;
+    }
+}
+
+// 상단 비주얼 배너
+.visual-banner {
+    position: relative;
+    padding-bottom: 15.504%;
+    margin-bottom: var(--banner-mb, 32px);
+    border-radius: 12px;
+    overflow: hidden;
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    @include media {
+        --banner-mb: 28px;
+    }
+}

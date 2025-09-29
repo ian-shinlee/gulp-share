@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>변경승인대기 안내</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%- include('./includes/modal_confirm.ejs', {
+            show: true,
+            content: '변경승인대기 안내',
+            icon: 'guide-outstanding-authorization',
+            desc: `고객님은 현재 변경승인대기중입니다.<br/>
+                관리자에 의해 변경승인이 이루어진 후 로그인이 가능합니다.
+                </p><p class="desc">
+                승인이 완료될 때 까지 조금만 더 기다려 주세요.<br/>
+                감사합니다.`,
+                btns: include('./atoms/button.ejs',  { size: 'md', value: '변경신청 취소', type: 'gray', isLink: true})
+                    + include('./atoms/button.ejs',  { size: 'md', value: '확인', type: 'filled' })
+        }) %>
+        <!-- //modal area -->
+
+    </body>
+</html>

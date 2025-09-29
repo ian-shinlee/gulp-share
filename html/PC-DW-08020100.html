@@ -1,0 +1,2792 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>주문/배송 조회 | 마이페이지</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./includes/header.ejs', {
+            title: '주문/배송 조회',
+            innerNav: [
+                ['회원정보 변경', true],
+                ['요양기관번호 등록', true],
+            ],
+            depth1Active: 2,
+        }) %>
+        <div class="content-inner ">
+            <div class="section-full sub-title-area">
+                <div>
+                    <%- include('./atoms/title.ejs', {
+                        con: '마이페이지',
+                    }) %>
+                </div>
+            </div>
+            <div class="section-full sub-detail-page">
+                <!-- snb area -->
+                <div class="snb-grid">
+                    <%- include('./includes/snb_list.ejs', {
+                        menuListType: 'mypage',
+                        depth1: '주문/배송 관리',
+                        depth2: '주문/배송 조회',
+                    }) %>
+                    <div>
+                        <!-- SNB content -->
+                        <div class="mypage">
+                            <%- include('./atoms/title.ejs', {
+                                type: '2',
+                                con: '주문/배송 조회',
+                                custom: 'only-pc',
+                            }) %>
+                            <div class="only-pc">
+                            <%
+                                let addTagViews = (tagValues) => {
+                                let tagLabels = ['MR', '대행'];
+                                let tagClasses = ['tag-mr', 'tag-agency'];
+
+                                let tagHTML = '';
+                                for (let i = 0; i < tagValues.length; i++) {
+                                    if (tagValues[i]) {
+                                    tagHTML += `<span class="tag tag-prd ${tagClasses[i]}">${tagLabels[i]}</span>`;
+                                    }
+                                }
+                                return tagHTML;
+                                };
+                            %>
+                            <%
+                                let cell1 = (state, hasCode = false, text, hasTag = false, tagValues = [], payment, repay = false, long = false, balance = false, discount ) => {
+                                    let number = long ? '999,999,999' : '1,000',
+                                        zero = balance ? '0': '1,000';
+                                    let tagViews = hasTag ? addTagViews(tagValues) : '';
+                                    return `
+                                        <tr>
+                                            <td>
+                                                <div class="text-group">
+                                                    <span>2025.05.05</span>
+                                                    <span class="c-primary">${state}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#">1234567</a>
+                                            </td>
+                                            <td class="align-left">
+                                                <div class="text-group">
+                                                    ${hasCode ? `<span>일반 | 1234567</span>` : ''}
+                                                    <div class="flex">
+                                                        <span class="ellipsis">
+                                                            ${hasTag ? `${tagViews}` : ''}${text}
+                                                        </span>${text=='예치금'?'':'&nbsp;외 n건'}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <div class="text-group">
+                                                    <span>${number}</span>
+                                                    <span class="c-b777">${zero}</span>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${discount}</span>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                            <td>
+                                                <div class="text-group">
+                                                    <span>${payment}</span>
+                                                    ${repay? `${include('./atoms/button.ejs', { value: '재결제', size: 'xs' })}` :''}
+                                                    ${payment == '가상계좌' ? `${include('./atoms/button.ejs', { value: '계좌확인', size: 'xs' })}` :''}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }
+                                let table1 = ( nodata = false ) => {
+                                    return `
+                                    <div class="table-wrap table-my-order">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>주문일<br>통합주문상태</th>
+                                                    <th>통합주문번호</th>
+                                                    <th>상품명</th>
+                                                    <th>판매금액<br>금융비용</th>
+                                                    <th>할인금액</th>
+                                                    <th>주문금액</th>
+                                                    <th>결제수단</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${ !nodata ?
+                                                    cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('상품준비중',false,'제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위',false,[false,false],'신용카드',false,true,false,'999,999,999')
+                                                    +cell1('입금대기',false,'제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위',true,[false,true],'가상계좌',false,false,false,'1,000')
+                                                    +cell1('주문취소',false,'제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위',false,[false,true],'VIP포인트',false,false,true,'1,000')
+                                                    +cell1('상품발송완료',false,'예치금',false,[false,true],'신용카드',false,false,true,'0')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                    +cell1('결제완료',false,'제조사 상품명 규격 단위',false,[false,false],'신용카드',true,false,false,'1,000')
+                                                :''}
+                                            </tbody>
+                                        </table>
+                                        ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                            img: 'icon/no-results.svg',
+                                            desc: '조회 결과가 없습니다.',
+                                        })}
+                                    </div>
+                                `}
+                            %>
+                            <%
+                                let cell2 = (state, store, hasCode = false, text, hasTag = false, tagValues = [], long = false ) => {
+                                    let number = long ? '999,999,999' : '1,000';
+                                    let tagViews = hasTag ? addTagViews(tagValues) : '';
+                                    return `
+                                        <tr>
+                                            <td>
+                                                <div class="text-group">
+                                                    <span>2025.05.05</span>
+                                                    <span class="c-primary">${state}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-group">
+                                                    <a href="#">1234567</a>
+                                                    <span class="c-b777">${store}</span>
+                                                </div>
+                                            </td>
+                                            <td class="align-left">
+                                                <div class="text-group">
+                                                    ${hasCode ? `<span>일반 | 1234567</span>` : ''}
+                                                    <div class="flex">
+                                                        <span class="ellipsis">
+                                                            ${hasTag ? `${tagViews}` : ''}${text}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                            <td class="align-right">
+                                                <div class="text-group">
+                                                    <span>${number}</span>
+                                                    <span class="c-b777">${number}</span>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                            <td>
+                                                <div class="text-group">
+                                                    ${state == '상품발송완료' ? `<span>2025.05.05</span>${include('./atoms/button.ejs', { value: '배송조회', size: 'xs' })}` :'<span>-</span>'}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }
+                                let table2 = ( nodata = false ) => {
+                                    return `
+                                    <div class="table-wrap table-my-order">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>주문일<br>상품주문상태</th>
+                                                    <th>통합주문번호<br>입점업체</th>
+                                                    <th>상품명</th>
+                                                    <th>주문수량</th>
+                                                    <th>판매금액<br>금융비용</th>
+                                                    <th>할인금액</th>
+                                                    <th>주문금액</th>
+                                                    <th>상품발송일</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${ !nodata ?
+                                                    cell2('결제완료','백제약국', true,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('상품발송완료','백제약국백제약국백제약국',true,'제조사 상품명 규격 단위',true,[false,false], true)
+                                                    +cell2('주문취소','백제약국', false,'제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위',true,[false,true], false)
+                                                    +cell2('주문취소','백제약국', false,'제조사 상품명 규격 단위',true,[true,true], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                    +cell2('결제완료','백제약국', false,'제조사 상품명 규격 단위',false,[false,false], false)
+                                                :''}
+                                            </tbody>
+                                        </table>
+                                        ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                            img: 'icon/no-results.svg',
+                                            desc: '조회 결과가 없습니다.',
+                                        })}
+                                    </div>
+                                `}
+                            %>
+                            <%
+                                let cell3 = (state, store, hasCode = false, text, hasTag = false, tagValues = [], long = false ) => {
+                                    let number = long ? '999,999,999' : '1,000';
+                                    let tagViews = hasTag ? addTagViews(tagValues) : '';
+                                    return `
+                                        <tr>
+                                            <td>
+                                                <div class="text-group">
+                                                    <span>2025.05.05</span>
+                                                    <span class="c-primary">${state}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-group">
+                                                    <a href="#">1234567</a>
+                                                    <span class="c-b777">${store}</span>
+                                                </div>
+                                            </td>
+                                            <td class="align-left">
+                                                <div class="text-group">
+                                                    ${hasCode ? `<span>일반 | 1234567</span>` : ''}
+                                                    <div class="flex">
+                                                        <span class="ellipsis">
+                                                            ${hasTag ? `${tagViews}` : ''}${text}
+                                                        </span>&nbsp;외 n건
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <div class="text-group">
+                                                    <span>${number}</span>
+                                                    <span class="c-b777">${number}</span>
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                            <td class="align-right">
+                                                <span>${number}</span>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }
+                                let table3 = ( nodata = false ) => {
+                                    return `
+                                    <div class="table-wrap table-my-order">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                                <col>
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>주문일<br>통합주문상태</th>
+                                                    <th>통합주문번호<br>입점업체</th>
+                                                    <th>상품명</th>
+                                                    <th>판매금액<br>금융비용</th>
+                                                    <th>할인금액</th>
+                                                    <th>주문금액</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${ !nodata ?
+                                                    cell3('결제완료','백제약국',false, '제조사 상품명 규격 단위',false,[false,false], false)
+                                                    + cell3('결제완료','백제약국백제약국백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('입금대기','백제약국',false, '제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위',true,[false,true], false)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                    + cell3('결제완료','백제약국',false, '대원제약 콜대원 10ml 6ea',false,[false,false], true)
+                                                :''}
+                                            </tbody>
+                                        </table>
+                                        ${ !nodata ? '' : include('./molecules/nodata.ejs', {
+                                            img: 'icon/no-results.svg',
+                                            desc: '조회 결과가 없습니다.',
+                                        })}
+                                    </div>
+                                `}
+                            %>
+                            <%
+                                let tabCont1 = `
+                                    ${include('./molecules/sub_table_filter.ejs', {
+                                        caption: '',
+                                        data: [
+                                            { filterTitle:"통합주문상태" , selectType: true ,options: ["전체","입금대기","결제완료","상품준비중","상품부분발송완료","상품발송완료","주문취소"]},
+                                            { filterTitle:"입점업체" , selectType: true },
+                                            { filterTitle:"결제수단" , selectType: true, options: ["전체","신용카드","카드 간편결제","가상계좌","포인트","예치금","VIP포인트"]}
+                                        ],
+                                        search: true,
+                                        searchOptions: ["통합주문번호","제조사","보험코드"],
+                                        searchCol: '3',
+                                        checkbox: true,
+                                        checkboxList: ["주문대행","예치금 구매 제외"]
+                                    })}
+                                    <div class="flex justify-end">
+                                        ${include('./atoms/button.ejs', { icon: 'excel', size: 'xs', value: 'EXCEL', type: '' })}
+                                    </div>
+                                    <!-- [D] 결과값이 있을 때 -->
+                                    ${table1(false)}
+                                    ${include('./atoms/pagination.ejs')}
+                                    <!-- // [D] 결과값이 있을 때 -->
+                                    <!-- [D] 결과값이 없을 때 -->
+                                    ${table1 (true)}
+                                    <!-- // [D] 결과값이 없을 때 -->
+                                `,
+                                tabCont2 = `
+                                    ${include('./molecules/sub_table_filter.ejs', {
+                                        caption: '',
+                                        data: [
+                                            { filterTitle:"상품주문상태" , selectType: true ,options: ["전체","입금대기","결제완료","상품준비중","상품발송완료","주문취소"]},
+                                            { filterTitle:"입점업체", selectType: true, },
+                                            { filterTitle:"상품구분", selectType: true, options: ["전체","일반의약품","전문의약품","의약외품"] }
+                                        ],
+                                        search: true,
+                                        searchOptions: ["보험코드","통합주문번호","제조사"],
+                                        searchCol: '3',
+                                        checkbox: true,
+                                        checkboxList: ["주문대행","예치금 구매 제외"],
+                                        datepicker: true
+                                    })}
+                                    <div class="flex justify-end">
+                                        ${include('./atoms/button.ejs', { icon: 'excel', size: 'xs', value: 'EXCEL', type: '' })}
+                                    </div>
+                                    <!-- [D] 결과값이 있을 때 -->
+                                    ${table2(false)}
+                                    ${include('./atoms/pagination.ejs')}
+                                    <!-- // [D] 결과값이 있을 때 -->
+                                    <!-- [D] 결과값이 없을 때 -->
+                                    ${table2 (true)}
+                                    <!-- // [D] 결과값이 없을 때 -->
+
+                                `,
+                                tabCont3 = `
+                                    ${include('./molecules/sub_table_filter.ejs', {
+                                        caption: '',
+                                        data: [
+                                            { filterTitle:"통합주문상태" , selectType: true ,options: ["전체","입금대기","결제완료","상품준비중","상품부분발송완료","상품발송완료","주문취소"]},
+                                            { filterTitle:"입점업체" , selectType: true },
+                                            { filterTitle:"상품명" }
+                                        ],
+                                        search: true,
+                                        searchOptions: ["보험코드","통합주문번호","제조사"],
+                                        checkbox: true,
+                                        checkboxList: ["주문대행"]
+                                    })}
+                                    <div class="flex justify-end">
+                                        ${include('./atoms/button.ejs', { icon: 'excel', size: 'xs', value: 'EXCEL', type: '' })}
+                                    </div>
+                                    <!-- [D] 결과값이 있을 때 -->
+                                    ${table3(false)}
+                                    ${include('./atoms/pagination.ejs')}
+                                    <!-- // [D] 결과값이 있을 때 -->
+                                    <!-- [D] 결과값이 없을 때 -->
+                                    ${table3 (true)}
+                                    <!-- // [D] 결과값이 없을 때 -->
+
+                                `;
+                            %>
+
+                            <%- include('./atoms/tab.ejs', {
+                                data: {
+                                    "주문번호별": `<form>${tabCont1}</form>`,
+                                    "주문상품별": `<form>${tabCont2}</form>`,
+                                    "입점업체별": `<form>${tabCont3}</form>`,
+                                }
+                            }) %>
+                        </div>
+                        <%- include('./molecules/nomobile.ejs', { custom: 'line-box' }) %>
+
+                        </div>
+                        <!-- //SNB content -->
+                    </div>
+                </div>
+                <!-- //snb area -->
+            </div>
+        </div>
+
+        <%- include('./includes/footer.ejs', { datepicker: true }) %>
+        <!-- modal area -->
+        <!-- //modal area -->
+    </body>
+</html>
+        <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>결제수단</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                    <option value="신용카드">신용카드</option>
+                                    <option value="카드 간편결제">카드 간편결제</option>
+                                    <option value="가상계좌">가상계좌</option>
+                                    <option value="포인트">포인트</option>
+                                    <option value="예치금">예치금</option>
+                                    <option value="VIP포인트">VIP포인트</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>상품명</th>
+                              <td>
+                                <input type="text" class="form-basic " value="" placeholder="입력" />
+                              </td>
+                              <th>검색조건</th>
+                              <td colspan="3">
+                                <div class="flex">
+                                  <div class="select-wrap">
+                                    <select class="input-select" name="">
+                                      <option value="통합주문번호">통합주문번호</option>
+                                      <option value="제조사">제조사</option>
+                                      <option value="보험코드">보험코드</option>
+                                    </select>
+                                  </div>
+                                  <input type="text" class="form-basic " value="" placeholder="입력" />
+                                  <div class="check-wrap">
+                                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                      <input type="checkbox" name="checkbox" id="checkbox0">
+                                      <i></i> 주문대행 </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox1">
+                                      <input type="checkbox" name="checkbox" id="checkbox1">
+                                      <i></i> 예치금 구매 제외 </label>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="filter-btn-wrap">
+                        <button class="btn cta filled xs">
+                          <span>조회</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="flex justify-end">
+                      <button class="btn cta xs icon-excel">
+                        <span>EXCEL</span>
+                      </button>
+                    </div>
+                    <!-- [D] 결과값이 있을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>통합주문상태</th>
+                            <th>통합주문번호</th>
+                            <th>상품명</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                            <th>결제수단</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">상품준비중</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">입금대기</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis">
+                                    <span class="tag tag-prd tag-agency">대행</span>제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>가상계좌</span>
+                                <button class="btn cta xs">
+                                  <span>계좌확인</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">주문취소</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">0</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>VIP포인트</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">상품발송완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 예치금 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">0</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>0</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <a href="#">1234567</a>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>신용카드</span>
+                                <button class="btn cta xs">
+                                  <span>재결제</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="pagination">
+                      <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                      <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                      <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                      <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                      <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                      <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                      <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                      <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                    </p>
+                    <!-- // [D] 결과값이 있을 때 -->
+                    <!-- [D] 결과값이 없을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>통합주문상태</th>
+                            <th>통합주문번호</th>
+                            <th>상품명</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                            <th>결제수단</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>조회 결과가 없습니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 결과값이 없을 때 -->
+                  </form>
+                </div>
+                <div class="tabs-content" role="tabpanel" id="panel-2" aria-labelledby="tab-2" aria-hidden="true">
+                  <form>
+                    <div class="page-filter-wrap">
+                      <div class="table-wrap">
+                        <table class="table">
+                          <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                          </colgroup>
+                          <tbody>
+                            <tr>
+                              <th>조회기간</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="flex period">
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                    <span class="divider">~</span>
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                  </div>
+                                  <div class="flex period-picker">
+                                    <button class="btn cta">
+                                      <span>오늘</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>1주일</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>1개월</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>3개월</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>상품주문상태</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                    <option value="입금대기">입금대기</option>
+                                    <option value="결제완료">결제완료</option>
+                                    <option value="상품준비중">상품준비중</option>
+                                    <option value="상품발송완료">상품발송완료</option>
+                                    <option value="주문취소">주문취소</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>입점업체</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>상품구분</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                    <option value="일반의약품">일반의약품</option>
+                                    <option value="전문의약품">전문의약품</option>
+                                    <option value="의약외품">의약외품</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>상품명</th>
+                              <td>
+                                <input type="text" class="form-basic " value="" placeholder="입력" />
+                              </td>
+                              <th>검색조건</th>
+                              <td colspan="3">
+                                <div class="flex">
+                                  <div class="select-wrap">
+                                    <select class="input-select" name="">
+                                      <option value="보험코드">보험코드</option>
+                                      <option value="통합주문번호">통합주문번호</option>
+                                      <option value="제조사">제조사</option>
+                                    </select>
+                                  </div>
+                                  <input type="text" class="form-basic " value="" placeholder="입력" />
+                                  <div class="check-wrap">
+                                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                      <input type="checkbox" name="checkbox" id="checkbox0">
+                                      <i></i> 주문대행 </label>
+                                    <label type="checkbox" class="input-checkbox" for="checkbox1">
+                                      <input type="checkbox" name="checkbox" id="checkbox1">
+                                      <i></i> 예치금 구매 제외 </label>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>약가인하 대상품목</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="check-wrap">
+                                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                      <input type="checkbox" name="checkbox" id="checkbox0">
+                                      <i></i> 약가인하 시행일 </label>
+                                  </div>
+                                  <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                  <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="filter-btn-wrap">
+                        <button class="btn cta filled xs">
+                          <span>조회</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="flex justify-end">
+                      <button class="btn cta xs icon-excel">
+                        <span>EXCEL</span>
+                      </button>
+                    </div>
+                    <!-- [D] 결과값이 있을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>상품주문상태</th>
+                            <th>통합주문번호<br>입점업체</th>
+                            <th>상품명</th>
+                            <th>주문수량</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                            <th>상품발송일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>일반 | 1234567</span>
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">상품발송완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국백제약국백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <span>일반 | 1234567</span>
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <button class="btn cta xs">
+                                  <span>배송조회</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">주문취소</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis">
+                                    <span class="tag tag-prd tag-agency">대행</span>제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">주문취소</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis">
+                                    <span class="tag tag-prd tag-mr">MR</span><span class="tag tag-prd tag-agency">대행</span>제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <span>-</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="pagination">
+                      <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                      <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                      <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                      <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                      <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                      <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                      <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                      <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                    </p>
+                    <!-- // [D] 결과값이 있을 때 -->
+                    <!-- [D] 결과값이 없을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>상품주문상태</th>
+                            <th>통합주문번호<br>입점업체</th>
+                            <th>상품명</th>
+                            <th>주문수량</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                            <th>상품발송일</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>조회 결과가 없습니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 결과값이 없을 때 -->
+                  </form>
+                </div>
+                <div class="tabs-content" role="tabpanel" id="panel-3" aria-labelledby="tab-3" aria-hidden="true">
+                  <form>
+                    <div class="page-filter-wrap">
+                      <div class="table-wrap">
+                        <table class="table">
+                          <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                          </colgroup>
+                          <tbody>
+                            <tr>
+                              <th>조회기간</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="flex period">
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                    <span class="divider">~</span>
+                                    <!-- [D 07.04] 날짜표기 방식 수정 + dateFormat: 'yy.mm.dd' 으로 스크립트 수정 -->
+                                    <input type="text" class="form-basic date" value="" placeholder="YYYY.MM.DD">
+                                  </div>
+                                  <div class="flex period-picker">
+                                    <button class="btn cta">
+                                      <span>오늘</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>1주일</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>1개월</span>
+                                    </button>
+                                    <button class="btn cta">
+                                      <span>3개월</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>통합주문상태</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                    <option value="입금대기">입금대기</option>
+                                    <option value="결제완료">결제완료</option>
+                                    <option value="상품준비중">상품준비중</option>
+                                    <option value="상품부분발송완료">상품부분발송완료</option>
+                                    <option value="상품발송완료">상품발송완료</option>
+                                    <option value="주문취소">주문취소</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>입점업체</th>
+                              <td>
+                                <div class="select-wrap">
+                                  <select class="input-select" name="">
+                                    <option value="전체">전체</option>
+                                  </select>
+                                </div>
+                              </td>
+                              <th>상품명</th>
+                              <td>
+                                <input type="text" class="form-basic " value="" placeholder="입력" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>검색조건</th>
+                              <td colspan="5">
+                                <div class="flex">
+                                  <div class="select-wrap">
+                                    <select class="input-select" name="">
+                                      <option value="보험코드">보험코드</option>
+                                      <option value="통합주문번호">통합주문번호</option>
+                                      <option value="제조사">제조사</option>
+                                    </select>
+                                  </div>
+                                  <input type="text" class="form-basic " value="" placeholder="입력" />
+                                  <div class="check-wrap">
+                                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                                      <input type="checkbox" name="checkbox" id="checkbox0">
+                                      <i></i> 주문대행 </label>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="filter-btn-wrap">
+                        <button class="btn cta filled xs">
+                          <span>조회</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="flex justify-end">
+                      <button class="btn cta xs icon-excel">
+                        <span>EXCEL</span>
+                      </button>
+                    </div>
+                    <!-- [D] 결과값이 있을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>통합주문상태</th>
+                            <th>통합주문번호<br>입점업체</th>
+                            <th>상품명</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 제조사 상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국백제약국백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">입금대기</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis">
+                                    <span class="tag tag-prd tag-agency">대행</span>제조사 상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명상품명 규격 단위 </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>1,000</span>
+                                <span class="c-b777">1,000</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                            <td class="align-right">
+                              <span>1,000</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="text-group">
+                                <span>2025.05.05</span>
+                                <span class="c-primary">결제완료</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="text-group">
+                                <a href="#">1234567</a>
+                                <span class="c-b777">백제약국</span>
+                              </div>
+                            </td>
+                            <td class="align-left">
+                              <div class="text-group">
+                                <div class="flex">
+                                  <span class="ellipsis"> 대원제약 콜대원 10ml 6ea </span>&nbsp;외 n건
+                                </div>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <div class="text-group">
+                                <span>999,999,999</span>
+                                <span class="c-b777">999,999,999</span>
+                              </div>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                            <td class="align-right">
+                              <span>999,999,999</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="pagination">
+                      <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                      <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                      <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                      <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                      <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                      <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                      <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                      <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                      <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                    </p>
+                    <!-- // [D] 결과값이 있을 때 -->
+                    <!-- [D] 결과값이 없을 때 -->
+                    <div class="table-wrap table-my-order">
+                      <table class="table">
+                        <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th>주문일<br>통합주문상태</th>
+                            <th>통합주문번호<br>입점업체</th>
+                            <th>상품명</th>
+                            <th>판매금액<br>금융비용</th>
+                            <th>할인금액</th>
+                            <th>주문금액</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="no-contents">
+                        <div class="img-wrap">
+                          <img src="../static/content/image/icon/no-results.svg" alt="" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="text-wrap">
+                          <p>조회 결과가 없습니다.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- // [D] 결과값이 없을 때 -->
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="only-mo line-box">
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/icon/no-mobile.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>현재 PC에서만 이용이 가능합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //SNB content -->
+        </div>
+      </div>
+      <!-- //snb area -->
+    </div>
+  </div>
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <script src="../static/content/js/jquery-3.7.1.min.js"></script>
+  <script src="../static/content/js/jquery-ui.js"></script>
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <!-- modal area -->
+  <!-- //modal area -->
+</body>
+
+</html>

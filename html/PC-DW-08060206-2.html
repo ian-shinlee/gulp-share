@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>반품비 적용내역 상세</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 반품비 적용내역 상세 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <!-- [D] 반품 완료 페이지에서 노출 -->
+        <div class="table-wrap table-return-cost">
+          <table>
+            <colgroup>
+              <col>
+              <col>
+              <col>
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>입점업체</th>
+                <th>반품비용</th>
+                <th>무료반품 가능여부</th>
+                <th>반품비 적용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span>백제약국</span></td>
+                <td><span>5,000원</span></td>
+                <td class="align-left">
+                  <span>무료반품 쿠폰 적용</span>
+                </td>
+                <td class="align-right"><span>0원</span></td>
+              </tr>
+              <tr>
+                <th colspan="3" class="total">반품비용 계</th>
+                <td class="align-right"><span>0원</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+</body>
+
+</html>

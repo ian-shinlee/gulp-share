@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>판매자 보상 정책 | 약가인하 관리</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 입점업체 보상정책 </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="reduction-modal">
+          <!-- 입점업체 정보 -->
+          <div class="table-wrap table-type-column">
+            <table>
+              <colgroup>
+                <col>
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>입점업체</th>
+                  <td><span>대원제약</span></td>
+                </tr>
+                <!-- [D] MR 정보 있을 때만 노출 -->
+                <tr>
+                  <th>MR</th>
+                  <td>
+                    <div class="space-x-8">
+                      <span>김대원 010-1234-5678</span>
+                      <a href="#none" class="btn cta xs">
+                        <!-- [D] span이 추가됨 -->
+                        <span>문의하기</span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <!-- // [D] MR 정보 있을 때만 노출 -->
+              </tbody>
+            </table>
+          </div>
+          <!-- 입점업체 보상 안내 -->
+          <div class="table-wrap table-type-column">
+            <table>
+              <colgroup>
+                <col>
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>시행일</th>
+                  <td><span><!-- [D 07.30] 표기법 수정 -->2025.12.09</span></td>
+                </tr>
+                <tr>
+                  <th>반품신청 마감기한</th>
+                  <td><span><!-- [D 07.30] 표기법 수정 -->2025.12.09 18:00</span></td>
+                </tr>
+                <tr>
+                  <th>보상안내</th>
+                  <td>
+                    <div class="detail-content"> 백제약품(주) 제주지점입니다.<br><br> 5월 1일자 약가인하 자동보상은 2개월 30% 수량 입니다.<br><br> 실물반품의 경우 4/30(수) 제주지점에 도착분에 한하여 약가인하 전 단가로 반품처리 됩니다.<br> (실물반품 시 자동보상 제외됩니다.)<br> 반품마감 기한 이후 등록건은 약가인하 전 가격으로 반품처리 불가 합니다.<br><br> ★ 반품신청 과 반품수거요청 상태는 다르며, 반품수거 요청분에 한하여 처리합니다.<br> ★ 소분과 개봉품은 반품불가<br> ★ 당사에서 출고된 제조번호, 유효기간과 동일한 제품에 한해서 처리됩니다.<br>
+                      <br> 반품 마감일 이후 등록건은 별도 통보없이 인하된 단가로 처리되오니 반드시 마감일 전에 반품 해주시기 바랍니다.
+                    </div>
+                  </td>
+                </tr>
+                <!-- [D] 첨부파일 있을 경우 -->
+                <tr>
+                  <th>첨부파일</th>
+                  <td>
+                    <div class="detail-attachment">
+                      <!-- [D] href는 테스트용입니다.. -->
+                      <a class="a-file-download" href="/images/myw3schoolsimage.jpg" download>
+                        <span>/images/myw3schoolsimageimages/myw3schoolsimageimages/myw3schoolsimageimages/myw3schoolsimageimages/myw3schoolsimageimages/myw3schoolsimage.jpg</span>
+                        <span class="btn cta icon-download">
+                          <span>다운로드</span>
+                        </span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <!-- // [D] 첨부파일 있을 경우 -->
+              </tbody>
+            </table>
+          </div>
+          <div class="table-wrap table-type-column">
+            <table>
+              <colgroup>
+                <col>
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>시행일</th>
+                  <td><span><!-- [D 07.30] 표기법 수정 -->2025.12.09</span></td>
+                </tr>
+                <tr>
+                  <th>반품신청 마감기한</th>
+                  <td><span><!-- [D 07.30] 표기법 수정 -->2025.12.09 18:00</span></td>
+                </tr>
+                <tr>
+                  <th>보상안내</th>
+                  <td>
+                    <div class="detail-content"> Editor 콘텐츠가 들어가는 영역입니다 </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="btn-wrap">
+            <button class="btn cta filled md">
+              <span>확인</span>
+            </button>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+</body>
+
+</html>

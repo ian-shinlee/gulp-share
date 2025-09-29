@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>아이디 찾기</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            const searchId = `<!-- [D] 조회 -->
+                    <!-- [D 1차 회원수정] tab 삭제 및 modal-desc 영역 추가 -->
+                    <p class="modal-desc">회원 가입 시 등록한 사업자등록번호와 <!-- [D 07.22] 문구 수정 -->휴대전화번호를 입력하면, 등록한 아이디를 확인할 수 있습니다.</p>
+                    <div class="join">
+                        <form>
+                            <!-- [D] h3.form-title을 h4.form-title으로 일괄 변경 -->
+                            <h4 class="form-title">사업자등록번호</h4>
+                            <div class="form-line">
+                                <!-- [D 1차 회원수정] type: number로 수정 -->
+                                ${include('./atoms/input.ejs', { placeholder: "사업자등록번호 입력('-' 제외 10자리 입력)해 주세요.", type: 'number' })}
+                                <!-- [D 1차 회원수정] 유효성 메시지 삭제, 팝업으로 노출 예정 -->
+                            </div>
+                            <h4 class="form-title"><!-- [D 07.22] 문구 수정 -->휴대전화번호</h4>
+                            <div class="form-line">
+                                ${include('./atoms/input.ejs', { type: 'call' })}
+                                <!-- [D 1차 회원수정] 유효성 메시지 삭제, 팝업으로 노출 예정 -->
+                            </div>
+                            <!-- [D 1차 회원수정] c-b000을 c-b777으로 수정 및 border-dotted 추가 -->
+                            <p class="body1 fw-medium c-b777 border-dotted">
+                                아이디 찾기에 불편이 있으신 경우, <a href="tel:024109234">고객센터(02-410-9234)</a>로 연락해 주세요.
+                            </p>
+                            <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+                            <div class="btn-wrap">
+                                ${include('./atoms/button.ejs', {
+                                    value: '취소',
+                                    size: 'md',
+                                    type: 'gray'
+                                })}
+                                ${include('./atoms/button.ejs', {
+                                    value: '확인',
+                                    size: 'md',
+                                    type: 'filled'
+                                })}
+                            </div>
+                        </form>
+                    </div>
+                <!-- //[D] 조회 -->`
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '아이디 찾기',
+            content: searchId
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>
+="number" class="" />
+                  <span>-</span>
+                  <input type="number" class="" />
+                </div>
+              </div>
+              <!-- [D 1차 회원수정] 유효성 메시지 삭제, 팝업으로 노출 예정 -->
+            </div>
+            <!-- [D 1차 회원수정] c-b000을 c-b777으로 수정 및 border-dotted 추가 -->
+            <p class="body1 fw-medium c-b777 border-dotted"> 아이디 찾기에 불편이 있으신 경우, <a href="tel:024109234">고객센터(02-410-9234)</a>로 연락해 주세요. </p>
+            <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+            <div class="btn-wrap">
+              <button class="btn cta gray md">
+                <span>취소</span>
+              </button>
+              <button class="btn cta filled md">
+                <span>확인</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- //[D] 조회 -->
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

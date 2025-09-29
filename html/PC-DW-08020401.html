@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>주문취소</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            let totalPrice = (items, detail = false, red = false) => {
+            let el = `<div class="price-info-total">`;
+            for( var title = 0; title < items.length; title++ ){
+                el += `
+                    <div class="flex">
+                        <p class="title">${items[title].title}</p>
+                        <p class="price${ red ? ' c-red' : ''}"><span>${items[title].price}</span>${items[title].isPoint ? 'P' : '원'}</p>
+                    </div>
+                    ${ items[title].desc ? '<span class="feedback">' + items[title].desc + '</span>' : '' }
+                `;
+            }
+            el += `</div>`;
+            return el;
+        }
+            const orderCancle =  `
+                <div class="order-cancle-modal">
+                    ${include('./atoms/title.ejs', {
+                        tag: 'h4',
+                        type: '3',
+                        con: '결제취소 예정금액을 확인해 주세요.</span>',
+                    })}
+                    <div class="brand-container">
+                        <div class="brand-price">
+                            ${totalPrice([
+                                { title: '환불 예정 금액', price: '9,999,999,999'},
+                            ], true, true) }
+                            ${totalPrice([
+                                { title: '사용 포인트 환불', price: '9,999,999,999', isPoint: true},
+                                { title: '사용 예치금 환불', price: '9,999,999,999'},
+                                { title: '카드 간편결제 취소', price: '9,999,999,999' , desc: '신한 (1234-****-****-1234) | 2025-01-01 23:22 | 일시불'},
+                                { title: '신용카드 결제 취소', price: '9,999,999,999' , desc: '신한 (1234-****-****-1234) | 2025-01-01 23:22 | 일시불'},
+                            ], false, false) }
+                            ${totalPrice([
+                                { title: '적립(예정) 취소 포인트', price: '-9,999,999,999', isPoint: true},
+                                { title: '적립(예정) 취소 낱알반품 포인트', price: '-9,999,999,999', isPoint: true},
+                            ], false, false) }
+                        </div>
+                    </div>
+                </div>
+            `;
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '주문취소',
+            content: orderCancle,
+            buttonFixed: true,
+            btns: include('./atoms/button.ejs', {
+                    value: '주문취소',
+                    size: 'md',
+                    type: 'filled'
+                })
+        }) %>
+        <!-- //modal area -->
+
+    </body>
+</html>
+��시불</span>
+                <div class="flex">
+                  <p class="title">신용카드 결제 취소</p>
+                  <p class="price"><span>9,999,999,999</span>원</p>
+                </div>
+                <span class="feedback">신한 (1234-****-****-1234) | 2025-01-01 23:22 | 일시불</span>
+              </div>
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">적립(예정) 취소 포인트</p>
+                  <p class="price"><span>-9,999,999,999</span>P</p>
+                </div>
+                <div class="flex">
+                  <p class="title">적립(예정) 취소 낱알반품 포인트</p>
+                  <p class="price"><span>-9,999,999,999</span>P</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <button class="btn cta filled md">
+            <span>주문취소</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+</body>
+
+</html>

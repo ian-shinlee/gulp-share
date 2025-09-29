@@ -1,0 +1,102 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.pagination {
+    margin-top: 24px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    --pagination-size: 30px;
+    --pagination-icon-size: 16px;
+    &:empty {
+        margin-top: 0 !important;
+    }
+
+    .page-item {
+        flex-shrink: 0;
+        overflow: hidden;
+        vertical-align: top;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--pagination-size);
+        background: var(--pagination-active-bg, var.$bfff);
+        font-size: var(--body1);
+        border-radius: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+        min-width: var(--pagination-size);
+        &.active,
+        &:hover {
+            font-weight: 600;
+        }
+        &.active {
+            --pagination-active-bg: #{var.$primary};
+            --pagination-active-c: #{var.$bfff};
+        }
+        &.disabled {
+            .page-prev,
+            .page-next {
+                --pagination-arrow: url("../image/icon/chevron-down-disabled.svg");
+            }
+            .page-first,
+            .page-last {
+                --pagination-arrow: url("../image/icon/chevrons-down-disabled.svg");
+            }
+        }
+    }
+
+    .page-first,
+    .page-prev,
+    .page-next,
+    .page-last {
+        width: var(--pagination-icon-size);
+        height: var(--pagination-icon-size);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: var(--pagination-arrow);
+        transform: rotate(var(--pagination-prev, 90deg));
+        font-size: 0;
+    }
+    .page-prev,
+    .page-next {
+        --pagination-arrow: url('../image/icon/chevron-down.svg');
+    }
+    .page-first,
+    .page-last {
+        --pagination-arrow: url('../image/icon/chevrons-down.svg');
+    }
+    .page-last,
+    .page-next {
+        --pagination-prev: -90deg;
+    }
+    .page-link {
+        color: var(--pagination-active-c, var.$b333);
+    }
+    .page-item:nth-child(1) {
+        margin-right: 4px;
+    }
+    .page-item:nth-child(2) {
+        margin-right: 10px;
+    }
+    .page-item:nth-last-child(1) {
+        margin-left: 4px;
+    }
+    .page-item:nth-last-child(2) {
+        margin-left: 10px;
+    }
+    @include mediaForMini {
+        .page-item {
+            margin: 0 !important;
+            min-width: 24px;
+            height: 24px;
+        }
+        .page-first,
+        .page-last,
+        .page-prev,
+        .page-next {
+            margin: 0 -6px;
+        }
+    }
+}

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>카드 재결제</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            let totalPrice = (items, detail = false, red = false) => {
+                let el = `<div class="price-info-total">`;
+                for( var title = 0; title < items.length; title++ ){
+                    el += `
+                        <div class="flex">
+                            <p class="title">${items[title].title}</p>
+                            <p class="price${ red ? ' c-red' : ''}"><span>${items[title].price}</span>원</p>
+                        </div>
+                        ${ items[title].desc ? '<span class="feedback">' + items[title].desc + '</span>' : '' }
+                    `;
+                }
+                el += `</div>`;
+                return el;
+            }
+            const cardRepay =  `
+                <div class="card-repay-modal">
+                    <div class="brand-container">
+                        ${totalPrice([
+                            { title: '재결제금액', price: '9,999,999,999'},
+                        ], true, true) }
+                    </div>
+                    <div class="toggle-title active">
+                        <h2>결제수단
+                            <!-- [D] 혜택이 있을 경우 노출 -->
+                            ${include('./atoms/button.ejs', { size: 'xs', value: '카드사 결제 혜택 안내', type: 'black-outline' })}
+                            <!-- [D 07.14] toggle-hide-show toggle-arrow 삭제 -->
+                        </h2>
+                        <!-- [D 07.14] 토글 버튼 삭제 -->
+                    </div>
+                    <div class="toggle-content">
+                        <!-- [D] ul.payment-wrap 영역 구조 변경 -->
+                        <ul class="payment-wrap">
+                            <!-- [D] 카드가 선택되었을 경우, payment에 .card-selected 클래스 추가 -->
+                            <li class="payment active">
+                                <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                                <div class="payment-head">
+                                    <div class="radio-wrap">
+                                        <label type="radio" for="radio10" class="input-radio">
+                                            <input type="radio" checked="" name="radio1" id="radio10">
+                                            <i></i>
+                                            <!-- [D 07.10] 문구 변경 -->
+                                            카드 간편결제
+                                        </label>
+                                    </div>
+                                    ${ include('./atoms/button.ejs', { size: 'xs', value: '간편결제 등록혜택안내', type: 'black-outline' })}
+                                </div>
+                                <div class="payment-form-wrap">
+                                    <div class="toggle-show-show">
+                                        ${include('./molecules/payment.ejs', { isDefault: true }) }
+                                        ${include('./molecules/payment.ejs', { index: 1, hasBadge: true }) }
+                                        ${include('./molecules/payment.ejs', { index: 2, hasBadge: true }) }
+                                        ${include('./molecules/payment.ejs', { index: 3, hasBadge: true }) }
+                                        ${include('./molecules/payment.ejs', { index: 4, hasBadge: true }) }
+                                        <!-- [D 0820] 구조 변경 -->
+                                        <div class="pay-detail-options">
+                                            ${include('./atoms/selectbox.ejs',{options:["일시불"]}) }
+                                            <div class="desc">
+                                                <span class="feedback">최대 12개월 무이자 할부</span>
+                                                ${include('./atoms/dotlist.ejs', {
+                                                    content: [
+                                                        '본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.',
+                                                    ]
+                                                }) }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="payment">
+                                <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                                <div class="payment-head">
+                                    <div class="radio-wrap">
+                                        <label type="radio" for="radio11" class="input-radio">
+                                            <input type="radio" name="radio1" id="radio11">
+                                            <i></i><!-- [D 0820] 문구 변경 -->간편페이/신용카드 결제</label>
+                                    </div>
+                                </div>
+                                <div class="payment-form-wrap">
+                                    ${include('./atoms/credit_item.ejs')}
+                                    <!-- [D 07.14] 닷리스트 추가 -->
+                                    <!-- [D 0820] 구조 변경 -->
+                                    <div class="pay-detail-options">
+                                        ${include('./atoms/selectbox.ejs',{options:["기타 카드"]})}
+                                        <div class="desc">
+                                            ${include('./atoms/dotlist.ejs', {
+                                                content: [
+                                                '본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.',
+                                                ]
+                                            })}
+                                        </div>
+                                    </div>
+                                    <!-- [D 07.14] 할부 영역 삭제 -->
+                                    <div class="toggle-show-show">
+                                        ${include('./atoms/box.ejs', { type: 'box', content:'카드 선택 후 <span class="c-red">결제하기</span> 버튼을 누르면 NHN KCP결제창으로 연결되며, 결제정보를 입력하실 수 있습니다.' })}
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- [D] 가상계좌 영역 삭제 -->
+                        </ul>
+                    </div>
+
+                    <h4 class="h2 caution"><!-- [D 0820] 문구 수정 -->결제 정보 확인 및 동의</h4>
+                    ${include('./atoms/dotlist.ejs', {
+                        content: [
+                            '재결제하는 금액을 확인하였으며, 결제에 동의합니다.',
+                        ]
+                    })}
+                </div>
+            `;
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '카드 재결제',
+            content: cardRepay,
+            buttonFixed: true,
+            btns: include('./atoms/button.ejs', {
+                    value: '취소',
+                    size: 'md',
+                    type: 'gray',
+                }) + include('./atoms/button.ejs', {
+                    value: '결제하기',
+                    size: 'md',
+                    type: 'filled'
+                })
+        }) %>
+        <!-- //modal area -->
+        <!-- [D] swiper 연결 -->
+        <script src="../static/content/js/swiper-bundle.min.js"></script>
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>
+d icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <button class="payment-item">
+                              <em>간편결제 카드 등록</em>
+                              <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swiper-arrow swiper-button-prev"></div>
+                      <div class="swiper-arrow swiper-button-next"></div>
+                    </div>
+                    <div class="swiper-payment">
+                      <div class="swiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card">
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card" disabled>
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                <span class="disabled">사용불가</span>
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card">
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <button class="payment-item">
+                              <em>간편결제 카드 등록</em>
+                              <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swiper-arrow swiper-button-prev"></div>
+                      <div class="swiper-arrow swiper-button-next"></div>
+                    </div>
+                    <div class="swiper-payment">
+                      <div class="swiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card">
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card" disabled>
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                <span class="disabled">사용불가</span>
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card">
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                            <div class="payment-item">
+                              <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                              <button class="card">
+                                <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                <em>카드사 0000</em>
+                                <!-- [D 07.10] 카드별명 추가 -->
+                                <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                              </button>
+                              <button class="btn cta outlined icon-trash">
+                                <span>카드삭제</span>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <button class="payment-item">
+                              <em>간편결제 카드 등록</em>
+                              <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swiper-arrow swiper-button-prev"></div>
+                      <div class="swiper-arrow swiper-button-next"></div>
+                    </div>
+                    <!-- [D 0820] 구조 변경 -->
+                    <div class="pay-detail-options">
+                      <div class="select-wrap">
+                        <select class="input-select" name="">
+                          <option value="일시불">일시불</option>
+                        </select>
+                      </div>
+                      <div class="desc">
+                        <span class="feedback">최대 12개월 무이자 할부</span>
+                        <ul class="dot-list">
+                          <li>본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="payment">
+                <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                <div class="payment-head">
+                  <div class="radio-wrap">
+                    <label type="radio" for="radio11" class="input-radio">
+                      <input type="radio" name="radio1" id="radio11">
+                      <i></i><!-- [D 0820] 문구 변경 -->간편페이/신용카드 결제</label>
+                  </div>
+                </div>
+                <div class="payment-form-wrap">
+                  <div class="credit-list">
+                    <!-- [D 0820] 기타카드 선택시 모두 비활성화 -->
+                    <!-- [D] 비활성화시 button.credit-item에 disabled 추가 및 aria-selected="false" -->
+                    <!-- [D] 선택 시 aria-selected="true" 변경 -->
+                    <!-- [D 07.14] BC카드와 우리카드 순서 변경함 -->
+                    <div>
+                      <span class="tag bg-red tag-payment">적립 7%</span>
+                      <button class="credit-item" aria-selected="true" data-credit="shinhan">
+                        <span>신한카드(SOL페이)</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="hyundai">
+                        <span>현대카드</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="bc">
+                        <span>BC카드(페이북)</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="kb">
+                        <span>KBPAY(국민카드)</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="samsung">
+                        <span>삼성카드</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="lotte">
+                        <span>롯데카드</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="hana">
+                        <span>하나PAY</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="nh">
+                        <span>농혐(NH페이)</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="woori">
+                        <span>우리카드</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="kjbank">
+                        <span>광주은행</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="citi">
+                        <span>씨티카드(구 한미)</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="suhyup">
+                        <span>수협</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="naver">
+                        <span>네이버페이</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="kakao">
+                        <span>카카오페이</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="payco">
+                        <span>PAYCO</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="ssg">
+                        <span>SSG PAY</span>
+                      </button>
+                    </div>
+                    <div>
+                      <button class="credit-item" aria-selected="false" data-credit="lpay">
+                        <span>L.PAY</span>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- [D 07.14] 닷리스트 추가 -->
+                  <!-- [D 0820] 구조 변경 -->
+                  <div class="pay-detail-options">
+                    <div class="select-wrap">
+                      <select class="input-select" name="">
+                        <option value="기타 카드">기타 카드</option>
+                      </select>
+                    </div>
+                    <div class="desc">
+                      <ul class="dot-list">
+                        <li>본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- [D 07.14] 할부 영역 삭제 -->
+                  <div class="toggle-show-show">
+                    <div class="gray-box"> 카드 선택 후 <span class="c-red">결제하기</span> 버튼을 누르면 NHN KCP결제창으로 연결되며, 결제정보를 입력하실 수 있습니다. </div>
+                  </div>
+                </div>
+              </li>
+              <!-- [D] 가상계좌 영역 삭제 -->
+            </ul>
+          </div>
+          <h4 class="h2 caution"><!-- [D 0820] 문구 수정 -->결제 정보 확인 및 동의</h4>
+          <ul class="dot-list">
+            <li>재결제하는 금액을 확인하였으며, 결제에 동의합니다.</li>
+          </ul>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <button class="btn cta gray md">
+            <span>취소</span>
+          </button>
+          <button class="btn cta filled md">
+            <span>결제하기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>회원조회 | 회원가입</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body>
+  <header class="header-join">
+    <div class="flex justify-between">
+      <h1><a href="#none"><img src="../static/content/image/logo.png" alt="온다몰"></a></h1>
+    </div>
+  </header>
+  <div class="content-inner">
+    <div class="section-narrow">
+      <div class="join step1">
+        <!-- [D 1차 회원수정] join-title 대신 sr-only로 클래스 변경 -->
+        <h2 class="sr-only"><span>회원가입</span></h2>
+        <nav class="join-step">
+          <ul class="flex">
+            <!-- [D 06.16 문구 변경됨] -->
+            <li aria-current="true">약관동의</li>
+            <li aria-current="false">회원정보 입력</li>
+            <li aria-current="false">가입완료</li>
+          </ul>
+        </nav>
+        <form>
+          <!-- [D 1차 회원수정] h3에서 p.body1로 변경 -->
+          <!-- [D 06.16] 문구 변경 및 주의 텍스트 삭제 -->
+          <div class="head-wrap">
+            <div>
+              <p class="body1 c-b000"> 약국 대표약사님(만 14세 이상)만 회원 가입이 가능하며, 공동대표일 경우 대표자 1명만 가입이 가능합니다.<br />아래 정보 입력 후 본인인증 및 간편가입을 진행해 주세요. </p>
+            </div>
+          </div>
+          <div class="form-wrap">
+            <!-- [D] h3.form-title을 h4.form-title으로 일괄 변경 -->
+            <h4 class="form-title">이름<em class="mandatory-mark">*</em></h4>
+            <!-- [D 06.16] placeholder 수정-->
+            <div class="form-line">
+              <input type="text" class="form-basic " value="" placeholder="이름을 입력해 주세요." />
+              <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+              <span class="feedback hidden invalid">이름을 한글로 입력해 주세요.</span>
+            </div>
+            <h4 class="form-title">사업자등록번호<em class="mandatory-mark">*</em></h4>
+            <!-- [D 1차 회원수정] type: number로 수정 -->
+            <div class="form-line">
+              <input type="number" class="form-basic " value="" placeholder="사업자등록번호 입력('-' 제외 10자리 입력)해 주세요." />
+              <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+              <span class="feedback hidden invalid">10자리 숫자를 입력해 주세요.</span>
+            </div>
+            <h4 class="form-title">생년월일<em class="mandatory-mark">*</em></h4>
+            <div class="form-line">
+              <input type="number" class="form-basic  is-error" value="" placeholder="생년월일(예: 19991212, 8자리)입력해 주세요." />
+              <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+              <span class="feedback invalid">8자리 숫자를 입력해 주세요.</span>
+            </div>
+          </div>
+          <!-- [D 06.16] 약관동의를 회원가입 첫번째 단계로 이동 -->
+          <!-- 약관 동의 -->
+          <div class="head-wrap">
+            <div>
+              <h3 class="h2"> 약관 동의 </h3>
+            </div>
+          </div>
+          <div class="form-wrap">
+            <div class="agreement">
+              <div class="check-wrap">
+                <label type="checkbox" class="input-checkbox" for="agree-all0">
+                  <input type="checkbox" name="agree-all" id="agree-all0">
+                  <i></i> 전체동의 </label>
+              </div>
+              <div class="grid">
+                <!-- [D 1차 회원수정] 약관 옵션 변경됨 -->
+                <div class="grid-item">
+                  <!-- [D 06.16] 문구 변경 -->
+                  <div class="check-wrap">
+                    <label type="checkbox" class="input-checkbox" for="agree10">
+                      <input type="checkbox" name="agree1" id="agree10">
+                      <i></i>
+                      <em>[필수]</em>온다몰 서비스 이용 약관 동의 </label>
+                  </div>
+                  <button class="btn text icon-chevron-down icon-right">
+                    <span>전체보기</span>
+                  </button>
+                </div>
+                <div class="grid-item">
+                  <div class="check-wrap">
+                    <label type="checkbox" class="input-checkbox" for="agree20">
+                      <input type="checkbox" name="agree2" id="agree20">
+                      <i></i>
+                      <em>[필수]</em>개인정보 제 3자 제공동의 </label>
+                  </div>
+                  <button class="btn text icon-chevron-down icon-right">
+                    <span>전체보기</span>
+                  </button>
+                </div>
+                <div class="grid-item">
+                  <!-- [D 06.16] 문구 변경 -->
+                  <div class="check-wrap">
+                    <label type="checkbox" class="input-checkbox" for="agree30">
+                      <input type="checkbox" name="agree3" id="agree30">
+                      <i></i>
+                      <em>[필수]</em>개인정보 수집/이용 동의 </label>
+                  </div>
+                  <button class="btn text icon-chevron-down icon-right">
+                    <span>전체보기</span>
+                  </button>
+                </div>
+                <!-- [D 06.16] 추가 -->
+                <div class="grid-item col-span-2">
+                  <div class="check-wrap">
+                    <label type="checkbox" class="input-checkbox" for="agree50">
+                      <input type="checkbox" name="agree5" id="agree50">
+                      <i></i>
+                      <span>[선택]</span>직거래처 정보 연동을 통한 간편가입 </label>
+                  </div>
+                  <button class="btn text icon-chevron-down icon-right">
+                    <span>전체보기</span>
+                  </button>
+                  <div class="check-wrap checkbox-tab hidden-option hidden">
+                    <label type="checkbox" class="input-checkbox" for="checkbox-tab0">
+                      <input type="checkbox" name="checkbox-tab" id="checkbox-tab0">
+                      <i></i>
+                      <span>대원제약</span>
+                    </label>
+                  </div>
+                </div>
+                <!-- //[D 06.16] 추가 -->
+              </div>
+            </div>
+          </div>
+          <div class="flex crud">
+            <!-- [D 06.16] 변경 -->
+            <button class="btn cta gray md">
+              <span>취소</span>
+            </button>
+            <button class="btn cta filled md">
+              <span>본인인증</span>
+            </button>
+          </div>
+          <!-- [D 06.16] 추가 -->
+          <div class="flex text-link">
+            <a href="#none">필수서류 바로 제출이 어려우실 경우 클릭해 주세요.</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

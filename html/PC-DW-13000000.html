@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>알림센터</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal notify-modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header">
+        <!-- [D 06.26] em태그 및 버튼 추가 --><em>알림</em>
+        <button class="btn cta xs">
+          <span>알림수신설정</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="nofi-cover">
+          <!-- [D] 마이페이지 > 쿠폰 tabs을 참고하여 변경하였습니다. -->
+          <!-- [D] div.tab 추가 및 type별 클래스 추가 필요(line/box) -->
+          <div class="tab line">
+            <!-- [D] .tabs를 감싸고 있는 scroll-area가 추가되었습니다. -->
+            <div class="scroll-area">
+              <div class="tabs" role="tablist">
+                <!-- [D] a tag를 버튼으로 변경 및 aria 추가 -->
+                <button class="tab-item" role="tab" aria-controls="panel-1" aria-selected="true"> 전체 모음 </button>
+                <!-- [D] a tag를 버튼으로 변경 및 aria 추가 -->
+                <button class="tab-item" role="tab" aria-controls="panel-2" aria-selected="false"> 공지 모음 </button>
+                <!-- [D] a tag를 버튼으로 변경 및 aria 추가 -->
+                <button class="tab-item" role="tab" aria-controls="panel-3" aria-selected="false"> 이벤트/혜택 이벤트 모음 </button>
+                <!-- [D] a tag를 버튼으로 변경 및 aria 추가 -->
+                <button class="tab-item" role="tab" aria-controls="panel-4" aria-selected="false"> 1:1문의 모음 </button>
+              </div>
+            </div>
+            <!-- [D] div.tab 추가 -->
+            <div class="tabs-content" role="tabpanel" id="panel-1" aria-labelledby="tab-1" aria-hidden="false">
+              <h3 class="h3">오늘 받은 알림</h3>
+              <div class="notify-info-wrap">
+                <!-- [D] 읽지 않은 알림일 경우 new 클래스 추가 -->
+                <div class="notify-info new">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">공지사항</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">2025년 3월 1일 약가인하 예상품목 안내</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">대원제약대원제약대원제약대원제약</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다.알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다.알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다.알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다.알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다. 알림 내용이 들어갑니다.</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">약사몰</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">알림 내용이 들어갑니다.</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+                <!-- [D] notify-info 개수가 4개 이상일 때 more 노출 -->
+                <div class="more">
+                  <button class="btn cta light-outline icon-chevron-down">
+                    <span>알림 더보기</span>
+                  </button>
+                </div>
+              </div>
+              <h3 class="h3">이전 알림</h3>
+              <div class="notify-info-wrap">
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">약사몰</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">알림 내용이 들어갑니다.</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+                <!-- [D 06.04] notify-info 개수가 2개 이상일 때 more 노출 -->
+                <div class="more">
+                  <button class="btn cta light-outline icon-chevron-down">
+                    <span>알림 더보기</span>
+                  </button>
+                </div>
+              </div>
+              <p class="notify-desc">받은 알림은 최대 14일간 보관 후 자동삭제됩니다.</p>
+            </div>
+            <div class="tabs-content" role="tabpanel" id="panel-2" aria-labelledby="tab-2" aria-hidden="true">
+              <h3 class="h3">오늘 받은 알림</h3>
+              <!-- [D 06.04] 아이콘 이미지 변경 -->
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/event/icon-no-alarm.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>보관중인 알림이 없습니다.</p>
+                </div>
+              </div>
+              <h3 class="h3">이전 알림</h3>
+              <div class="notify-info-wrap">
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">약사몰</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">알림 내용이 들어갑니다.</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+              </div>
+              <p class="notify-desc">받은 알림은 최대 14일간 보관 후 자동삭제됩니다.</p>
+            </div>
+            <div class="tabs-content" role="tabpanel" id="panel-3" aria-labelledby="tab-3" aria-hidden="true">
+              <h3 class="h3">오늘 받은 알림</h3>
+              <!-- [D 06.04] 아이콘 이미지 변경 -->
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/event/icon-no-alarm.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>보관중인 알림이 없습니다.</p>
+                </div>
+              </div>
+              <h3 class="h3">이전 알림</h3>
+              <!-- [D 06.04] 아이콘 이미지 변경 -->
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/event/icon-no-alarm.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>보관중인 알림이 없습니다.</p>
+                </div>
+              </div>
+              <p class="notify-desc">받은 알림은 최대 14일간 보관 후 자동삭제됩니다.</p>
+            </div>
+            <div class="tabs-content" role="tabpanel" id="panel-4" aria-labelledby="tab-4" aria-hidden="true">
+              <h3 class="h3">오늘 받은 알림</h3>
+              <div class="notify-info-wrap">
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">대원제약</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">감기의 계절 맞이 콜대원 묶음할인 기획전! 묶어서 구매하면 최대 10% 할인! 혜택을 놓치지 마세요~</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+              </div>
+              <h3 class="h3">이전 알림</h3>
+              <div class="notify-info-wrap">
+                <div class="notify-info ">
+                  <a href="#">
+                    <div class="flex">
+                      <span class="body1">약사몰</span>
+                      <span class="divider-vertical-line"></span>
+                      <span class="body2">YYYY.MM.DD HH:MM</span>
+                    </div>
+                    <p class="desc">알림 내용이 들어갑니다.</p>
+                  </a>
+                  <button class="btn icon icon-close">
+                    <span><!-- [D 06.26] 문구 변경 -->삭제</span>
+                  </button>
+                </div>
+              </div>
+              <p class="notify-desc">받은 알림은 최대 14일간 보관 후 자동삭제됩니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- [D 06.26] 알림 수신설정 영역 추가 -->
+        <div class="notify-setting hidden">
+          <p class="h3">알림 수신설정</p>
+          <p class="body2">온다몰과 입점업체의 다양한 혜택 알림받기 상태를 관리할 수 있습니다. <br>알림받기를 하는 경우 이벤트, 혜택 알림을 받을 수 있습니다.</p>
+          <div class="flex">
+            <p class="body1">공지</p>
+            <button class="btn cta light-outline xs icon-alarm">
+              <span>알림받기</span>
+            </button>
+          </div>
+          <div class="flex">
+            <p class="body1">1:1문의</p>
+            <button class="btn cta light-outline xs icon-alarm active">
+              <span>알림받는중</span>
+            </button>
+          </div>
+          <div class="flex">
+            <p class="body1">이벤트/혜택</p>
+          </div>
+          <div class="line-box">
+            <div class="flex">
+              <p class="body1">온다몰온다몰온다몰온다몰온다몰</p>
+              <button class="btn cta light-outline xs icon-alarm">
+                <span>알림받기</span>
+              </button>
+            </div>
+            <div class="flex">
+              <p class="body1">온다몰</p>
+              <button class="btn cta light-outline xs icon-alarm">
+                <span>알림받기</span>
+              </button>
+            </div>
+            <div class="flex">
+              <p class="body1">온다몰</p>
+              <button class="btn cta light-outline xs icon-alarm active">
+                <span>알림받는중</span>
+              </button>
+            </div>
+            <div class="flex">
+              <p class="body1">온다몰</p>
+              <button class="btn cta light-outline xs icon-alarm active">
+                <span>알림받는중</span>
+              </button>
+            </div>
+            <div class="flex">
+              <p class="body1">온다몰</p>
+              <button class="btn cta light-outline xs icon-alarm active">
+                <span>알림받는중</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <script src="../static/content/js/markup.js"></script>
+  <script>
+    // <!-- [D 06.26] 삭제 토스트 탑업 추가 -->
+    const notifyDeleteBtn = document.querySelectorAll('.notify-info .icon-close');
+    if (notifyDeleteBtn.length > 0) {
+      notifyDeleteBtn.forEach((btn) => {
+        // 알림 삭제 토스트 팝업
+        tippy(btn, {
+          arrow: false,
+          appendTo: btn.closest('.tabs-content'),
+          placement: 'bottom',
+          content: `<span>알림이 삭제되었습니다.</span>`,
+          trigger: 'click',
+          hideOnClick: false,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 0],
+          onShow(instance) {
+            setTimeout(() => {
+              instance.hide();
+            }, 2000);
+          },
+          onMount(instance) {
+            // 마크업확인용 임의코드, 삭제처리 위치
+            let parentEl = btn.closest('.notify-info-wrap'),
+              items = parentEl.querySelectorAll('.notify-info'),
+              item = btn.closest('.notify-info');
+            if (items.length == 1) {
+              parentEl.outerHTML = `
+
+
+    <div class="no-contents">
+        
+            <div class="img-wrap">
+                
+
+    <img src="../static/content/image/event/icon-no-alarm.svg" alt="" loading="lazy" decoding="async"/>
+
+            </div>
+        
+        <div class="text-wrap">
+            
+            <p>보관중인 알림이 없습니다.</p>
+        </div>
+        
+    </div>
+`
+            }
+            return item.remove();
+          },
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>

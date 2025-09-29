@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>카드 간편결제 등록</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            const cardEasypay =  `
+                <div class="card-easypay-modal">
+                    ${include('./atoms/title.ejs', {
+                        tag: 'h4',
+                        type: '3',
+                        con: '카드정보 입력',
+                    })}
+                    <div class="form-wrap">
+                        <!-- [D] 회원가입 시 등록인 경우 본인인증 영역 미 노출 -->
+                        <h4 class="form-title">휴대전화 본인인증</h4>
+                        <div class="form-line">
+                            <div class="input-card">
+                                ${include('./atoms/button.ejs', {value: '인증하기' })}
+                            </div>
+                        </div>
+                        <!-- [D] 휴대폰 본인인증 완료 시 -->
+                        <h4 class="form-title">휴대전화 본인인증</h4>
+                        <div class="form-line">
+                            <p class="body1">인증완료</p>
+                        </div>
+                        <!-- // [D] 회원가입 시 등록인 경우 본인인증 영역 미 노출 -->
+                        <h4 class="form-title">카드사</h4>
+                        <div class="form-line">
+                            <div class="input-card">
+                                ${include('./atoms/selectbox.ejs',{options:["선택"], show: true})}
+                            </div>
+                        </div>
+                        <h4 class="form-title">카드번호</h4>
+                        <div class="form-line">
+                            <!-- [D] 보안키보드 마스킹 뒤의 8자리 -->
+                            <div class="input-card">
+                                ${include('./atoms/input.ejs', { placeholder: '입력', type:'number' })}
+                                <span>-</span>
+                                ${include('./atoms/input.ejs', { placeholder: '입력', type:'number' })}
+                                <span>-</span>
+                                ${include('./atoms/input.ejs', { placeholder: '입력', type:'password'})}
+                                <span>-</span>
+                                ${include('./atoms/input.ejs', { placeholder: '입력', type:'password' })}
+                            </div>
+                        </div>
+                        <h4 class="form-title">유효기간</h4>
+                        <div class="form-line">
+                            <div class="input-card">
+                                ${include('./atoms/input.ejs', { placeholder: 'MM', type:'number'})}
+                                <span>/</span>
+                                ${include('./atoms/input.ejs', { placeholder: 'YY', type:'number'})}
+                            </div>
+                        </div>
+                        <h4 class="form-title">생년월일/사업자등록번호</h4>
+                        <div class="form-line">
+                            <div class="input-card grid-col-2">
+                                ${include('./atoms/input.ejs', { placeholder: '생년월일/사업자등록번호를 입력해 주세요.' })}
+                            </div>
+                            ${include('./atoms/guide.ejs', { invalid: false, guide : '개인카드는 생년월일(8자리), 법인카드는 사업자번호(10자리)를 입력해 주세요.', show: true })}
+                        </div>
+                        <h4 class="form-title">간편결제명</h4>
+                        <div class="form-line">
+                            <div class="input-card grid-col-2">
+                                ${include('./atoms/input.ejs', { placeholder: '간편결제명을 입력해 주세요.' })}
+                            </div>
+                            ${include('./atoms/guide.ejs', { invalid: false, guide : '최대 15자까지 입력 가능합니다.', show: true })}
+                        </div>
+                    </div>
+                    ${include('./atoms/title.ejs', {
+                        tag: 'h4',
+                        type: '3',
+                        con: '카드 간편결제 이용약관 동의',
+                    })}
+                    <div class="form-wrap">
+                        <div class="agreement">
+                            <div class="grid">
+                                <div class="grid-item col-span-2">
+                                    ${include('./atoms/checkbox.ejs', {
+                                        checkboxList: ["카드 간편결제 이용약관 동의"],
+                                        name: 'agree2',
+                                    })}
+                                    ${include('./atoms/button.ejs', {
+                                        value: '전체보기',
+                                        buttonType: 'text',
+                                        icon: 'chevron-down',
+                                        iconRight: true
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '카드 간편결제 등록',
+            content: `<form>${cardEasypay}</form>`,
+            buttonFixed: true,
+            btns: include('./atoms/button.ejs', {
+                    value: '취소',
+                    size: 'md',
+                    type: 'gray',
+                    isLink: true,
+                }) + include('./atoms/button.ejs', {
+                    value: '등록',
+                    size: 'md',
+                    type: 'filled'
+                })
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>
+    </div>
+            </div>
+          </div>
+        </form>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>취소</span>
+          </a>
+          <button class="btn cta filled md">
+            <span>등록</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

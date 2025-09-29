@@ -1,0 +1,105 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.progress-bar {
+    padding-top: 13px;
+    display: grid;
+    grid-template-columns: var(--bar-columns, repeat(3, 1fr));
+    gap: var(--bar-gap, 2px 4px);
+    --bar-height: 6px;
+    --bar-radius: 3px;
+    --bar-base-color: #D9D9D9; // shit lineNormal
+    --bar-active-color: #{var.$primary};
+    span {
+        display: block;
+        width: 100%;
+    }
+    .bar {
+        height: var(--bar-height, 6px);
+        border-radius: var(--bar-radius);
+        background-color: var(--bar-base-color);
+        position: relative;
+        @include before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: var(--bar-radius);
+            height: 100%;
+            background-color: var(--bar-active-color);
+            width: var(--percentage-position, 0);
+        }
+        @include after {
+            display: var(--bar-after-display, none);
+            position: absolute;
+            left: var(--percentage-position, 0);
+        }
+    }
+    .bar-num {
+        text-align: right;
+        @include typo('body3');
+        --typo-custom-c: var(--bar-base-color);
+        --typo-custom-w: 600;
+    }
+
+    @mixin bar-fill-count {
+        --percentage-position: calc((var(--status) - var(--base, 0)) * 100 / (var(--goal) - var(--base, 0)) * 1%);
+    }
+
+    &.step1 {
+        .bar:nth-child(1) {
+            --bar-after-display: block;
+            @include bar-fill-count;
+        }
+    }
+    &.step2 {
+        .bar {
+            &:first-child {
+                --percentage-position: 100%;
+            }
+            &:nth-child(2) {
+                --bar-after-display: block;
+                @include bar-fill-count;
+            }
+        }
+        .bar-num:nth-child(3n+1) {
+            color: var(--bar-active-color);
+        }
+    }
+    &.step3 {
+        .bar {
+            &:nth-child(n+1):nth-child(-n+2) {
+                --percentage-position: 100%;
+            }
+            &:nth-child(3) {
+                --bar-after-display: block;
+                @include bar-fill-count;
+            }
+        }
+        .bar-num:nth-child(3n+1),
+        .bar-num:nth-child(3n+2) {
+            color: var(--bar-active-color);
+        }
+    }
+    &.step4 {
+        .bar {
+            &:nth-child(n+1):nth-child(-n+3) {
+                --percentage-position: 100%;
+            }
+            &:nth-child(4) {
+                --bar-after-display: block;
+                @include bar-fill-count;
+            }
+        }
+    }
+    &.step5 {
+        .bar {
+            &:nth-child(n+1):nth-child(-n+4) {
+                --percentage-position: 100%;
+            }
+            &:nth-child(5) {
+                --bar-after-display: block;
+                @include bar-fill-count;
+            }
+        }
+    }
+}

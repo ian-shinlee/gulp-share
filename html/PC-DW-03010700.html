@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>구매제한 안내</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 구매제한 안내 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="info-limit">
+          <div class="no-contents">
+            <div class="img-wrap">
+              <img src="../static/content/image/icon/icon-limit.svg" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="text-wrap">
+              <p>아래 상품의 구매 가능 갯수를 초과했습니다.<br />장바구니에서 구매 갯수를 조정해 주세요.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>상품명</th>
+                  <th>1일 구매 한도<br />(구매 수량)</th>
+                  <th>당월 구매 한도<br />(구매 수량)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p class="prd-name">[판매자] 제조사 상품명 규격 단위 합쳐서 노출...[판매자] 제조사 상품명 규격 단위 합쳐서 노출...</p>
+                  </td>
+                  <td>
+                    <p class="body1">-</p>
+                  </td>
+                  <td>
+                    <p class="body1">1,000,000</p>
+                    <p class="body1">90</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="prd-name">[판매자] 제조사 상품명 규격 단위 합쳐서 노출...[판매자] 제조사 상품명 규격 단위 합쳐서 노출...</p>
+                  </td>
+                  <td>
+                    <p class="body1">1,000,000</p>
+                    <p class="body1">90</p>
+                  </td>
+                  <td>
+                    <p class="body1">1,000,000</p>
+                    <p class="body1">90</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="prd-name">[판매자] 제조사 상품명 규격 단위 합쳐서 노출...[판매자] 제조사 상품명 규격 단위 합쳐서 노출...</p>
+                  </td>
+                  <td>
+                    <p class="body1">1,000,000</p>
+                    <p class="body1">90</p>
+                  </td>
+                  <td>
+                    <p class="body1">-</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>장바구니</span>
+          </a>
+          <a href="#none" class="btn cta filled md">
+            <!-- [D] span이 추가됨 -->
+            <span>제외하고 주문</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

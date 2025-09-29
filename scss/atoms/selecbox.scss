@@ -1,0 +1,58 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.select-wrap {
+    width: var(--select-width, 100%);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    select {
+        flex: 1;
+        &:not(:last-child) {
+            margin-right: var(--item-gap);
+        }
+    }
+}
+select {
+    outline: none;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+
+    cursor: pointer;
+    width: 100%;
+    border: 1px solid var(--select-bdc, var.$inputDefault);
+    border-radius: 4px;
+    height: var(--item-height);
+    padding: 0 36px 0 12px;
+
+    font-size: var(--body1);
+    // letter-spacing: -0.28px;
+    color: var(--select-c, var.$b333);
+
+    background-color: var(--select-bg, var.$bfff);
+    background-image: url('../image/icon/chevron-down.svg');
+    background-repeat: no-repeat;
+    background-size: 16px auto;
+    background-position: calc(100% - 12px) center;
+
+    @include ellipse;
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        --select-bdc: #{var.$inputFocus};
+    }
+    &:disabled {
+        --select-c: #{var.$b777};
+        --select-bg: #{var.$bgHeavy};
+    }
+    &.is-error {
+        --select-bdc: #{var.$p_red};
+    }
+
+    &:not(:last-child) {
+        margin-right: var(--item-gap);
+    }
+}

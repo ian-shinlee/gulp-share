@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>장바구니 동일상품</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal check-num-modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 장바구니 동일상품 </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="flex">
+          <button class="btn cta xs">
+            <span>장바구니</span>
+          </button>
+        </div>
+        <div class="gray-box prd-num-item">
+          <p class="body1">All DAY ONE 활성비타민 올대원 Gold 골드정 120정</p>
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>장바구니 수량</th>
+                  <th>선택 수량</th>
+                  <th class="c-primary">변경 수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check1-1" class="input-radio">
+                        <input type="radio" checked name="check1" id="check1-1">
+                        <i></i> 장바구니 상품 추가 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check2-1" class="input-radio">
+                        <input type="radio" name="check1" id="check2-1">
+                        <i></i> 선택한 수량으로 변경 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="gray-box prd-num-item">
+          <p class="body1">All DAY ONE 활성비타민 올대원 Gold 골드정 120정</p>
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>장바구니 수량</th>
+                  <th>선택 수량</th>
+                  <th class="c-primary">변경 수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check1-2" class="input-radio">
+                        <input type="radio" checked name="check2" id="check1-2">
+                        <i></i> 장바구니 상품 추가 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check2-2" class="input-radio">
+                        <input type="radio" name="check2" id="check2-2">
+                        <i></i> 선택한 수량으로 변경 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="gray-box prd-num-item">
+          <p class="body1">All DAY ONE 활성비타민 올대원 Gold 골드정 120정</p>
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>장바구니 수량</th>
+                  <th>선택 수량</th>
+                  <th class="c-primary">변경 수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check1-3" class="input-radio">
+                        <input type="radio" checked name="check3" id="check1-3">
+                        <i></i> 장바구니 상품 추가 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check2-3" class="input-radio">
+                        <input type="radio" name="check3" id="check2-3">
+                        <i></i> 선택한 수량으로 변경 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="gray-box prd-num-item">
+          <p class="body1">All DAY ONE 활성비타민 올대원 Gold 골드정 120정</p>
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>장바구니 수량</th>
+                  <th>선택 수량</th>
+                  <th class="c-primary">변경 수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check1-4" class="input-radio">
+                        <input type="radio" checked name="check4" id="check1-4">
+                        <i></i> 장바구니 상품 추가 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="radio-wrap">
+                      <label type="radio" for="check2-4" class="input-radio">
+                        <input type="radio" name="check4" id="check2-4">
+                        <i></i> 선택한 수량으로 변경 </label>
+                    </div>
+                  </td>
+                  <td><span class="body1">555</span></td>
+                  <td><span class="body1">20</span></td>
+                  <td><span class="body1 c-primary">20</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

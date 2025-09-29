@@ -1,0 +1,560 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+textarea,
+.input-text {
+    border-radius: 4px;
+    border: 1px solid var(--input-bdc, var.$inputDefault);
+
+    font-size: var(--body1);
+    // letter-spacing: -0.28px;
+    color: var(--input-c, var.$b333);
+
+    background-color: var(--input-bgc, var.$bfff);
+    &::placeholder {
+        color: var.$b999;
+    }
+    &:hover:not(:disabled):not(:read-only),
+    &:focus:not(:disabled):not(:read-only) {
+        --input-bdc: #{var.$inputFocus};
+    }
+    &.is-error,
+    &:invalid {
+        --input-bdc: #{var.$p_red};
+        & ~ .feedback {
+            --typo-custom-c: #{var.$p_red};
+        }
+    }
+    &:disabled {
+        --input-bgc: #{var.$bgHeavy};
+    }
+}
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+.input-text {
+    width: var(--input-width, 100%);
+    height: var(--input-height, var(--item-height));
+    padding: 0 var(--input-px, 12px);
+
+    &[type="number"]{
+        -webkit-appearance: textfield;
+        appearance: textfield;
+    }
+}
+input[type="number"]{
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+    }
+}
+input.date {
+    padding-right: 36px;
+    background-image: url('../image/icon/calendar.svg');
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+    // @include ellipse;
+}
+
+// .input-file-upload {
+//     cursor: pointer;
+//     min-width: 0;
+//     display: flex;
+//     width: var(--input-width, 100%);
+//     input[type="file"] {
+//         @include sr-only;
+//     }
+//     .input-text {
+//         @include ellipse;
+//         flex: 1;
+//         width: auto;
+//         display: inline-block;
+//         padding-right: 36px;
+//         line-height: calc(var(--item-height) - 2px);
+//         position: relative;
+//         @include beforeImage(16px, 16px, url('../image/icon/folder-plus.svg')) {
+//             position: absolute;
+//             top: 50%;
+//             right: 12px;
+//             transform: translateY(-50%);
+//         };
+//     }
+//     .btn {
+//         margin-left: var(--item-gap);
+//         line-height: 33px;
+//     }
+// }
+
+[type="text"].input-file-download {
+    @include ellipse;
+    border: none;
+    background-color: var.$bgNormal;
+    padding-left: 28px;
+    background-image: url('../image/icon/paperclip.svg');
+    background-repeat: no-repeat;
+    background-size: 12px auto;
+    background-position: 10px center;
+}
+
+textarea {
+    vertical-align: top;
+    width: var(--textarea-width, 100%);
+    padding: 8px 12px;
+    height: 149px;
+    resize: none;
+}
+
+// checkbox / radio
+.input-checkbox,
+.input-radio {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    line-height: var(--item-height);
+    font-size: var(--body1);
+    // letter-spacing: -0.28px;
+    color: var(--select-c, var.$b333);
+    input {
+        visibility: hidden;
+        @include sr-only;
+        &:checked ~ i {
+            --checked-color: #{var.$primary};
+        }
+        &:disabled ~ i {
+            --checked-color: #{var.$bccc};
+        }
+    }
+    i {
+        flex-shrink: 0;
+        display: inline-block;
+        width: var(--check-icon-size);
+        height: var(--check-icon-size);
+        background-color: var.$bfff;
+        border: 1px solid var(--checked-color, var.$inputDefault);
+        margin-right: var(--item-gap);
+    }
+    > em,
+    > span {
+        padding-right: 4px;
+        font-weight: 500;
+    }
+    > em {
+        color: var.$destructive;
+    }
+    > span {
+        color: var.$b777;
+    }
+    &:not(:first-child) {
+        margin-left: 8px;
+    }
+}
+.input-checkbox {
+    input {
+        &:checked {
+            ~ i {
+                background-color: var.$primary;
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAYAAAAPtVbGAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7dRBCsAgDETROao3MTef1kUpyJQKTkDEDy71LRIETttHsrSDrO7HK98K3HWAHxFAwNm6wOh2zAJP1Q4IREJ0zKBd+oLoHLKCmLFFAvICP1DAXQcFsmL2z3raswvlNFl6vcw8RAAAAABJRU5ErkJggg==');
+                background-size: 16px auto;
+                background-position: center;
+            }
+        }
+        &:disabled ~ i {
+            background-color: var.$bgHeavy;
+        }
+        &:disabled:checked ~ i {
+            background-color: var.$bccc;
+        }
+    }
+    i {
+        border-radius: 2px;
+    }
+}
+.input-radio {
+    input {
+        &:checked {
+            ~ i {
+                border-width: 4px;
+            }
+        }
+        &:disabled ~ i {
+            background-color: var.$bgHeavy;
+        }
+    }
+    i {
+        border-radius: 50%;
+    }
+}
+.check-wrap,
+.radio-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.check-wrap.switch {
+    --switch-color: #BEBEBE;
+    i {
+        width: 40px;
+        height: 24px;
+        border-radius: 12px;
+        border: 2px solid var(--switch-color);
+        background-color: var(--switch-color);
+        position: relative;
+        background-image: unset !important;
+        @include after {
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var.$bfff;
+            transition: 200ms;
+        }
+    }
+    input:checked ~ i {
+        --switch-color: #{var.$primary};
+        &:after {
+            left: calc(100% - 20px);
+        }
+    }
+}
+.check-wrap.checkbox-tab {
+    width: 100%;
+    display: grid;
+    grid-template-columns: var(--check-tab-columns, repeat(auto-fit, minmax(24%, 1fr)));
+    gap: var(--check-tab-gap, 8px);
+    // --item-height: 47px;
+    .input-checkbox {
+        margin: 0 !important;
+        position: relative;
+        justify-content: center;
+        font-weight: 500;
+        min-width: 0;
+        padding: 0 20px;
+        font-size: var(--body2);
+        line-height: 35px !important;
+        i {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            --check-icon-size: 100%;
+            border: 1px solid var(--check-tab-active-c, #9B9B9B);
+            border-radius: 4px;
+            background-color: var(--check-tab-active-bg, var.$bfff);
+            background-image: none;
+        }
+        span {
+            @include ellipse;
+            color: var(--check-tab-active-c, var.$b333);
+            position: relative;
+            padding: 0;
+        }
+        &:hover {
+            --check-tab-active-bg: #{var.$primaryQuaternary};
+            --check-tab-active-c: #{var.$primary};
+        }
+        input:checked {
+            ~ i,
+            ~ span {
+                --check-tab-active-bg: #{var.$primaryQuaternary};
+                --check-tab-active-c: #{var.$primary};
+            }
+        }
+    }
+    @include media {
+        --check-tab-columns: repeat(auto-fit, minmax(48%, 1fr));
+        // --check-tab-gap: 8px;
+        // --item-height: 35px;
+        // --body1: 12px;
+    }
+}
+
+.radio-wrap.radio-tab {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16.6666%, 1fr));
+    // border-top: 1px solid var.$lineNormal;
+    // border-left: 1px solid var.$lineNormal;
+    position: relative;
+
+    &:not(.line) {
+        background-image: url('../image/icon/tab-pattern-6.jpg');
+        background-size: 100% auto;
+        @include after {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: inset 0 1px 0 var.$lineNormal, inset 0 -1px 0 var.$lineNormal,inset 1px 0 0 var.$lineNormal, inset -1px 0 0 var.$lineNormal;
+            pointer-events: none;
+        }
+
+        .input-radio {
+            overflow: hidden;
+            margin-left: 0;
+            position: relative;
+            justify-content: center;
+            height: var(--tab-radio-h, 55px);
+            --tabitem-bdw: 0;
+            border-right: var(--tabitem-bdw) solid var.$lineNormal;
+            border-bottom: var(--tabitem-bdw) solid var.$lineNormal;
+            @include mediaForPc {
+                &:nth-child(6):last-child {
+                    --tab-radio-active-bgc: #{var.$bfff};
+                }
+                &:nth-child(1):nth-last-child(-n+6),
+                &:nth-child(2):nth-last-child(-n+5),
+                &:nth-child(3):nth-last-child(-n+4),
+                &:nth-child(4):nth-last-child(-n+3),
+                &:nth-child(5):nth-last-child(-n+2) {
+                    --tabitem-bdw: 1px;
+                    --tab-radio-active-bgc: #{var.$bfff};
+                }
+            }
+            span {
+                position: relative;
+                z-index: 1;
+                @include typo('tab');
+                --typo-custom-w: 500;
+                @include ellipse;
+                padding: 0 12px;
+            }
+        }
+        i {
+            // display: none;
+            width: 100%;
+            height: var(--tab-radio-active-bg-h, 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: var(--tab-radio-active-bgc, transparent);//var.$bfff;
+            border-radius: 0;
+            border: none;
+            margin-right: 0;
+        }
+        input:checked {
+            ~ i {
+                background-color: var.$primary;
+            }
+            ~ span {
+                --typo-custom-c: #{var.$bfff};
+                --typo-custom-w: 600;
+            }
+        }
+        @include media {
+            grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+            --tab-radio-h: 35px;
+            background-image: unset;
+            .input-radio {
+                box-shadow: inset 0 -1px 0 var.$lineNormal;
+                span {
+                    --tab: 12px;
+                }
+                &:nth-child(n+1) {
+                    border-right: 1px solid var.$lineNormal;
+                }
+            }
+        }
+    }
+
+    &.line {
+        grid-template-columns: var(--tabs-column, repeat(auto-fit, minmax(10px, 1fr)));
+        --tab-radio-h: 45px;
+        box-shadow: 0 1px 0 var.$lineNormal;
+        min-width: 100%;
+        .input-radio {
+            position: relative;
+            justify-content: center;
+            padding-left: var(--raido-line-px, 12px);
+            padding-right: var(--raido-line-px, 12px);
+            --body1: 18px;
+            i {
+                display: none;
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                border: none;
+                background-color: var.$primary;
+                border-radius: 0;
+            }
+            span {
+                padding-right: 0;
+                @include ellipse;
+            }
+            input:checked {
+                ~ i {
+                    display: block;
+                }
+                ~ span {
+                    color: var.$primary;
+                    font-weight: 600;
+                }
+            }
+        }
+        @include mediaForPc {
+            .input-radio {
+                ~ .input-radio {
+                    margin-left: 0;
+                }
+            }
+        }
+        @include media {
+            --tab-radio-h: 34px;
+            flex-wrap: unset;
+            display: flex;
+            gap: 0;
+            width: max-content;
+            @include before {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                @include notchPosition(right, right, var(--side-padding));
+                height: 1px;
+                background-color: var.$lineNormal;
+            }
+            @include after {
+                @include notchPosition(width, right, var(--side-padding));
+                height: 34px;
+                flex-shrink: 0;
+            }
+            .input-radio {
+                flex-shrink: 0;
+                flex: 1;
+                --body1: 14px;
+                --raido-line-px: 8px;
+                i {
+                    bottom: 0;
+                }
+                ~ .input-radio {
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+}
+.radio-line-wrap {
+    @include media {
+        -webkit-overflow-scrolling: touch;
+        -webkit-touch-callout: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        @include notch(padding, left, var(--side-padding));
+        @include notch(margin, left, var(--side-padding), true);
+        @include notch(margin, right, var(--side-padding), true);
+    }
+}
+
+.terms-desc {
+    flex-basis: 100%;
+    margin-top: 4px;
+    padding-left: calc(var(--check-icon-size) + var(--item-gap));
+    @include typo('body2');
+    &.invalid {
+        --typo-custom-c: #{var.$p_red};
+    }
+}
+
+.feedback {
+    margin-top: 6px;
+    display: block;
+    width: 100%;
+    flex-basis: 100%;
+    @include typo('body2');
+    &.invalid {
+        --typo-custom-c: #{var.$p_red};
+        [class*="c-"] {
+            color: inherit !important;
+        }
+    }
+}
+
+.search {
+    display: flex;
+    --select-width: 120px;
+    --input-width: 180px;
+    .select-wrap {
+        margin-right: var(--item-gap);
+        @include media {
+            --item-gap: 0;
+        }
+    }
+    .relative {
+        position: relative;
+        input {
+            padding-right: 36px;
+        }
+        .icon-search {
+            position: absolute;
+            top: 50%;
+            right: 4px;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+        }
+    }
+    @include media {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--item-gap);
+        --select-width: 100%;
+        --input-width: 100%;
+    }
+}
+
+.a-file-download {
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+    width: var(--input-width, 100%);
+    > span:not(.btn) {
+        margin-right: 8px;
+        flex: 1;
+        display: inline-block;
+        border-radius: 4px;
+        padding: 0 10px 0 28px;
+        background-color: var.$bgNormal;
+        @include typo('body2');
+        --typo-custom-c: #{var.$b333};
+        --typo-custom-lh: var(--item-height);
+        @include ellipse;
+        position: relative;
+        @include beforeImage(12px, 12px, url('../image/icon/paperclip.svg')) {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.input-call {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: var(--item-gap);
+    align-items: center;
+}
+
+.text-guide {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    padding-top: 8px;
+    text-align: right;
+    @include typo('body2');
+    --typo-custom-w: 500;
+    b {
+        color: var.$positive;
+    }
+}

@@ -1,0 +1,138 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+// list table
+.table-wrap {
+    margin-top: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    @include media {
+        @include notch(margin, left, var(--side-padding), true);
+        @include notch(margin, right, var(--side-padding), true);
+        -webkit-overflow-scrolling: touch;
+        -webkit-touch-callout: none;
+        display: flex;
+        align-items: center;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        @include media {
+            @include notch(margin, left, var(--side-padding));
+            @include notch(margin, right, var(--side-padding));
+        }
+
+        > caption {
+            @include sr-only;
+        }
+        > thead,
+        > tbody {
+            > tr {
+                // &[aria-selected="true"] {
+                //     background-color: rgba(230, 0, 48, 0.05);
+                // }
+                &:first-child td:only-child {
+                    height: 55px;
+                }
+                > th,
+                > td {
+                    padding: 8px;
+                    line-height: 21px;
+                    // letter-spacing: -0.2px;
+                    // white-space: nowrap;
+                }
+                > th {
+                    height: 39px;
+                    font-weight: 500;
+                    background-color: #{var.$bgNormal};
+                    border-top: 1px solid #{var.$b777};
+                    border-bottom: 1px solid #{var.$lineNormal};
+                    @include media {
+                        white-space: nowrap;
+                    }
+                }
+                > td {
+                    height: 47px;
+                    padding: 8px;
+                    border-bottom: 1px solid #{var.$lineWeak};
+                    background-color: #{var.$bfff};
+                    &.truncate {
+                        max-width: var(--cell-max-width, 200px);
+                        > span {
+                            @include ellipse;
+                        }
+                    }
+                    &.full {
+                        min-width: 200px; // @temp;
+                        max-width: 0;
+                        width: 100%;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+        .check-wrap {
+            display: inline-flex;
+            vertical-align: middle;
+        }
+        .select-wrap {
+            min-width: 104px;
+        }
+        .form-basic {
+            min-width: 144px;
+        }
+        th, td {
+            >  a {
+                color: var.$primary;
+                text-decoration-line: underline;
+            }
+        }
+        .align-left {
+            text-align: left;
+        }
+        .align-right {
+            text-align: right;
+        }
+    }
+
+    // 동영상 할인 용
+    &.table-dimmed {
+        .thumbnail-wrap:before {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .item-element,
+        .prd-ctrl {
+            pointer-events: none;
+        }
+        .quantity-box {
+            background-color: #ededed;
+            button {
+                background-image: var(--quantity-icon-disabled-url);
+            }
+            input {
+                color: var.$b999;
+            }
+        }
+        td {
+            background-color: rgba(0, 0, 0, 0.05);
+            .icon-alarm {
+                &,
+                &.active {
+                    --icon-active-url: url(../image/product/alarm-disabled.svg);
+                }
+                // background-color: rgba(0, 0, 0, 0.05);
+                // color: var.$b999;
+            }
+            .icon-alarm,
+            .btn-cart,
+            .btn-order {
+                border-color: var.$disabled;
+                background-color: var.$disabled;
+                span {
+                    color: var.$b999 !important;
+                }
+            }
+        }
+    }
+}

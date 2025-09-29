@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>회원탈퇴 신청 | 마이페이지</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./includes/header.ejs', {title: '회원탈퇴 신청'}) %>
+        <div class="content-inner">
+            <div class="section-full sub-title-area">
+                <div>
+                    <%- include('./atoms/title.ejs', {
+                        con: '마이페이지'
+                    }) %>
+                </div>
+            </div>
+            <div class="section-full sub-detail-page">
+                <!-- snb area -->
+                <div class="snb-grid">
+                    <%- include('./includes/snb_list.ejs', {
+                        menuListType: 'mypage',
+                        depth1: '회원정보 관리',
+                        depth2: '회원정보 변경',
+                    }) %>
+                    <div>
+                        <!-- SNB content -->
+                        <div class="mypage">
+                            <%- include('./atoms/title.ejs', {
+                                custom: 'only-pc',
+                                type: '2',
+                                con: '회원탈퇴 신청<span class="body1">탈퇴 신청 전 반드시 확인 해주세요.</span>',
+                                //desc: '탈퇴 신청 전 반드시 확인 해주세요.'
+                            }) %>
+                            <div class="only-pc">
+                                <!-- [D] 보유 예치금 0원 이상일 경우 -->
+                                <%- include('./molecules/amount.ejs', {
+                                    colType: 'amount-col-4',
+                                    data: {
+                                        "예치금": ['999,999,999', '원'],
+                                        "보유 쿠폰": ['0', '개'],
+                                        "보유 낱알반품 포인트": ['999,999,999', ''],
+                                        "보유 포인트": ['999,999,999', ''],
+                                    },
+                                }) %>
+                                <!-- [D] 보유 예치금 0원 미만일 경우 -->
+                                <%- include('./molecules/amount.ejs', {
+                                    colType: 'amount-col-4',
+                                    data: {
+                                        "예치금": ['-999,999,999', '원', true],
+                                        "보유 쿠폰": ['0', '개'],
+                                        "보유 낱알반품 포인트": ['999,999,999', ''],
+                                        "보유 포인트": ['999,999,999', ''],
+                                    },
+                                }) %>
+
+                                <%- include('./atoms/title.ejs', {
+                                    tag: 'h5',
+                                    type: '3',
+                                    con: '<span class="c-primary">탈퇴 신청 전에 꼭 확인해 주세요!</span>',
+                                }) %>
+                                <ul class="dot-list">
+                                    <li>탈퇴 후 고객님의 정보는 전자상거래 소비자보호법에 의거한 개인정보보호정책에 따라 관리 됩니다.</li>
+                                    <li>탈퇴 시 고객님께서 보유하셨던 포인트, 쿠폰, 관심상품의 모두 삭제될 수있으니 꼭 확인하시기 바랍니다.</li>
+                                    <li>거래 또는 반품 진행 시 모든 상태가 완료된 이후 탈퇴 처리 가능합니다(거래 및 반품이 완료된 후 다시 신청해 주세요.).</li>
+                                    <li class="important">탈퇴 후 3개월 이내(90일) 재가입시 신규가입혜택이 지급되지 않습니다.</li>
+                                </ul>
+                                <form>
+                                    <%- include('./atoms/title.ejs', {
+                                        tag: 'h4',
+                                        type: '3',
+                                        con: `<span class="space-x-8">
+                                            <span><!-- [D 07.30] 띄어쓰기 삭제 -->환불계좌 확인</span>
+                                            ${include('./atoms/button.ejs', { size: 'xs', value: '환불계좌 수정', isLink: true}) }
+                                        </span>`,
+                                        desc: '회원탈퇴 시 보유 예치금이 환불되오니 아래 등록된 환불계좌를 정확히 확인해 주세요.'
+                                    }) %>
+                                    <div class="form-wrap">
+                                        <h4 class="form-title">은행</h4>
+                                        <div class="form-line">
+                                            <p class="body1">우리은행</p>
+                                        </div>
+                                        <h4 class="form-title">예금주</h4>
+                                        <div class="form-line">
+                                            <p class="body1">김약사</p>
+                                        </div>
+                                        <h4 class="form-title">계좌번호</h4>
+                                        <div class="form-line">
+                                            <p class="body1">123456789120</p>
+                                        </div>
+                                    </div>
+                                    <%- include('./atoms/title.ejs', {
+                                        tag: 'h4',
+                                        type: '3',
+                                        con: '예치금 추가결제',
+                                    }) %>
+                                    <!-- [D] 미정산 예치금 있을 경우 -->
+                                    <div class="form-wrap">
+                                        <h4 class="form-title">미정산 예치금</h4>
+                                        <div class="form-line">
+                                            <div class="flex">
+                                                <p class="body1">9,999,100,000원</p>
+                                                <%- include('./atoms/button.ejs', { size: 'xs', value: '미정산 예치금 결제하기', type: 'filled' }) %>
+                                            </div>
+                                        </div>
+                                        <ul class="dot-list">
+                                            <li class="important">미정산 예치금을 결제 후 회원탈퇴 신청이 진행 가능합니다.</li>
+                                        </ul>
+                                    </div>
+                                    <!-- [D] 미정산 예치금 결제완료이거나 없을 경우 -->
+                                    <div class="form-wrap">
+                                        <h4 class="form-title">미정산 예치금</h4>
+                                        <div class="form-line">
+                                            <p class="body1">0원</p>
+                                        </div>
+                                    </div>
+
+                                    <%- include('./atoms/title.ejs', {
+                                        tag: 'h4',
+                                        type: '3',
+                                        con: '<span class="c-b777">[선택]</span>&nbsp;사이트 이용 시 불편한 부분이 있으셨나요?',
+                                    }) %>
+                                    <%
+                                        const checkComp = (name, num, title, checked) => {
+                                            return `<label type="checkbox" for="${name}${num}" class="input-checkbox">
+                                                    <input type="checkbox" ${checked ? 'checked' : ''} name="${name}" id="${name}${num}">
+                                                    <i></i>
+                                                    ${title}
+                                                </label>`
+                                            }
+                                    %>
+
+                                    <div class="check-wrap type-comb">
+                                        <div>
+                                            <%- checkComp("check1", 0, '상품 종류가 다양하지 않음', false) %>
+                                        </div>
+                                        <div>
+                                            <%- checkComp("check1", 1, '이벤트/기획전이 다양하지 않음', false) %>
+                                        </div>
+                                        <div>
+                                            <%- checkComp("check1", 2, '교환/반품/환불이 원활하게 되지 않음', false) %>
+                                        </div>
+                                        <div>
+                                            <%- checkComp("check1", 3, '배송이 느림', false) %>
+                                        </div>
+                                        <div>
+                                            <%- checkComp("check1", 4, '다른 약사몰 대비 가격이 아쉬움', false) %>
+                                        </div>
+                                        <div>
+                                            <%- checkComp("check1", 5, '기타', false) %>
+                                            <!-- [D] 비활성화시 disabled 추가 -->
+                                            <%- include('./atoms/input.ejs', { join: true, disabled: true }) %>
+                                        </div>
+                                    </div>
+
+
+                                    <%- include('./atoms/checkbox.ejs', { name: 'check3', checkboxList: ["회원탈퇴에 관련된 안내사항을 모두 확인했습니다."] }) %>
+
+                                    <div class="btn-wrap">
+                                        <%- include('./atoms/button.ejs', { value: '취소', type: 'gray', size: 'md', isLink: true }) %>
+                                        <%- include('./atoms/button.ejs', { value: '탈퇴신청', type: 'filled', size: 'md' }) %>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <%- include('./molecules/nomobile.ejs', { custom: 'line-box' }) %>
+                        </div>
+                        <!-- //SNB content -->
+                    </div>
+                </div>
+                <!-- //snb area -->
+            </div>
+
+        </div>
+        <!-- // content-inner E -->
+
+        <%- include('./includes/footer.ejs') %>
+
+        <!-- modal area -->
+        <!-- //modal area -->
+    </body>
+</html>      <ul>
+                <li>
+                  <a href="#none">전문의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">일반의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">의약외 약품</a>
+                </li>
+                <li>
+                  <a href="#none">건강기능식품</a>
+                </li>
+                <li>
+                  <a href="#none">건강식품</a>
+                </li>
+                <li>
+                  <a href="#none">동물의약용품</a>
+                </li>
+                <li>
+                  <a href="#none">화장품</a>
+                </li>
+                <li>
+                  <a href="#none">약국소모품</a>
+                </li>
+                <li>
+                  <a href="#none">의료기기</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D 07.25] 입점업체 추가, 상품 카테고리와 같은 형식이나, depth2의 a가 button으로 변경됨 -->
+        <div class="depth1 only-pc">
+          <!-- [D 07.25] 상품 카테고리와 버튼 클래스 다름, active 클래스로 제어되는 것은 동일 -->
+          <button class="btn-selectbox"><span>입점업체</span></button>
+          <div class="menu-item">
+            <div class="depth2">
+              <ul>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>제약사</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약외품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>라이프</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D] 메인 메뉴 추가 -->
+        <a href="#none" class="menu-depth1 only-pc">통합주문</a>
+        <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+        <a href="#none" class="menu-depth1">브랜드관</a>
+        <a href="#none" class="menu-depth1">기획전</a>
+        <a href="#none" class="menu-depth1">이벤트</a>
+        <a href="#none" class="menu-depth1 only-pc">약톡톡</a>
+        <a href="#none" class="menu-depth1 only-mr">MR상품주문</a>
+        <div class="to-brand">
+          <button class="btn text icon-chevron-down icon-right">
+            <span>브랜드관 바로가기</span>
+          </button>
+          <div class="to-brand-wrap">
+            <div class="brand-link">
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관브랜드관브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="sub-title only-mo">
+      <div>
+        <button type="button" class="btn-back btn-history" onclick="history.back();">
+          <!-- [D] 기존 img태그 삭제 후 span추가 -->
+          <span class="sr-only">뒤로가기</span>
+        </button>
+        <h1 class="title-h1-mobile">회원탈퇴 신청</h1>
+      </div>
+    </div>
+  </header>
+  <!-- //header -->
+  <div class="content-inner">
+    <div class="section-full sub-title-area">
+      <div>
+        <div class="head-wrap">
+          <div>
+            <h3 class="h1"> 마이페이지 </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-full sub-detail-page">
+      <!-- snb area -->
+      <div class="snb-grid">
+        <aside>
+          <nav>
+            <ul>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <a href="#none"> 마이페이지 홈 </a>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button class="on active"> 회원정보 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none" class="on"> 회원정보 변경 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 요양기관번호 등록 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button> 주문/배송 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 주문/배송 조회 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 거래처 원장 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 카드결제내역 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 추가 수정 -->결제/환불 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 예치금 조회 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 예치금 충전 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 간편결제 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 환불계좌 관리 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 수정 -->혜택 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 포인트 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 낱알반품 포인트 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 쿠폰 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> VIP포인트 관리 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button>
+                  <!-- [D 07.30] 문구 수정 -->반품 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none">
+                      <!-- [D 07.28] 띄어쓰기 추가 -->반품 진행 현황 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none">
+                      <!-- [D 07.28] 완통 => 일반/완통으로 문구 변경, 반품사이 띄어쓰기 없음! -->일반/완통반품 신청 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 낱알반품 신청 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 반품 완료 내역 조회 </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <button> 약가인하 관리 </button>
+                <ul>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none">
+                      <!-- [D 07.25] 띄어쓰기 삭제 -->약가인하 보상 관리 </a>
+                  </li>
+                  <li>
+                    <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                    <a href="#none"> 보상완료내역 조회 </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <div>
+          <!-- SNB content -->
+          <div class="mypage">
+            <div class="head-wrap only-pc">
+              <div>
+                <h3 class="h2"> 회원탈퇴 신청<span class="body1">탈퇴 신청 전 반드시 확인 해주세요.</span>
+                </h3>
+              </div>
+            </div>
+            <div class="only-pc">
+              <!-- [D] 보유 예치금 0원 이상일 경우 -->
+              <div class="amount-wrap">
+                <div class="amount-box amount-col-4">
+                  <p>
+                    <em>예치금</em>
+                    <span><strong>999,999,999</strong>원</span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 쿠폰</em>
+                    <span><strong>0</strong>개</span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 낱알반품 포인트</em>
+                    <span><strong>999,999,999</strong></span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 포인트</em>
+                    <span><strong>999,999,999</strong></span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                </div>
+              </div>
+              <!-- [D] 보유 예치금 0원 미만일 경우 -->
+              <div class="amount-wrap">
+                <div class="amount-box amount-col-4">
+                  <p>
+                    <em>예치금</em>
+                    <span class="on"><strong>-999,999,999</strong>원</span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 쿠폰</em>
+                    <span><strong>0</strong>개</span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 낱알반품 포인트</em>
+                    <span><strong>999,999,999</strong></span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                  <p>
+                    <em>보유 포인트</em>
+                    <span><strong>999,999,999</strong></span>
+                    <!-- [D 07.25] 버튼 클래스 outlined 삭제 및 a 링크로 변경 -->
+                  </p>
+                </div>
+              </div>
+              <div class="head-wrap">
+                <div>
+                  <h5 class="h3">
+                    <span class="c-primary">탈퇴 신청 전에 꼭 확인해 주세요!</span>
+                  </h5>
+                </div>
+              </div>
+              <ul class="dot-list">
+                <li>탈퇴 후 고객님의 정보는 전자상거래 소비자보호법에 의거한 개인정보보호정책에 따라 관리 됩니다.</li>
+                <li>탈퇴 시 고객님께서 보유하셨던 포인트, 쿠폰, 관심상품의 모두 삭제될 수있으니 꼭 확인하시기 바랍니다.</li>
+                <li>거래 또는 반품 진행 시 모든 상태가 완료된 이후 탈퇴 처리 가능합니다(거래 및 반품이 완료된 후 다시 신청해 주세요.).</li>
+                <li class="important">탈퇴 후 3개월 이내(90일) 재가입시 신규가입혜택이 지급되지 않습니다.</li>
+              </ul>
+              <form>
+                <div class="head-wrap">
+                  <div>
+                    <h4 class="h3">
+                      <span class="space-x-8">
+                        <span><!-- [D 07.30] 띄어쓰기 삭제 -->환불계좌 확인</span>
+                        <a href="#none" class="btn cta xs">
+                          <!-- [D] span이 추가됨 -->
+                          <span>환불계좌 수정</span>
+                        </a>
+                      </span>
+                    </h4>
+                    <p class="body1">회원탈퇴 시 보유 예치금이 환불되오니 아래 등록된 환불계좌를 정확히 확인해 주세요.</p>
+                  </div>
+                </div>
+                <div class="form-wrap">
+                  <h4 class="form-title">은행</h4>
+                  <div class="form-line">
+                    <p class="body1">우리은행</p>
+                  </div>
+                  <h4 class="form-title">예금주</h4>
+                  <div class="form-line">
+                    <p class="body1">김약사</p>
+                  </div>
+                  <h4 class="form-title">계좌번호</h4>
+                  <div class="form-line">
+                    <p class="body1">123456789120</p>
+                  </div>
+                </div>
+                <div class="head-wrap">
+                  <div>
+                    <h4 class="h3"> 예치금 추가결제 </h4>
+                  </div>
+                </div>
+                <!-- [D] 미정산 예치금 있을 경우 -->
+                <div class="form-wrap">
+                  <h4 class="form-title">미정산 예치금</h4>
+                  <div class="form-line">
+                    <div class="flex">
+                      <p class="body1">9,999,100,000원</p>
+                      <button class="btn cta filled xs">
+                        <span>미정산 예치금 결제하기</span>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="dot-list">
+                    <li class="important">미정산 예치금을 결제 후 회원탈퇴 신청이 진행 가능합니다.</li>
+                  </ul>
+                </div>
+                <!-- [D] 미정산 예치금 결제완료이거나 없을 경우 -->
+                <div class="form-wrap">
+                  <h4 class="form-title">미정산 예치금</h4>
+                  <div class="form-line">
+                    <p class="body1">0원</p>
+                  </div>
+                </div>
+                <div class="head-wrap">
+                  <div>
+                    <h4 class="h3">
+                      <span class="c-b777">[선택]</span>&nbsp;사이트 이용 시 불편한 부분이 있으셨나요?
+                    </h4>
+                  </div>
+                </div>
+                <div class="check-wrap type-comb">
+                  <div>
+                    <label type="checkbox" for="check10" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check10">
+                      <i></i> 상품 종류가 다양하지 않음 </label>
+                  </div>
+                  <div>
+                    <label type="checkbox" for="check11" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check11">
+                      <i></i> 이벤트/기획전이 다양하지 않음 </label>
+                  </div>
+                  <div>
+                    <label type="checkbox" for="check12" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check12">
+                      <i></i> 교환/반품/환불이 원활하게 되지 않음 </label>
+                  </div>
+                  <div>
+                    <label type="checkbox" for="check13" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check13">
+                      <i></i> 배송이 느림 </label>
+                  </div>
+                  <div>
+                    <label type="checkbox" for="check14" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check14">
+                      <i></i> 다른 약사몰 대비 가격이 아쉬움 </label>
+                  </div>
+                  <div>
+                    <label type="checkbox" for="check15" class="input-checkbox">
+                      <input type="checkbox" name="check1" id="check15">
+                      <i></i> 기타 </label>
+                    <!-- [D] 비활성화시 disabled 추가 -->
+                    <input type="text" class="form-basic " value="" disabled />
+                  </div>
+                </div>
+                <div class="check-wrap">
+                  <label type="checkbox" class="input-checkbox" for="check30">
+                    <input type="checkbox" name="check3" id="check30">
+                    <i></i> 회원탈퇴에 관련된 안내사항을 모두 확인했습니다. </label>
+                </div>
+                <div class="btn-wrap">
+                  <a href="#none" class="btn cta gray md">
+                    <!-- [D] span이 추가됨 -->
+                    <span>취소</span>
+                  </a>
+                  <button class="btn cta filled md">
+                    <span>탈퇴신청</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="only-mo line-box">
+              <div class="no-contents">
+                <div class="img-wrap">
+                  <img src="../static/content/image/icon/no-mobile.svg" alt="" loading="lazy" decoding="async" />
+                </div>
+                <div class="text-wrap">
+                  <p>현재 PC에서만 이용이 가능합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- //SNB content -->
+        </div>
+      </div>
+      <!-- //snb area -->
+    </div>
+  </div>
+  <!-- // content-inner E -->
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <!-- modal area -->
+  <!-- //modal area -->
+</body>
+
+</html>

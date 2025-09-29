@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>판매자 상품 팝업</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header">
+        <!-- [D 06.20] 판매자명 위치 이동 -->$판매자명$ 전체 상품보기
+      </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="products-modal">
+          <!-- [D 06.20] 타이틀 영역의 p.body1(주문최소금액) 삭제 -->
+          <div class="head-wrap head-col-1">
+            <div>
+              <h2 class="h2">
+                <!-- [D 06.20] 판매자명 위치 이동으로 인한 삭제 -->주문가능금액까지 <em>999,999,999원</em> 남았습니다.
+              </h2>
+            </div>
+            <div>
+              <form class="search">
+                <div class="relative">
+                  <input type="text" placeholder="상품명을 입력해 주세요." />
+                  <button class="btn icon md icon-search">
+                    <span>검색</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- [D 06.20] 개수 영역 삭제 -->
+          <div class="table-wrap table-seller-product">
+            <table class="table">
+              <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>상품명</th>
+                  <th>가격</th>
+                  <th>재고</th>
+                  <th>수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="discounted">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                      <span class="sale">
+                        <span>10</span>
+                        <span>%</span>
+                      </span>
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="discounted">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                      <span class="sale">
+                        <span>10</span>
+                        <span>%</span>
+                      </span>
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] c-red 추가 및 품절로 문구 변경 --><span class="body1 c-red">품절</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <button class="btn cta light-outline icon-alarm active">
+                        <span><!-- [D 06.20] active시 버튼명 변경 -->해제</span>
+                      </button>
+                      <!-- [D 07.10] 추가 -->
+                      <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] c-red 추가 및 품절로 문구 변경 --><span class="body1 c-red">품절</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <button class="btn cta light-outline icon-alarm">
+                        <span>재입고 알림</span>
+                      </button>
+                      <!-- [D 07.10] 추가 -->
+                      <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- [D 06.04] 상품명만 노출하는 것으로 변경 -->
+                    <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="prd-item-list type-mini">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <div class="item-detail">
+                          <span class="info-container">
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                          </span>
+                        </div>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <span class="prd-price">
+                      <span class="price">
+                        <span>9,000,000</span>
+                        <span>원</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="body1">999,999</span>
+                  </td>
+                  <td>
+                    <!-- [D 06.04] 공통화 -->
+                    <div class="prd-ctrl">
+                      <div class="quantity-wrap">
+                        <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                          <button type="button" class="btn-quantity btn-minus"></button>
+                          <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                          <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                          <button type="button" class="btn-quantity btn-plus"></button>
+                        </div>
+                      </div>
+                      <button class="btn cta filled icon-cart btn-cart">
+                        <span>장바구니</span>
+                      </button>
+                      <!-- [D 06.04] c-red 영역이 추가됨 -->
+                      <!-- [D 06.20] 반품불가 일 경우 반품불가만 노출로 문구 변경 -->
+                      <span class="body3 c-b777 fw-medium">주문단위: <span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="pagination">
+            <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+            <!-- [D] 비활성화시 disabled 클래스 추가 -->
+            <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+            <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+            <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+            <a href="#none" class="page-item"><span class="page-link">2</span></a>
+            <a href="#none" class="page-item"><span class="page-link">3</span></a>
+            <a href="#none" class="page-item"><span class="page-link">4</span></a>
+            <a href="#none" class="page-item"><span class="page-link">5</span></a>
+            <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+            <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+            <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+          </p>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <script>
+    // 장바구니 버튼 성공시, 실행되어야함
+    const toCartBtn = document.querySelectorAll('.prd-ctrl .btn-cart, .floating-bar .btn-wrap button.btn:not(.icon):not(.filled), .reorder-btns .btn:not(.filled)');
+    if (toCartBtn.length > 0) {
+      toCartBtn.forEach((btn) => {
+        tippy(btn, {
+          arrow: false,
+          appendTo: 'parent',
+          placement: 'top-start',
+          content: `<span>장바구니에 상품을 담았습니다.</span>
+                    <a href="#none" class="btn cta outlined xs icon-right icon-chevron-down">
+                        <span>장바구니 바로가기</span>
+                    </a>`,
+          trigger: 'click',
+          hideOnClick: false,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 4],
+          onShow(instance) {
+            setTimeout(() => {
+              instance.hide();
+            }, 2000);
+          }
+        });
+      });
+    }
+    console.log(document.querySelector('.table-agreement-info'));
+    // 주문수량
+    const quantityBox = document.querySelectorAll('.quantity-box');
+    if (quantityBox.length > 0) {
+      quantityBox.forEach((box, index) => {
+        let numEl = `
+                    <!-- [D] 수량할인 제품일때만 노출 -->
+                    <span class="flex quantity-guide">
+                        <span>10개 이상 <em class="c-purple">5%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>100개 이상 <em class="c-purple">25%</em></span>
+                        <span>1000개 이상 <em class="c-purple">25%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>10000개 이상 <em class="c-purple">25%</em></span>
+                        <span>100000개 이상 <em class="c-purple">25%</em></span>
+                    </span>
+                `
+        let numGuide = '';
+        let needGuide = ((box.closest('.user-action')?.querySelector('div.etc') != null) || (box.closest('td > .prd-ctrl, td > .quantity-wrap') && box.closest('.all-seller-list') == null && box.closest('.video') == null) || (box.closest('.product-amount') != null)) && (document.querySelector('.table-agreement-info') == null) ? true : false;
+        if (needGuide) {
+          numGuide += numEl
+        }
+        let hasInventory = false;
+        if (document.querySelector('.content-inner')?.textContent.includes('재고') || document.querySelector('.modal')?.textContent.includes('재고')) hasInventory = true;
+        let inventoryContent = !hasInventory ? `<span class="divider-vertical-line"></span>
+                    <span>재고 <em class="c-red">99,999+</em>개</span>` : '';
+        tippy(box, {
+          placement: 'top',
+          content: `<span class="flex">
+                    <span>최대 <em class="c-red">99,999</em>개</span>
+                    ${inventoryContent}
+                </span>` + numGuide,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 9],
+          theme: 'light-border',
+        });
+      });
+    }
+  </script>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

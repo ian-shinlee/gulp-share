@@ -1,0 +1,72 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.accordion {
+    border-top: 1px solid var.$b777;
+    --accordion-padding: 12px;
+    --accordion-content-padding: 24px 12px;
+
+    .title-wrap {
+        width: 100%;
+        display: flex;
+        // align-items: center;
+        justify-content: space-between;
+        --accordion-padding: 16px;
+        padding: var(--accordion-padding) 0;
+    }
+    button.title-wrap {
+        --accordion-padding: 12px;
+        padding: var(--accordion-padding) ;
+        position: relative;
+        text-align: left;
+        border-bottom: 1px solid var.$lineWeak;
+        justify-content: flex-start;
+
+        @include afterImage (16px, 100%, url('../image/icon/chevron-down.svg')){
+            grid-row: span 2;
+            min-height: 16px;
+            margin-left: auto;
+        };
+
+        .category {
+            @include typo ('body2');
+            --typo-custom-w: 600;
+        }
+        .title {
+            @include typo ('body1');
+        }
+    }
+    .content {
+        padding: var(--accordion-content-padding);
+        border-bottom: 1px solid var.$lineWeak;
+        background: var.$bgNormal;
+        @include word-break;
+        img {
+            max-width: 100%;
+        }
+        &:not(:only-child) {
+            display: var(--accordion-show, none);
+        }
+    }
+    .open {
+        --accordion-show: var(--accordion-show-custom, block);
+        --accordion-arrow-p: rotate(180deg) /* translateY(50%)*/;
+        .title-wrap {
+            .icon-chevron-down {
+                transform: var(--accordion-arrow-p);
+            }
+        }
+        button.title-wrap {
+            border-bottom: 1px solid var.$lineNormal;
+            .title {
+                --typo-custom-c: #{var(--accordion-title-c, var.$primary)};
+            }
+            &::before {
+                --typo-custom-c: #{var.$primary};
+            }
+            &::after {
+                transform: var(--accordion-arrow-p);
+            }
+        }
+    }
+}

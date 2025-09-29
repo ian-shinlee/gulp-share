@@ -1,0 +1,76 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.sub-detail-page-filter {
+    display: grid;
+    grid-template-columns: 1fr 279px auto;
+    gap: 8px;
+    --item-height: 35px;
+    margin-bottom: 16px;
+    .btn {
+        min-width: 73px;
+    }
+    .flex {
+        min-width: 0;
+    }
+    .period-picker {
+        .btn {
+            &:not(:first-child) {
+                margin-left: 8px;
+            }
+        }
+    }
+    .period {
+        .divider {
+            margin: 0 4px;
+        }
+        input {
+            min-width: 0;
+        }
+    }
+    .options {
+        .select-wrap {
+            flex: unset;
+            margin-right: 8px;
+        }
+        input {
+            min-height: 35px;
+        }
+        @include mediaForPc {
+            grid-column: span 3;
+            --select-width: 208px;
+        }
+    }
+    @include media {
+        grid-template-columns: 1fr;
+        margin-bottom: 16px;
+        .btn {
+            min-width: unset;
+        }
+        .period-picker {
+            .btn {
+                flex: 1;
+            }
+        }
+        .period {
+            flex-wrap: wrap;
+            .flex {
+                flex-basis: 100%;
+            }
+            .divider {
+                margin: 0 8px;
+            }
+        }
+        > .btn {
+            order: 9;
+            flex-basis: 100%;
+        }
+        .options {
+            flex-direction: column;
+            .select-wrap {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+        }
+    }
+}

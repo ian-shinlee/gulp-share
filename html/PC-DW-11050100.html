@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>가입회원 안내 | 회원가입</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            var memberInfo = `<!-- [D] 결과 -->
+                        <!-- [D 1차 회원수정] tab 삭제 및 modal-desc 영역 추가 -->
+                        <!-- [D 05.26] 약사몰 => 온다몰 -->
+                        <!-- [D 06.16]  문구 수정 -->
+                        <p class="modal-desc">이미 온다몰 회원으로 가입되어있습니다.<br/>비밀번호가 기억 나지 않으면 비밀번호 찾기 버튼을 선택해 주세요.</p>
+                        ${include('./atoms/box.ejs', {
+                            type: 'box',
+                            custom: 'find-id-pw',
+                            content: `
+                                <p class="body1">아이디</p>
+                                <p class="body1 word-break">sajflskjflkasdjfaksdjf;ksjdfkasjdfkasjdf;lkjsdfkjasdfkjsdkfj;asdkfjksdfj</p>
+                            `
+                        })}
+                        <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+                        <div class="btn-wrap">
+                            ${include('./atoms/button.ejs', {
+                                value: '비밀번호 찾기',
+                                size: 'md',
+                                type: 'gray'
+                            })}
+                            <!-- [D 1차 회원수정] 문구 변경 -->
+                            ${include('./atoms/button.ejs', {
+                                value: '로그인',
+                                size: 'md',
+                                type: 'filled'
+                            })}
+                        </div>
+                    <!-- //[D] 결과 -->`
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '가입회원 안내',
+            content: memberInfo
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+// no contents
+.no-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--no-contents-py, calc(110px - var(--filter-pb, 16px)));
+    padding-bottom: var(--no-contents-py, calc(129px -  var(--content-pb)));
+    &:empty {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        min-height: auto !important;
+    }
+    .img-wrap {
+        width: 56px;
+        // height: 56px;
+        // border-radius: 12px;
+        margin-bottom: 16px;
+    }
+    .text-wrap {
+        text-align: center;
+        .h3 {
+            margin-bottom: 4px;
+            @include typo('h3');
+            --h3: 16px;
+            --typo-custom-c: #{var.$b000};
+            --typo-custom-w: 600;
+        }
+        p {
+            @include typo ('body1');
+            --typo-custom-c: #{var.$b777};
+            --typo-custom-w: 500;
+        }
+    }
+    .button-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: var(--nocontent-button-pt, 32px);
+    }
+    @include media {
+        --no-contents-py: 0;
+        min-height: 300px;
+    }
+}
+
+.tabs-content {
+
+}

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>주문 / 결제</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body>
+  <!-- [D] div.fixed-header 삭제 -->
+  <!-- top-banner -->
+  <div class="section-full top-banner-area only-pc" style="background-color: #4d0073;">
+    <div>
+      <img src="../static/content/image/temp/img_1280x48.png" alt="" loading="lazy" decoding="async" />
+      <a href="#none"></a>
+      <div class="banner-controller">
+        <div class="check-wrap">
+          <label type="checkbox" class="input-checkbox" for="today0">
+            <input type="checkbox" name="today" id="today0">
+            <i></i> 오늘 하루 보지 않기 </label>
+        </div>
+        <button class="btn icon sub lg icon-close">
+          <span>닫기</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- //top-banner -->
+  <!-- header -->
+  <!-- [D] header-default와 header-detail의 클래스를 header로 통일 -->
+  <!-- [D]
+    1. 서브메인화면 진입시 sub-main / 서브화면 진입시 sub 클래스 추가
+    2. mobile-search-active 은 검색 실행시 추가 -->
+  <!-- [D 07.25]
+    1. MR 혹은 예외처일 경우 해당 클래스(is-mr / is-limited)는 메인,서브 상관없이 고정
+    2. 메뉴바와 타이틀 영역이 삭제되어야한다면, no-gnb 클래스 추가
+    3. 뒤로가기 버튼이 삭제되어야한다면, no-back 클래스 추가
+ -->
+  <header id="header" class="header sub">
+    <!-- [D] section을 div태그로 변경 -->
+    <div class="flex space-between">
+      <div class="col-left">
+        <!-- [D] btn-gnb, btn-back.btn-history 삭제 -->
+        <a href="/" class="brand"><img src="../static/content/image/logo.png" alt="온다몰"></a>
+        <!-- [D] title-h1-mobile 삭제 -->
+      </div>
+      <div class="col-right">
+        <div class="searching-area" data-recommend-link="" data-recommend-blank-flag="">
+          <form id="header-search-form">
+            <button type="button" class="btn-close">
+              <!-- [D] 기존 img태그 삭제 후 span추가 -->
+              <span class="sr-only">뒤로가기</span>
+            </button>
+            <!-- [D] 검색 필터 추가 -->
+            <div class="select-wrap">
+              <select class="input-select" name="">
+                <option value="전체검색">전체검색</option>
+                <option value="상품명">상품명</option>
+                <option value="상품코드">상품코드</option>
+                <option value="입점사명">입점사명</option>
+              </select>
+            </div>
+            <!-- [D] placeholder 추가 -->
+            <!-- [D 07.10]
+                        1. 광고가 있을 경우, pin 클래스 추가
+                        2. 광고가 없을 경우 디폴트 placeholder 문구(광고가 있어도 화면너비 767px이하에서는 디폴트): 검색어를 입력해주세요.
+                        3. 화면너비 767px이하는 광고 기능을 제공하지 않아, input 분리하였습니다. 분리 불필요시, only-클래스 삭제하시고 하나만 남겨주세요~
+                    -->
+            <input type="search" name="query" class="only-pc pin" placeholder="어른부터 아이까지 온가족 감기상비약 '콜대원'을 검색해 보세요!">
+            <input type="search" name="query" class="only-mo" placeholder="검색어를 입력해주세요.">
+            <!-- [D] 클리어 버튼 추가 -->
+            <button class="btn-clear">
+              <span class="sr-only">삭제</span>
+            </button>
+            <button type="submit" class="btn-search">
+              <!-- [D] 기존 svg 삭제하고 span 추가 -->
+              <span class="sr-only">검색</span>
+            </button>
+            <button id="mobile-search-button" type="button" class="btn-search mobile-search-open">
+              <!-- [D] 기존 svg 삭제하고 span 추가 -->
+              <span class="sr-only">검색</span>
+            </button>
+          </form>
+        </div>
+        <ul class="util-menu">
+          <!-- [D 07.25] 찜버튼이 아닌 입점업체안내로 변경 -->
+          <li class="info">
+            <a href="#none">입점업체안내</a>
+          </li>
+          <li class="notice">
+            <button href="#none">알림 <!-- [D] span.count 추가, 표시넘버: 맥시멈 100 -->
+              <span class="count">100</span>
+            </button>
+          </li>
+          <li class="cart">
+            <button href="#none">장바구니 <!-- [D] span.count 추가, 표시넘버: 맥시멈 100 -->
+              <span class="count">100</span>
+            </button>
+          </li>
+          <li class="manager">
+            <button href="#none">MR 정보</button>
+            <div class="manager-wrap">
+              <div class="manager-box">
+                <em>ABC제약ABC제약ABC제약ABC제약ABC제약</em>
+                <b><span>담당자담당자담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="searching-list hidden">
+          <button type="button" class="delete-all">전체삭제</button>
+          <div class="list list-popular">
+            <p>인기검색어</p>
+            <!-- 인기검색어가 없을 경우 -->
+            <p class="no-data">인기 검색어가 없습니다.</p>
+            <!-- 인기검색어가 있을 경우 -->
+            <ol>
+              <li><em class="number">1</em><a href="#none" class="text">검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드</a></li>
+              <li><em class="number">2</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">3</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">4</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">5</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">6</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">7</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">8</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">9</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">10</em><a href="#none" class="text">키워드</a></li>
+            </ol>
+          </div>
+          <div class="list list-recent">
+            <p>최근 검색어</p>
+            <!-- 최근 검색어가 없을 경우 -->
+            <p class="no-data">최근 검색어가 없습니다.</p>
+            <!-- 최근 검색어가 있을 경우 -->
+            <ul>
+              <li>
+                <a href="#none" class="text">검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드</a>
+                <button class="delete" data-word="검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드"></button>
+              </li>
+              <li>
+                <a href="#none" class="text">검색키워드</a>
+                <button class="delete" data-word="검색키워드"></button>
+              </li>
+              <li>
+                <a href="#none" class="text">검색키워드</a>
+                <button class="delete" data-word="검색키워드"></button>
+              </li>
+            </ul>
+          </div>
+          <div class="list-footer"><button type="button" class="searching-list-close">닫기</button></div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div태그로 변경 -->
+    <div class="quick-link">
+      <!-- [D 0812] 단위테스트 184 -->
+      <span>$약국명$</span>
+      <!-- [D] a링크만 남기고 모두 삭제되었습니다. -->
+      <a href="#none">로그아웃</a>
+      <a href="#none">고객센터</a>
+      <a href="#none">마이페이지</a>
+      <a href="#none">장바구니&nbsp;<span class="count">100</span></a>
+      <a href="#none">원격지원</a>
+    </div>
+    <!-- [D] 이하 디자인에 맞추어 새로 추가 -->
+    <div class="gnb-wrap">
+      <nav class="gnb">
+        <!-- [D] section을 div태그로 변경 -->
+        <div class="depth1">
+          <!-- [D] btn-hamburger 부분, 아직 기획/디자인 미정 -->
+          <!-- [D] btn-hamburger 추가 / 클릭시 active 클래스 추가 -->
+          <button class="btn-hamburger"><span>상품 카테고리</span></button>
+          <div class="menu-item">
+            <!-- [D] a를 em태그로 변경 -->
+            <!-- <em>카테고리</em> -->
+            <div class="depth2">
+              <ul>
+                <li>
+                  <a href="#none">전문의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">일반의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">의약외 약품</a>
+                </li>
+                <li>
+                  <a href="#none">건강기능식품</a>
+                </li>
+                <li>
+                  <a href="#none">건강식품</a>
+                </li>
+                <li>
+                  <a href="#none">동물의약용품</a>
+                </li>
+                <li>
+                  <a href="#none">화장품</a>
+                </li>
+                <li>
+                  <a href="#none">약국소모품</a>
+                </li>
+                <li>
+                  <a href="#none">의료기기</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D 07.25] 입점업체 추가, 상품 카테고리와 같은 형식이나, depth2의 a가 button으로 변경됨 -->
+        <div class="depth1 only-pc">
+          <!-- [D 07.25] 상품 카테고리와 버튼 클래스 다름, active 클래스로 제어되는 것은 동일 -->
+          <button class="btn-selectbox"><span>입점업체</span></button>
+          <div class="menu-item">
+            <div class="depth2">
+              <ul>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>제약사</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약외품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>라이프</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D] 메인 메뉴 추가 -->
+        <a href="#none" class="menu-depth1 only-pc">통합주문</a>
+        <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+        <a href="#none" class="menu-depth1">브랜드관</a>
+        <a href="#none" class="menu-depth1">기획전</a>
+        <a href="#none" class="menu-depth1">이벤트</a>
+        <a href="#none" class="menu-depth1 only-pc">약톡톡</a>
+        <a href="#none" class="menu-depth1 only-mr">MR상품주문</a>
+        <div class="to-brand">
+          <button class="btn text sub icon-chevron-down icon-right">
+            <span>브랜드관 바로가기</span>
+          </button>
+          <div class="to-brand-wrap">
+            <div class="brand-link">
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관브랜드관브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="sub-title only-mo">
+      <div>
+        <button type="button" class="btn-back btn-history" onclick="history.back();">
+          <!-- [D] 기존 img태그 삭제 후 span추가 -->
+          <span class="sr-only">뒤로가기</span>
+        </button>
+        <h1 class="title-h1-mobile">주문/결제</h1>
+      </div>
+    </div>
+  </header>
+  <!-- //header -->
+  <!-- [D 05.16] order 추가 -->
+  <div class="content-inner order">
+    <div class="section-full sub-title-area">
+      <div>
+        <div class="head-wrap">
+          <div>
+            <h3 class="h1"> 주문 / 결제 </h3>
+          </div>
+          <div>
+            <ul class="flex order-step">
+              <li aria-current="false">장바구니</li>
+              <li aria-current="true">주문 / 결제</li>
+              <li aria-current="false">주문완료</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-full order-page">
+      <div>
+        <!-- [D] 기존 주문서 page -->
+        <div class="contents-area-page order-page">
+          <form id="buy" name="buy" action="javascript:void(0);" method="post">
+            <div class="contents-area" ref="targetElement">
+              <div class="contents-left">
+                <!-- 주문 상품리스트 -->
+                <div class="toggle-title toggle-order-list">
+                  <!-- [D 07.14] 문구 수정 -->
+                  <h2>주문내역</h2>
+                  <!-- [D 07.14] 토글 버튼 삭제 및 상세내역 보기 추가 -->
+                  <button class="btn cta">
+                    <span>상세내역 보기</span>
+                  </button>
+                </div>
+                <div class="toggle-content">
+                  <div class="bg-white">
+                    <div class="toggle-hide-show">
+                      <!-- [D 07.14] table 타입으로 변경 -->
+                      <div class="order-prd-table">
+                        <div class="only-pc">
+                          <div class="th">상품명</div>
+                          <div class="td">
+                            <p class="body1">판매금액</p>
+                            <p class="body1"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                            <p class="body1">주문금액</p>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="th">
+                            <p class="prd-name"><span class="ellipsis">[판매자명]&nbsp;상품명</span>&nbsp;외 n건</p>
+                            <button class="btn icon icon-chevron-down">
+                              <span>상세내역 보기</span>
+                            </button>
+                          </div>
+                          <div class="td">
+                            <p class="body1 only-mo">판매금액</p>
+                            <p class="body1">12,233,333원</p>
+                            <p class="body1 only-mo"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                            <p class="body1">12,233,333원</p>
+                            <p class="body1 only-mo">주문금액</p>
+                            <p class="body1">12,233,333원</p>
+                          </div>
+                          <div class="detail">
+                            <div class="th">
+                              <p class="prd-name"><span class="ellipsis">제조사&nbsp;상품명</span>&nbsp;|&nbsp;(주문수량)개</p>
+                            </div>
+                            <div class="td">
+                              <p class="body1 only-mo">판매금액</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo">주문금액</p>
+                              <p class="body1">12,233,333원</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="th">
+                            <p class="prd-name"><span class="ellipsis">[판매자명]&nbsp;상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명</span>&nbsp;외 n건</p>
+                            <button class="btn icon icon-chevron-down">
+                              <span>상세내역 보기</span>
+                            </button>
+                          </div>
+                          <div class="td">
+                            <p class="body1 only-mo">판매금액</p>
+                            <p class="body1">12,233,333원</p>
+                            <p class="body1 only-mo"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                            <p class="body1">12,233,333원</p>
+                            <p class="body1 only-mo">주문금액</p>
+                            <p class="body1">12,233,333원</p>
+                          </div>
+                          <div class="detail">
+                            <div class="th">
+                              <p class="prd-name"><span class="ellipsis">제조사&nbsp;상품명</span>&nbsp;|&nbsp;(주문수량)개</p>
+                            </div>
+                            <div class="td">
+                              <p class="body1 only-mo">판매금액</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo">주문금액</p>
+                              <p class="body1">12,233,333원</p>
+                            </div>
+                            <div class="th">
+                              <p class="prd-name"><span class="ellipsis">제조사&nbsp;상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명 상품명</span>&nbsp;|&nbsp;(주문수량)개</p>
+                            </div>
+                            <div class="td">
+                              <p class="body1 only-mo">판매금액</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo"><!-- [D 07.30] 문구 수정 -->금융비용</p>
+                              <p class="body1">12,233,333원</p>
+                              <p class="body1 only-mo">주문금액</p>
+                              <p class="body1">12,233,333원</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- [D 07.14] toggle-show-show 영역 삭제 -->
+                  </div>
+                  <div class="brand-price">
+                    <div class="price-info">
+                      <p><!-- [D 07.14] 문구 변경 -->판매금액</p>
+                      <p class="price"><span>9,999,999,999</span>원</p>
+                      <p>금융비용할인<!-- [D 08.27] 내역확인 버튼 삭제 --></p>
+                      <p class="price"><span>-9,999,999,999</span>원</p>
+                    </div>
+                    <div class="price-info-total">
+                      <div class="flex">
+                        <p class="title">총 주문금액</p>
+                        <p class="price c-red"><span>9,999,999,999</span>원</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 보조 결제수단 -->
+                <div class="toggle-title active toggle-mileage">
+                  <!-- [D 07.14] 문구 변경  -->
+                  <h2>쿠폰/포인트/예치금</h2>
+                </div>
+                <div class="toggle-content">
+                  <!-- [07.10] black-outline 일괄 삭제 -->
+                  <!-- [D 07.25] 포인트의 p -> P로 일괄 변경 -->
+                  <div class="price-info">
+                    <p><em>쿠폰</em><span>(보유 : 123,234,567개/사용가능 : 0개)</span></p>
+                    <p class="price">적용 가능한 쿠폰 없음</p>
+                    <span class="feedback">※ 쿠폰/할인은 의약외품/일반상품 구매 시 적용됩니다.</span>
+                    <p><em>쿠폰</em><span>(보유 : 123,234,567개/사용가능 : 123개)</span></p>
+                    <p class="price">
+                      <button class="btn cta">
+                        <span>쿠폰조회 및 사용</span>
+                      </button>
+                    </p>
+                    <span class="feedback">※ 쿠폰/할인은 의약외품/일반상품 구매 시 적용됩니다. </span>
+                    <p><em>쿠폰</em><span>(보유 : 123,234,567개/사용가능 : 123개)</span>
+                      <button class="btn cta xs">
+                        <span>변경</span>
+                      </button>
+                    </p>
+                    <p class="price"><span class="c-b333 fw-semibold">-500,000 원</span></p>
+                    <span class="feedback">※ 쿠폰/할인은 의약외품/일반상품 구매 시 적용됩니다.</span>
+                    <p><em>포인트</em><span>(보유 : 0P)</span></p>
+                    <p class="price">보유 포인트 없음</p>
+                    <span class="feedback">※ 포인트는 의약외품/일반상품 구매 시 1p=1원으로 사용할 수 있습니다.</span>
+                    <p><em>포인트</em><span>(보유 : 123,234,567P/사용가능 : 0P)</span></p>
+                    <p class="price">적용 가능한 상품 없음</p>
+                    <span class="feedback">※ 포인트는 의약외품/일반상품 구매 시 1p=1원으로 사용할 수 있습니다.</span>
+                    <p><em>포인트</em><span>(보유 : 123,234,567P/사용가능 : 123,456P)</span></p>
+                    <div class="input-price">
+                      <div class="input-cover">
+                        <!-- [D 07.25] type text로 변경 -->
+                        <input type="text" class="form-basic " value="" placeholder="0" />
+                        <span class="input-unit">P</span>
+                        <!-- [D 07.25] input-placeholder 삭제 -->
+                        <button class="btn icon icon-close">
+                          <span>삭제</span>
+                        </button>
+                      </div>
+                      <button class="btn cta">
+                        <span>전액사용</span>
+                      </button>
+                    </div>
+                    <span class="feedback">※ 포인트는 의약외품/일반상품 구매 시 1p=1원으로 사용할 수 있습니다.</span>
+                    <p><em>포인트</em><span>(보유 : 123,234,567P/사용가능 : 123,456P)</span></p>
+                    <div class="input-price">
+                      <div class="input-cover">
+                        <!-- [D 07.25] type text로 변경 -->
+                        <input type="text" class="form-basic " value="999999" placeholder="0" />
+                        <span class="input-unit">P</span>
+                        <!-- [D 07.25] input-placeholder 삭제 -->
+                        <button class="btn icon icon-close">
+                          <span>삭제</span>
+                        </button>
+                      </div>
+                      <button class="btn cta">
+                        <span>전액사용</span>
+                      </button>
+                    </div>
+                    <span class="feedback">※ 포인트는 의약외품/일반상품 구매 시 1p=1원으로 사용할 수 있습니다.</span>
+                    <p><em>예치금</em>
+                      <a href="#none" class="btn cta xs">
+                        <!-- [D] span이 추가됨 -->
+                        <span>충전하기</span>
+                      </a>
+                    </p>
+                    <div class="input-price input-hidden">
+                      <div class="input-cover">
+                        <!-- [D 07.25] type text로 변경 -->
+                        <input type="text" class="form-basic " value="" placeholder="0" />
+                        <span class="input-unit">원</span>
+                        <!-- [D 07.25] input-placeholder 삭제 -->
+                        <button class="btn icon icon-close">
+                          <span>삭제</span>
+                        </button>
+                      </div>
+                      <button class="btn cta" disabled>
+                        <span>전액사용</span>
+                      </button>
+                    </div>
+                    <p><em>예치금</em><span>(보유 : 123,234,567원) </span></p>
+                    <div class="input-price">
+                      <div class="input-cover">
+                        <!-- [D 07.25] type text로 변경 -->
+                        <input type="text" class="form-basic " value="" placeholder="0" />
+                        <span class="input-unit">원</span>
+                        <!-- [D 07.25] input-placeholder 삭제 -->
+                        <button class="btn icon icon-close">
+                          <span>삭제</span>
+                        </button>
+                      </div>
+                      <button class="btn cta" disabled>
+                        <span>전액사용</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- 결제수단 -->
+                <div class="toggle-title active">
+                  <h2>결제수단 <!-- [D] 혜택이 있을 경우 노출 -->
+                    <button class="btn cta black-outline xs">
+                      <span>카드사 결제 혜택 안내</span>
+                    </button>
+                    <!-- [D 07.14] toggle-hide-show toggle-arrow 삭제 -->
+                  </h2>
+                  <!-- [D 07.14] 토글 버튼 삭제 -->
+                </div>
+                <div class="toggle-content">
+                  <!-- [D] ul.payment-wrap 영역 구조 변경 -->
+                  <ul class="payment-wrap">
+                    <!-- [D] 카드가 선택되었을 경우, payment에 .card-selected 클래스 추가 -->
+                    <li class="payment active">
+                      <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                      <div class="payment-head">
+                        <div class="radio-wrap">
+                          <label type="radio" for="radio10" class="input-radio">
+                            <input type="radio" checked="" name="radio1" id="radio10">
+                            <i></i>
+                            <!-- [D 07.10] 문구 변경 --> 카드 간편결제 </label>
+                        </div>
+                        <button class="btn cta black-outline xs">
+                          <span>간편결제 등록혜택안내</span>
+                        </button>
+                      </div>
+                      <div class="payment-form-wrap">
+                        <div class="toggle-show-show">
+                          <!-- [D 07.10] 행사 종료 안내 문구 -->
+                          <p class="event-closed"> KB카드 선착순 예치금 충전 즉시할인 행사는 종료되었습니다. </p>
+                          <div class="swiper-payment">
+                            <div class="swiper">
+                              <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                  <button class="payment-item">
+                                    <em>간편결제 카드 등록</em>
+                                    <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="swiper-arrow swiper-button-prev"></div>
+                            <div class="swiper-arrow swiper-button-next"></div>
+                          </div>
+                          <div class="swiper-payment">
+                            <div class="swiper">
+                              <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <button class="payment-item">
+                                    <em>간편결제 카드 등록</em>
+                                    <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="swiper-arrow swiper-button-prev"></div>
+                            <div class="swiper-arrow swiper-button-next"></div>
+                          </div>
+                          <div class="swiper-payment">
+                            <div class="swiper">
+                              <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card" disabled>
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                      <span class="disabled">사용불가</span>
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <button class="payment-item">
+                                    <em>간편결제 카드 등록</em>
+                                    <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="swiper-arrow swiper-button-prev"></div>
+                            <div class="swiper-arrow swiper-button-next"></div>
+                          </div>
+                          <div class="swiper-payment">
+                            <div class="swiper">
+                              <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card" disabled>
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                      <span class="disabled">사용불가</span>
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <button class="payment-item">
+                                    <em>간편결제 카드 등록</em>
+                                    <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="swiper-arrow swiper-button-prev"></div>
+                            <div class="swiper-arrow swiper-button-next"></div>
+                          </div>
+                          <div class="swiper-payment">
+                            <div class="swiper">
+                              <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card" disabled>
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                      <span class="disabled">사용불가</span>
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <span class="tag bg-red tag-payment">적립+할인 최대 23%</span>
+                                  <div class="payment-item">
+                                    <!-- [D] 기존의 em과 span을 button으로 감쌈 -->
+                                    <button class="card">
+                                      <!-- [D 07.10] 카드사 + 마지막 번호 4자리리 -->
+                                      <em>카드사 0000</em>
+                                      <!-- [D 07.10] 카드별명 추가 -->
+                                      <span>카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 카드별명자리 </span>
+                                      <!-- [D 07.10] 사용불가시 아래 문구 추가 -->
+                                    </button>
+                                    <button class="btn cta outlined icon-trash">
+                                      <span>카드삭제</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide">
+                                  <button class="payment-item">
+                                    <em>간편결제 카드 등록</em>
+                                    <span>빠르고 간편한 결제를 위해<br />카드를 등록해주세요.</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="swiper-arrow swiper-button-prev"></div>
+                            <div class="swiper-arrow swiper-button-next"></div>
+                          </div>
+                          <!-- [D 0820] 구조 변경 -->
+                          <div class="pay-detail-options">
+                            <div class="select-wrap">
+                              <select class="input-select" name="">
+                                <option value="일시불">일시불</option>
+                              </select>
+                            </div>
+                            <div class="desc">
+                              <span class="feedback">최대 12개월 무이자 할부</span>
+                              <ul class="dot-list">
+                                <li>본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="payment">
+                      <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                      <div class="payment-head">
+                        <div class="radio-wrap">
+                          <label type="radio" for="radio11" class="input-radio">
+                            <input type="radio" name="radio1" id="radio11">
+                            <i></i><!-- [D 0820] 문구 변경 -->간편페이/신용카드 결제</label>
+                        </div>
+                      </div>
+                      <div class="payment-form-wrap">
+                        <div class="credit-list">
+                          <!-- [D 0820] 기타카드 선택시 모두 비활성화 -->
+                          <!-- [D] 비활성화시 button.credit-item에 disabled 추가 및 aria-selected="false" -->
+                          <!-- [D] 선택 시 aria-selected="true" 변경 -->
+                          <!-- [D 07.14] BC카드와 우리카드 순서 변경함 -->
+                          <div>
+                            <span class="tag bg-red tag-payment">적립 7%</span>
+                            <button class="credit-item" aria-selected="true" data-credit="shinhan">
+                              <span>신한카드(SOL페이)</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="hyundai">
+                              <span>현대카드</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="bc">
+                              <span>BC카드(페이북)</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="kb">
+                              <span>KBPAY(국민카드)</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="samsung">
+                              <span>삼성카드</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="lotte">
+                              <span>롯데카드</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="hana">
+                              <span>하나PAY</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="nh">
+                              <span>농혐(NH페이)</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="woori">
+                              <span>우리카드</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="kjbank">
+                              <span>광주은행</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="citi">
+                              <span>씨티카드(구 한미)</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="suhyup">
+                              <span>수협</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="naver">
+                              <span>네이버페이</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="kakao">
+                              <span>카카오페이</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="payco">
+                              <span>PAYCO</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="ssg">
+                              <span>SSG PAY</span>
+                            </button>
+                          </div>
+                          <div>
+                            <button class="credit-item" aria-selected="false" data-credit="lpay">
+                              <span>L.PAY</span>
+                            </button>
+                          </div>
+                        </div>
+                        <!-- [D 07.14] 닷리스트 추가 -->
+                        <!-- [D 0820] 구조 변경 -->
+                        <div class="pay-detail-options">
+                          <div class="select-wrap">
+                            <select class="input-select" name="">
+                              <option value="기타 카드">기타 카드</option>
+                            </select>
+                          </div>
+                          <div class="desc">
+                            <ul class="dot-list">
+                              <li>본 행사는 선착순으로 진행되며, 제휴사정에 따라 예고 없이 변경 또는 조기종료 될 수 있습니다.</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- [D 07.14] 할부 영역 삭제 -->
+                        <div class="toggle-show-show">
+                          <div class="gray-box"> 카드 선택 후 <span class="c-red">결제하기</span> 버튼을 누르면 NHN KCP결제창으로 연결되며, 결제정보를 입력하실 수 있습니다. </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="payment">
+                      <!-- [D 07.14] payment-head toggle-hide-show 삭제 -->
+                      <div class="payment-head">
+                        <div class="radio-wrap">
+                          <label type="radio" for="radio12" class="input-radio">
+                            <input type="radio" name="radio1" id="radio12">
+                            <!-- [D 07.14] 문구 수정 -->
+                            <i></i>가상계좌</label>
+                        </div>
+                      </div>
+                      <div class="payment-form-wrap">
+                        <!-- [D 07.14] 기존 콘텐츠 완전 교체 -->
+                        <div class="select-wrap">
+                          <select class="input-select" name="">
+                            <option value="은행선택">은행선택</option>
+                          </select>
+                        </div>
+                        <ul class="dot-list">
+                          <li>결제가 완료되어야 배송이 진행되며, 주문 완료 후 <span class="fw-semibold">3일 이내에</span> 입금되지 않으면 주문이 취소됩니다.</li>
+                          <li>입금 완료 이후 주문 취소가 발생한 경우에는 예치금으로 환불됩니다.</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- 약국주소 -->
+                <div class="toggle-title active">
+                  <!-- [D 08.27] 제약사/의약품일 때 타이틀 문구 변경 -->
+                  <h2>제약사/의약품 배송지</h2>
+                </div>
+                <div class="toggle-content">
+                  <div class="delivery-info-wrap">
+                    <!-- [D 07.14] p.h3 타이틀 영역 삭제 -->
+                    <div class="delivery-info">
+                      <!-- [D 07.14] 입력방식 변경됨 -->
+                      <div class="detail-area">
+                        <!-- [D 08.27] 판매자 유형이 제약사, 의약외품일 경우 대상판매자 추가 -->
+                        <em>대상판매자</em>
+                        <p>대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약</p>
+                        <!-- // [D 08.27] 판매자 유형이 제약사, 의약외품일 경우 대상판매자 추가 -->
+                        <em>약국주소</em>
+                        <p>(01234) 서울특별시 광진구 12길 34(암사동) 1O1호 <!-- [D 08.27] 제약사, 의약품, VIP상품일 경우 주소뒤에 약국명 추가 -->빛나리 약국</p>
+                        <em>받으시는 분</em>
+                        <p>김대원</p>
+                        <em>약국전화번호</em>
+                        <p>01O-1234-1234</p>
+                        <em>휴대전화번호</em>
+                        <p>01O-1234-1234</p>
+                      </div>
+                      <div class="message-area">
+                        <div class="message-box">
+                          <div class="message-form-wrap">
+                            <!-- [D 08.27] placeholder 문구 변경 -->
+                            <input type="text" class="form-basic " value="" placeholder="배송메시지를 입력해 주세요(최대 50자)." />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- //약국주소 -->
+                <!-- 의약외품/일반상품 배송지 설정 -->
+                <div class="toggle-title active">
+                  <!-- [D 08.27] 의약외품/라이프일 때 타이틀 문구 변경 -->
+                  <h2>의약외품/라이프 배송지</h2>
+                </div>
+                <div class="toggle-content">
+                  <!-- [D 08.27] 판매자 유형이 제약사, 의약외품일 경우 대상판매자 추가 -->
+                  <div class="delivery-info-wrap">
+                    <div class="delivery-info">
+                      <div class="detail-area">
+                        <em>대상판매자</em>
+                        <p>대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약, 대원제약, 소원제약, 중원제약</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- // [D 08.27] 판매자 유형이 제약사, 의약외품일 경우 대상판매자 추가 -->
+                  <!-- [D 07.14] delivery-others 추가 -->
+                  <div class="delivery-info-wrap delivery-others">
+                    <!-- [D 07.14] p.h3 타이틀 영역 삭제 -->
+                    <div class="delivery-info">
+                      <!-- [D 07.14] flex 영역 추가 -->
+                      <div class="flex">
+                        <p>의약품과 동일한 배송정보로 배송됩니다.</p>
+                        <div class="check-wrap">
+                          <label type="checkbox" class="input-checkbox" for="checkbox0">
+                            <input type="checkbox" name="checkbox" id="checkbox0">
+                            <i></i> 배송지 변경 </label>
+                        </div>
+                      </div>
+                      <div class="detail-area">
+                        <em>주소</em>
+                        <!-- [D 0915] 주소관련 p 삭제 후 마이페이지의 주소변경 ui가져옴 -->
+                        <div class="form-line form-address">
+                          <div class="flex">
+                            <input type="text" class="form-basic " value="00000" placeholder="우편번호 검색" disabled />
+                            <button class="btn cta">
+                              <span>우편번호 찾기</span>
+                            </button>
+                          </div>
+                          <input type="text" class="form-basic " value="서울특별시 광진구 아차산로 229" placeholder="주소 입력" disabled />
+                          <input type="text" class="form-basic " value="" placeholder="상세주소" />
+                        </div>
+                        <em>받으시는 분</em>
+                        <input type="text" class="form-basic " value="김대원" placeholder="받으시는 분 성함을 입력해주세요." />
+                        <em><!-- [D 07.22] 문구 수정 -->휴대전화번호</em>
+                        <div class="flex">
+                          <div class="input-call">
+                            <div class="select-wrap">
+                              <select class="input-select" name="">
+                                <option value="010">010</option>
+                              </select>
+                            </div>
+                            <span>-</span>
+                            <input type="number" class="" />
+                            <span>-</span>
+                            <input type="number" class="" />
+                          </div>
+                        </div>
+                        <em>배송메시지</em>
+                        <!-- [D 08.27] placeholder 문구 변경 -->
+                        <input type="text" class="form-basic " value="" placeholder="배송메시지를 입력해 주세요(최대 50자)." />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- //의약외품/일반상품 배송지 설정 -->
+                <h4 class="h2 caution">결제 정보 확인 및 주문 약관 동의</h4>
+                <ul class="dot-list">
+                  <li>개인정보 제3자 제공동의 : (주)대원제약, 애플스토어&nbsp;&nbsp;&nbsp; <button class="btn cta black-outline xs">
+                      <span><!-- [D 07.14] 띄어쓰기 수정 -->자세히 보기</span>
+                    </button>
+                  </li>
+                  <li>위의 약관 및 주문 상품의 상품명, 배송정보를 확인하였으며, 구매에 동의합니다.</li>
+                </ul>
+              </div>
+              <div class="contents-right">
+                <!-- 플로팅 어사이드 -->
+                <div class="floating-aside">
+                  <!-- [D] 확장버튼 -->
+                  <button class="only-mo btn-view-order-all"><span class="sr-only"><!-- [D 07.14] 문구 변경: 상세내역 보기/상세내역 접기(마크업대응완) -->상세내역 보기</span></button>
+                  <div class="floating-contents">
+                    <div class="title">결제 상세</div>
+                    <div class="total fixed">
+                      <p>총 주문금액</p>
+                      <p class="order-pay-amount"><span>99,999,999,900</span>원</p>
+                    </div>
+                    <!-- [D] ul.content을 div로 변경 -->
+                    <div class="content">
+                      <div class="price-info">
+                        <p>쿠폰 사용</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                        <p>포인트 사용</p>
+                        <p class="price"><span>9,999,999,999</span><!-- [D 07.25] 단위문구 변경 -->P</p>
+                        <p>예치금</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                        <p>카드 즉시할인</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                        <p>카드 간편결제(현대5678)</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                        <p>신용카드결제(현대카드)</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                        <p>가상계좌</p>
+                        <p class="price"><span>9,999,999,999</span>원</p>
+                      </div>
+                    </div>
+                    <!-- [D 07.10] 동의 영역 추가 -->
+                    <!-- [D 08.27] 동의 영역 삭제 -->
+                    <!-- [D] 설명란 추가 -->
+                    <!-- [D 08.27] 설명란 삭제 -->
+                    <!-- // [D] 설명란 추가 -->
+                    <!-- [D] btn-wrap 추가 및 버튼 스타일 가이드에 맞게 변경 -->
+                    <div class="btn-wrap">
+                      <button class="btn cta filled md" type="button" onclick="executePaymentStep()">
+                        <b>9,999,999,999원&nbsp;</b>
+                        <span>결제하기</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- //기존 주문서 page -->
+      </div>
+    </div>
+  </div>
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <script>
+    // 확인용
+    function numbersComma(obj) {
+      const addComma = obj.value.replace(/[^0-9]/g, '');
+      if (addComma === '') {
+        obj.value = '';
+        return;
+      }
+      obj.value = Number(addComma).toLocaleString();
+    }
+    const inputPriceText = document.querySelectorAll('.input-price .input-cover input');
+    if (inputPriceText.length > 0) {
+      inputPriceText.forEach(function(input) {
+        input.addEventListener('input', function() {
+          numbersComma(this);
+        });
+        if (input.value.trim() !== '') {
+          numbersComma(input);
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>상품 더 담기</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 상품 더 담기 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <!-- [D] 검색 결과가 없을 경우, order-modal에 no-data클래스 추가 -->
+        <div class="order-modal no-data">
+          <div class="head-wrap">
+            <div>
+              <h2 class="h2">
+                <b>대원제약</b> 주문가능금액까지 <em>999,999,999원</em> 남았습니다.
+              </h2>
+              <p class="body1">(주문최소금액 500,000원)</p>
+            </div>
+            <div>
+              <form class="search">
+                <div class="relative">
+                  <input type="text" placeholder="상품명을 입력해 주세요." />
+                  <button class="btn icon md icon-search">
+                    <span>검색</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <p class="h3"><b class="c-b000">대원제약</b>에서 잘 나가는 상품을 더 담아 보세요.</p>
+              <div class="ml-auto">
+                <button class="btn text active">
+                  <span>최근주문상품</span>
+                </button>
+                <span class="divider-vertical-line"></span>
+                <button class="btn text">
+                  <span>판매순</span>
+                </button>
+                <span class="divider-vertical-line"></span>
+                <button class="btn text">
+                  <span>낮은가격순</span>
+                </button>
+              </div>
+            </div>
+            <div class="brand-wrap">
+              <div class="no-contents">
+                <div class="text-wrap">
+                  <p>검색 결과가 없습니다.</p>
+                </div>
+                <div class="button-wrap">
+                  <button class="btn cta outlined md">
+                    <span>추천 상품 보기</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <!-- [D 06.04] 버튼 사이즈 md로 변경 --><!-- [D 07.14] a로 변경 -->
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>다른 상품 더보기</span>
+          </a>
+          <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+          <button class="btn cta filled md">
+            <span>선택 상품 담기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>로그인</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <!-- [D] content-inner에 login 클래스 추가 -->
+        <div class="content-inner login">
+            <div class="section-login">
+                <div>
+                    <div>
+                        <!-- 콘텐츠 -->
+                        <header class="header-login">
+                            <h1>
+                                <!-- [D 07.30] loading="lazy" decoding="async" 삭제 -->
+                                <%- include('./atoms/image.ejs', { src: 'logo.png', alt: '온다몰', noLink: true, nolazy: true }) %>
+                            </h1>
+                            <!-- [D 06.16] 추가 -->
+                            <p class="body1">온다몰에 오신 것을 환영합니다!</p>
+                        </header>
+
+                        <!-- [D] 솔루션 로그인 폼 응용, mb-10 m-mb-6와 같은 커스텀 클래스 제거됨 -->
+                        <form id="login-form">
+                            <div class="form-line">
+                                <!-- [D] 에러시 is-error 추가 -->
+                                <input type="text" id="loginId" class="form-basic required is-error" placeholder="아이디를 입력해 주세요." title="아이디">
+                                <!-- [D 1차 회원수정] 유효성 메시지 삭제, 팝업으로 노출 예정 -->
+                            </div>
+                            <div class="form-line">
+                                <button type="button" class="show-password-btn"></button>
+                                <!-- [D] 에러시 is-error 추가 -->
+                                <input type="password" id="password" class="form-basic required" placeholder="비밀번호를 입력해 주세요." title="비밀번호">
+                                <!-- [D 1차 회원수정] 유효성 메시지 삭제, 팝업으로 노출 예정 -->
+                            </div>
+                            <div class="user-check-area">
+                                <!-- [D] check-wrap의 no-margin 삭제 -->
+                                <div class="check-wrap">
+                                    <label class="input-checkbox">
+                                        <input id="saveId" type="checkbox">
+                                        <i></i>
+                                        <!-- [D 1차 회원수정] 문구 변경 -->
+                                        아이디 기억하기
+                                    </label>
+
+                                    <!-- [D 06.16] 추가 -->
+                                    <label class="input-checkbox">
+                                        <input id="saveLogin" type="checkbox">
+                                        <i></i>
+                                        자동로그인
+                                    </label>
+                                </div>
+                                <!-- [D 1차 회원수정] only-mo 클래스 추가 및 button 구분 -->
+                                <div class="find-idpw-area only-mo">
+                                    <button>아이디 찾기</button>
+                                    <!-- [D 06.16] 구분선 변경 -->
+                                    <span class="divider-vertical-line"></span>
+                                    <button>비밀번호 찾기</button>
+                                    <!-- [D 06.16] 구분선 변경 -->
+                                    <span class="divider-vertical-line"></span>
+                                    <!-- [D 06.16] 추가 -->
+                                    <button>추가서류 제출</button>
+                                </div>
+                            </div>
+                            <!-- [D] crud의 랩을 추가 -->
+                            <div class="flex crud">
+                                <!-- [D] btn-primary.btn-login 클래스 삭제하고 새 버튼 스타일 삽입 -->
+                                <%- include('./atoms/button.ejs', {
+                                    value: '로그인',
+                                    size: 'lg',
+                                    type: 'filled'
+                                }) %>
+                            </div>
+                        </form>
+
+                        <!-- [D] 추가 영역 -->
+                        <p class="get-joined">
+                            <%- include('./atoms/button.ejs', {
+                                isLink: true,
+                                value: '회원가입',
+                                type: 'black-outline'
+                            }) %>
+                        </p>
+                        <!-- //[D] 추가 영역 -->
+                        <!-- [D 1차 회원수정] pc용 영역 추가 및 button 구분 -->
+                        <div class="find-idpw-area only-pc">
+                            <button>아이디 찾기</button>
+                            <!-- [D 06.16] 구분선 변경 -->
+                            <span class="divider-vertical-line"></span>
+                            <button>비밀번호 찾기</button>
+                            <!-- [D 06.16] 구분선 변경 -->
+                            <span class="divider-vertical-line"></span>
+                            <!-- [D 06.16] 추가 -->
+                            <button>추가서류 제출</button>
+                        </div>
+                    <!-- ///콘텐츠 -->
+                    </div>
+                </div>
+
+                <div>
+                    <!-- [D 1차 회원수정] picture가 아닌 단순 img로 변경, src 역시 변경됨 -->
+                    <!-- [D 07.30] loading="lazy" decoding="async" 삭제 -->
+                    <%- include('./atoms/image.ejs', {
+                        noLink: true,
+                        src: 'join/login.jpg',
+                        nolazy: true
+                    }) %>
+                    <!-- [D 1차 회원수정] 기존 p 영역 대신 콘텐츠 영역 추가 -->
+                        <h2 class="h2">
+                            <!-- [D 06.16] 추가 -->
+                            온다몰이 쉽고 편리한 약국 운영을 도와드립니다.<br/>
+                            <!-- [D 04-25 수정] span의 클래스명 양쪽 모두 변경 -->
+                            <span class="c-primary">다양한 혜택</span>을 마음껏 즐기며 <span class="c-red">편리하게 구매</span>하세요!
+                        </h2>
+                        <ul>
+                            <li>
+                                <h3 class="body1">의약품 전문 쇼핑몰</h3>
+                                <p class="body3">제약사는 물론 도매상까지, 모든 의약품 주문을 한번에 할 수 있는 의약품 전문 쇼핑몰입니다.</p>
+                            </li>
+                            <li>
+                                <h3 class="body1">이벤트 및 기획전</h3>
+                                <p class="body3">이벤트 및 기획전을 통해 신상품 및 인기 의약품을 저렴하게 구매하실 수 있습니다.</p>
+                            </li>
+                            <li>
+                                <h3 class="body1">쉽고 빠른 반품 서비스</h3>
+                                <p class="body3">쉽고 빠른 반품 서비스를 제공하여 의약품 사입에 대한 부담을 덜어드립니다.</p>
+                            </li>
+                            <li>
+                                <!-- [D 06.16] 문구 변경 -->
+                                <h3 class="body1">다양한 쿠폰과 혜택</h3>
+                                <p class="body3">약국 운영에 필요한 의약외품을 구매하고 쿠폰과 혜택을 받으실 수 있습니다.</p>
+                            </li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- [D] 탑버튼 삭제 -->
+        <%- include('./includes/footer.ejs', { login: true, hideTop: true }) %>
+
+
+    </body>
+</html>
+ass="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>무통장 입금 정보</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 가상계좌 입금 정보 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="account-info-modal">
+          <div class="toggle-title toggle-order-list">
+            <h2>주문상품</h2>
+          </div>
+          <div class="toggle-content">
+            <div class="bg-white">
+              <div class="toggle-hide-show">
+                <div class="prd-item-list type-column type-line">
+                  <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                  <div class="item-element" data-item-user-code="G2000039500">
+                    <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                    <div class="item-detail">
+                      <span class="thumbnail-container">
+                        <span class="thumbnail-wrap redirect-item-view">
+                          <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                        </span>
+                      </span>
+                      <span class="info-container">
+                        <!-- [D 06.04] span.type 삭제  -->
+                        <span class="title-main">
+                          <!-- [D 07.07] 문구 수정 -->총 <em>3개</em>의 상품 </span>
+                      </span>
+                    </div>
+                    <!-- [D] 상품리스트에서의 user-action 위치 -->
+                    <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="toggle-title active">
+            <h2>계좌 정보</h2>
+          </div>
+          <div class="toggle-content">
+            <div class="price-info">
+              <p>입금할 금액</p>
+              <p class="price"><span>9,999,999,999</span>원</p>
+              <p>입금은행</p>
+              <p class="price">경기은행</p>
+              <p>입금계좌</p>
+              <p class="price"><span>123-123-123-1234</span>
+                <button class="btn cta xs">
+                  <span>계좌복사</span>
+                </button>
+              </p>
+              <p>입금마감일시</p>
+              <p class="price">2025.12.11 23:59:59</p>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>주문내역 상세</span>
+          </a>
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script>
+    // 확인용
+    const textCopyBtn = document.querySelector('.price-info .price .btn.xs');
+    if (textCopyBtn !== null) {
+      let parentEl = textCopyBtn.closest('.price'),
+        textEl = parentEl.querySelector('span');
+      textCopyBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (textEl) {
+          const text = textEl.textContent;
+          navigator.clipboard.writeText(text).then(() => {
+            console.log('복사 성공', text);
+          }).catch(err => {
+            console.error('복사 실패:', err);
+          })
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

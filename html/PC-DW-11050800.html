@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>파일확인</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '파일명이 들어갑니다.',
+            content: `<div class="image-area">
+                <!-- [D] 파일 url만 변경 -->
+                <img src="../static/content/image/join/login.jpg" alt="">
+            </div>`
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>

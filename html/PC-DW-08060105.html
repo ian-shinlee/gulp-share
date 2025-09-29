@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>반품거절사유 상세</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            var infoContent = `
+                <div class="table-wrap table-type-column">
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>입점업체</th>
+                                <td><span>대원제약</span></td>
+                            </tr>
+                            <tr>
+                                <th>거절사유</th>
+                                <td>
+                                    <span>포장불량으로 반품이 불가합니다.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>거절일시</th>
+                                <td>
+                                    <span>2025.12.12 23:44:22</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>MR</th>
+                                <td>
+                                    <div class="space-x-8">
+                                        <span>김대원 010-1234-5678</span>
+                                        ${include('./atoms/button.ejs', { value: '문의하기', size: 'xs', isLink: true})}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btn-wrap">
+                    ${include('./atoms/button.ejs', {
+                        value: '확인',
+                        size: 'md',
+                        type: 'filled',
+                    })}
+                </div>
+                `
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '반품거절사유 상세 ',
+            content: infoContent,
+            buttonFixed: true,
+        }) %>
+        <!-- //modal area -->
+
+    </body>
+</html>
+            <tr>
+                <th>MR</th>
+                <td>
+                  <div class="space-x-8">
+                    <span>김대원 010-1234-5678</span>
+                    <a href="#none" class="btn cta xs">
+                      <!-- [D] span이 추가됨 -->
+                      <span>문의하기</span>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="btn-wrap">
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+</body>
+
+</html>

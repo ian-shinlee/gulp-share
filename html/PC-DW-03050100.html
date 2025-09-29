@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>나중에 결제 적용 내역</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 나중에 결제 적용 내역 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="order-modal">
+          <div class="head-wrap">
+            <div>
+              <h2 class="h2"> 나중에 결제 대상 금액은 <em>1,134,567원</em> 입니다.<br />(전체 1,234,567원 중 100,000원 선결제 적용) </h2>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <em class="h3">대원제약</em>
+              <div class="balance">
+                <span>잔고</span><em>23,234,567,999,999원</em>
+              </div>
+            </div>
+            <div class="brand-wrap">
+              <div class="price-info">
+                <p>나중에 결제 대상금액</p>
+                <p class="price"><span>99,999,999,999</span>원</p>
+                <p>예치금 사용</p>
+                <p class="price"><span>-99,999,999,999</span>원</p>
+                <p>예치금에 대한 금융비용할인(1.8%) 적용금액</p>
+                <p class="price"><span>-99,999,999,999</span>원</p>
+              </div>
+              <div class="price-info">
+                <p>나중에 결제 잔액</p>
+                <p class="price"><span>99,999,999,999</span>원</p>
+              </div>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <em class="h3">대원제약</em>
+              <div class="balance">
+                <span>잔고</span><em>23,234,567,999,999원</em>
+              </div>
+            </div>
+            <div class="brand-wrap">
+              <div class="price-info">
+                <p>나중에 결제 잔액</p>
+                <p class="price"><span>99,999,999,999</span>원</p>
+              </div>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <em class="h3">대원제약</em>
+              <div class="balance">
+                <span>잔고</span><em>23,234,567,999,999원</em>
+              </div>
+            </div>
+            <div class="brand-wrap">
+              <div class="price-info">
+                <p>나중에 결제 잔액</p>
+                <p class="price"><span>99,999,999,999</span>원</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

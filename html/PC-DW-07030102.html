@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>상세 | 약톡톡</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body>
+  <!-- [D] div.fixed-header 삭제 -->
+  <!-- top-banner -->
+  <div class="section-full top-banner-area only-pc" style="background-color: #4d0073;">
+    <div>
+      <img src="../static/content/image/temp/img_1280x48.png" alt="" loading="lazy" decoding="async" />
+      <a href="#none"></a>
+      <div class="banner-controller">
+        <div class="check-wrap">
+          <label type="checkbox" class="input-checkbox" for="today0">
+            <input type="checkbox" name="today" id="today0">
+            <i></i> 오늘 하루 보지 않기 </label>
+        </div>
+        <button class="btn icon lg icon-close">
+          <span>닫기</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- //top-banner -->
+  <!-- header -->
+  <!-- [D] header-default와 header-detail의 클래스를 header로 통일 -->
+  <!-- [D]
+    1. 서브메인화면 진입시 sub-main / 서브화면 진입시 sub 클래스 추가
+    2. mobile-search-active 은 검색 실행시 추가 -->
+  <!-- [D 07.25]
+    1. MR 혹은 예외처일 경우 해당 클래스(is-mr / is-limited)는 메인,서브 상관없이 고정
+    2. 메뉴바와 타이틀 영역이 삭제되어야한다면, no-gnb 클래스 추가
+    3. 뒤로가기 버튼이 삭제되어야한다면, no-back 클래스 추가
+ -->
+  <header id="header" class="header sub">
+    <!-- [D] section을 div태그로 변경 -->
+    <div class="flex space-between">
+      <div class="col-left">
+        <!-- [D] btn-gnb, btn-back.btn-history 삭제 -->
+        <a href="/" class="brand"><img src="../static/content/image/logo.png" alt="온다몰"></a>
+        <!-- [D] title-h1-mobile 삭제 -->
+      </div>
+      <div class="col-right">
+        <div class="searching-area" data-recommend-link="" data-recommend-blank-flag="">
+          <form id="header-search-form">
+            <button type="button" class="btn-close">
+              <!-- [D] 기존 img태그 삭제 후 span추가 -->
+              <span class="sr-only">뒤로가기</span>
+            </button>
+            <!-- [D] 검색 필터 추가 -->
+            <div class="select-wrap">
+              <select class="input-select" name="">
+                <option value="전체검색">전체검색</option>
+                <option value="상품명">상품명</option>
+                <option value="상품코드">상품코드</option>
+                <option value="입점사명">입점사명</option>
+              </select>
+            </div>
+            <!-- [D] placeholder 추가 -->
+            <!-- [D 07.10]
+                        1. 광고가 있을 경우, pin 클래스 추가
+                        2. 광고가 없을 경우 디폴트 placeholder 문구(광고가 있어도 화면너비 767px이하에서는 디폴트): 검색어를 입력해주세요.
+                        3. 화면너비 767px이하는 광고 기능을 제공하지 않아, input 분리하였습니다. 분리 불필요시, only-클래스 삭제하시고 하나만 남겨주세요~
+                    -->
+            <input type="search" name="query" class="only-pc pin" placeholder="어른부터 아이까지 온가족 감기상비약 '콜대원'을 검색해 보세요!">
+            <input type="search" name="query" class="only-mo" placeholder="검색어를 입력해주세요.">
+            <!-- [D] 클리어 버튼 추가 -->
+            <button class="btn-clear">
+              <span class="sr-only">삭제</span>
+            </button>
+            <button type="submit" class="btn-search">
+              <!-- [D] 기존 svg 삭제하고 span 추가 -->
+              <span class="sr-only">검색</span>
+            </button>
+            <button id="mobile-search-button" type="button" class="btn-search mobile-search-open">
+              <!-- [D] 기존 svg 삭제하고 span 추가 -->
+              <span class="sr-only">검색</span>
+            </button>
+          </form>
+        </div>
+        <ul class="util-menu">
+          <!-- [D 07.25] 찜버튼이 아닌 입점업체안내로 변경 -->
+          <li class="info">
+            <a href="#none">입점업체안내</a>
+          </li>
+          <li class="notice">
+            <button href="#none">알림 <!-- [D] span.count 추가, 표시넘버: 맥시멈 100 -->
+              <span class="count">100</span>
+            </button>
+          </li>
+          <li class="cart">
+            <button href="#none">장바구니 <!-- [D] span.count 추가, 표시넘버: 맥시멈 100 -->
+              <span class="count">100</span>
+            </button>
+          </li>
+          <li class="manager">
+            <button href="#none">MR 정보</button>
+            <div class="manager-wrap">
+              <div class="manager-box">
+                <em>ABC제약ABC제약ABC제약ABC제약ABC제약</em>
+                <b><span>담당자담당자담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+              <div class="manager-box">
+                <em>ABC제약</em>
+                <b><span>담당자</span><span>010-1234-5678</span></b>
+                <a href="#none" class="btn cta light-outline xs">
+                  <!-- [D] span이 추가됨 -->
+                  <span>문의하기</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="searching-list hidden">
+          <button type="button" class="delete-all">전체삭제</button>
+          <div class="list list-popular">
+            <p>인기검색어</p>
+            <!-- 인기검색어가 없을 경우 -->
+            <p class="no-data">인기 검색어가 없습니다.</p>
+            <!-- 인기검색어가 있을 경우 -->
+            <ol>
+              <li><em class="number">1</em><a href="#none" class="text">검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드</a></li>
+              <li><em class="number">2</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">3</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">4</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">5</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">6</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">7</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">8</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">9</em><a href="#none" class="text">키워드</a></li>
+              <li><em class="number">10</em><a href="#none" class="text">키워드</a></li>
+            </ol>
+          </div>
+          <div class="list list-recent">
+            <p>최근 검색어</p>
+            <!-- 최근 검색어가 없을 경우 -->
+            <p class="no-data">최근 검색어가 없습니다.</p>
+            <!-- 최근 검색어가 있을 경우 -->
+            <ul>
+              <li>
+                <a href="#none" class="text">검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드</a>
+                <button class="delete" data-word="검색키워드검색키워드검색키워드검색키워드검색키워드검색키워드키워드키워드검색키워드"></button>
+              </li>
+              <li>
+                <a href="#none" class="text">검색키워드</a>
+                <button class="delete" data-word="검색키워드"></button>
+              </li>
+              <li>
+                <a href="#none" class="text">검색키워드</a>
+                <button class="delete" data-word="검색키워드"></button>
+              </li>
+            </ul>
+          </div>
+          <div class="list-footer"><button type="button" class="searching-list-close">닫기</button></div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div태그로 변경 -->
+    <div class="quick-link">
+      <!-- [D 0812] 단위테스트 184 -->
+      <span>$약국명$</span>
+      <!-- [D] a링크만 남기고 모두 삭제되었습니다. -->
+      <a href="#none">로그아웃</a>
+      <a href="#none">고객센터</a>
+      <a href="#none">마이페이지</a>
+      <a href="#none">장바구니&nbsp;<span class="count">100</span></a>
+      <a href="#none">원격지원</a>
+    </div>
+    <!-- [D] 이하 디자인에 맞추어 새로 추가 -->
+    <div class="gnb-wrap">
+      <nav class="gnb">
+        <!-- [D] section을 div태그로 변경 -->
+        <div class="depth1">
+          <!-- [D] btn-hamburger 부분, 아직 기획/디자인 미정 -->
+          <!-- [D] btn-hamburger 추가 / 클릭시 active 클래스 추가 -->
+          <button class="btn-hamburger"><span>상품 카테고리</span></button>
+          <div class="menu-item">
+            <!-- [D] a를 em태그로 변경 -->
+            <!-- <em>카테고리</em> -->
+            <div class="depth2">
+              <ul>
+                <li>
+                  <a href="#none">전문의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">일반의약품</a>
+                  <div class="depth3">
+                    <ul>
+                      <li>
+                        <a href="#none">depth 2</a>
+                        <div class="depth4">
+                          <ul>
+                            <li><a href="#none">depth 3</a></li>
+                            <li><a href="#none">depth 3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="#none">의약외 약품</a>
+                </li>
+                <li>
+                  <a href="#none">건강기능식품</a>
+                </li>
+                <li>
+                  <a href="#none">건강식품</a>
+                </li>
+                <li>
+                  <a href="#none">동물의약용품</a>
+                </li>
+                <li>
+                  <a href="#none">화장품</a>
+                </li>
+                <li>
+                  <a href="#none">약국소모품</a>
+                </li>
+                <li>
+                  <a href="#none">의료기기</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D 07.25] 입점업체 추가, 상품 카테고리와 같은 형식이나, depth2의 a가 button으로 변경됨 -->
+        <div class="depth1 only-pc">
+          <!-- [D 07.25] 상품 카테고리와 버튼 클래스 다름, active 클래스로 제어되는 것은 동일 -->
+          <button class="btn-selectbox"><span>입점업체</span></button>
+          <div class="menu-item">
+            <div class="depth2">
+              <ul>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>제약사</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>의약외품</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <!-- [D 07.25] 상품 카테고리와 달리 button 태그임 -->
+                  <button>라이프</button>
+                  <div class="depth3">
+                    <ul>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                      <li><a href="#none">depth 2</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [D] 메인 메뉴 추가 -->
+        <a href="#none" class="menu-depth1 only-pc">통합주문</a>
+        <!-- [D 07.21] 메뉴 간소화로 스와이퍼 삭제하였습니다.  -->
+        <a href="#none" class="menu-depth1">브랜드관</a>
+        <a href="#none" class="menu-depth1">기획전</a>
+        <a href="#none" class="menu-depth1">이벤트</a>
+        <a href="#none" class="menu-depth1 only-pc on">약톡톡</a>
+        <a href="#none" class="menu-depth1 only-mr">MR상품주문</a>
+        <div class="to-brand">
+          <button class="btn text icon-chevron-down icon-right">
+            <span>브랜드관 바로가기</span>
+          </button>
+          <div class="to-brand-wrap">
+            <div class="brand-link">
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관브랜드관브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+              <a href="#none">
+                <div class="info">
+                  <div class="ci">
+                    <img src="../static/content/image/temp/brand_ci.png" alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <p class="body1">브랜드관</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="sub-title only-mo">
+      <div>
+        <button type="button" class="btn-back btn-history" onclick="history.back();">
+          <!-- [D] 기존 img태그 삭제 후 span추가 -->
+          <span class="sr-only">뒤로가기</span>
+        </button>
+        <h1 class="title-h1-mobile">약톡톡 상세</h1>
+      </div>
+    </div>
+  </header>
+  <!-- //header -->
+  <div class="content-inner ">
+    <div class="section-full sub-title-area">
+      <div>
+        <div class="head-wrap">
+          <div>
+            <h3 class="h1"> 약톡톡 </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-full sub-detail-page">
+      <!-- snb area -->
+      <div class="snb-grid">
+        <aside>
+          <nav>
+            <ul>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <a href="#none" class="on"> 약톡톡 홈 </a>
+              </li>
+              <li>
+                <!-- [D] 메뉴 활성화시 on 클래스 추가 -->
+                <a href="#none"> 약국경영자료 </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <div>
+          <!-- SNB content -->
+          <div class="talk-detail only-pc">
+            <div class="line-box">
+              <div class="head-wrap detail-head">
+                <div>
+                  <h4 class="h1"> 우리 아이 감기 해열엔 짜라! 콜대원 키즈 </h4>
+                  <p class="body1"><span>가나다라마바사아자차</span><span class="detail-head-info">
+                      <b>2025.02.01</b>
+                      <b>100</b>
+                      <b>10,000</b>
+                    </span></p>
+                </div>
+              </div>
+              <div class="detail-content"> Editor 콘텐츠가 들어가는 영역입니다 </div>
+              <div class="detail-btns">
+                <a href="#none" class="btn cta">
+                  <!-- [D] span이 추가됨 -->
+                  <span>목록보기</span>
+                </a>
+              </div>
+              <div class="detail-prd">
+                <div class="head-wrap">
+                  <div>
+                    <h5 class="h2"> 연관 상품 </h5>
+                  </div>
+                </div>
+                <!-- [D 06.04] 판매상품 -->
+                <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                <div class="item-swiper talk-item-swiper">
+                  <div class="swiper">
+                    <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                    <div class="swiper-wrapper prd-item-list">
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="swiper-slide item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <button class="item-detail">
+                          <span class="thumbnail-container">
+                            <span class="thumbnail-wrap redirect-item-view">
+                              <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                            </span>
+                            <!-- [D 06.04] tag-wrap 위치 변경 -->
+                            <span class="tag-wrap">
+                              <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                              <span class="tag tag-prd tag-event">포인트</span>
+                              <span class="tag tag-prd tag-product">인기상품</span>
+                            </span>
+                          </span>
+                          <span class="info-container">
+                            <!-- [D 06.04] tag-promotion 위치 변경  -->
+                            <span class="tag tag-prd tag-promotion">기간한정</span>
+                            <span class="desc">판매자명</span>
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                            </span>
+                            <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                            <span class="prd-price">
+                              <span class="discounted">
+                                <span>9,000,000</span>
+                                <span>원</span>
+                              </span>
+                              <span class="sale">
+                                <span>10</span>
+                                <span>%</span>
+                              </span>
+                              <span class="price">
+                                <span>9,000,000</span>
+                                <span>원</span>
+                              </span>
+                              <!-- [D] 장바구니에서의 user-action 위치 -->
+                            </span>
+                          </span>
+                        </button>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="user-action">
+                          <button class="btn icon icon-zzim">
+                            <span>관심상품</span>
+                          </button>
+                          <div class="etc"><b>수량할인</b></div>
+                          <!-- [D 06.04] prd-ctrl 추가  -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <!-- [D 06.04] btn-cart / btn-order 등 클래스 추가 -->
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="swiper-slide item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <button class="item-detail">
+                          <span class="thumbnail-container">
+                            <span class="thumbnail-wrap redirect-item-view">
+                              <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                            </span>
+                            <!-- [D 06.04] tag-wrap 위치 변경 -->
+                            <span class="tag-wrap">
+                              <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                              <span class="tag tag-prd tag-event">포인트</span>
+                              <span class="tag tag-prd tag-product">인기상품</span>
+                            </span>
+                          </span>
+                          <span class="info-container">
+                            <!-- [D 06.04] tag-promotion 위치 변경  -->
+                            <span class="tag tag-prd tag-promotion">기간한정</span>
+                            <span class="desc">판매자명</span>
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                            <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                            <span class="prd-price">
+                              <span class="discounted">
+                                <span>9,000,000</span>
+                                <span>원</span>
+                              </span>
+                              <span class="sale">
+                                <span>10</span>
+                                <span>%</span>
+                              </span>
+                              <span class="price">
+                                <span>9,000,000</span>
+                                <span>원</span>
+                              </span>
+                              <!-- [D 06.04] 일부 etc 내용이 이동되면서 status로 변경됨  -->
+                              <span class="status icon-calendar">기한임박</span>
+                              <!-- [D] 장바구니에서의 user-action 위치 -->
+                            </span>
+                          </span>
+                        </button>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="user-action">
+                          <button class="btn icon icon-zzim">
+                            <span>관심상품</span>
+                          </button>
+                          <a class="etc"><b>기획전명</b><span>바로가기</span><i class="icon-right"></i></a>
+                          <!-- [D 06.04] prd-ctrl 추가  -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <!-- [D 06.04] btn-cart / btn-order 등 클래스 추가 -->
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="swiper-slide item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <button class="item-detail">
+                          <span class="thumbnail-container">
+                            <span class="thumbnail-wrap redirect-item-view">
+                              <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                            </span>
+                            <!-- [D 06.04] tag-wrap 위치 변경 -->
+                            <span class="tag-wrap">
+                              <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                              <span class="tag tag-prd tag-event">포인트</span>
+                              <span class="tag tag-prd tag-product">인기상품</span>
+                            </span>
+                          </span>
+                          <span class="info-container">
+                            <!-- [D 06.04] tag-promotion 위치 변경  -->
+                            <span class="tag tag-prd tag-promotion">기간한정</span>
+                            <span class="desc">판매자명</span>
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                            <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                            <span class="prd-price">
+                              <span class="price">
+                                <span>9,999</span>
+                                <span>원</span>
+                              </span>
+                              <!-- [D 06.04] 일부 etc 내용이 이동되면서 status로 변경됨  -->
+                              <span class="status icon-calendar">기한임박</span>
+                              <!-- [D] 장바구니에서의 user-action 위치 -->
+                            </span>
+                          </span>
+                        </button>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="user-action">
+                          <button class="btn icon icon-zzim">
+                            <span>관심상품</span>
+                          </button>
+                          <a class="etc"><b>기획전명</b><span>바로가기</span><i class="icon-right"></i></a>
+                          <!-- [D 06.04] prd-ctrl 추가  -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <!-- [D 06.04] btn-cart / btn-order 등 클래스 추가 -->
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="swiper-slide item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <button class="item-detail">
+                          <span class="thumbnail-container">
+                            <span class="thumbnail-wrap redirect-item-view">
+                              <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                            </span>
+                            <!-- [D 06.04] tag-wrap 위치 변경 -->
+                            <span class="tag-wrap">
+                              <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                              <span class="tag tag-prd tag-product">인기상품</span>
+                            </span>
+                          </span>
+                          <span class="info-container">
+                            <span class="desc">판매자명</span>
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                            <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                            <span class="prd-price">
+                              <span class="price">
+                                <span>9,999</span>
+                                <span>원</span>
+                              </span>
+                              <!-- [D 06.04] 일부 etc 내용이 이동되면서 status로 변경됨  -->
+                              <span class="status icon-calendar">25.08.30</span>
+                              <!-- [D] 장바구니에서의 user-action 위치 -->
+                            </span>
+                          </span>
+                        </button>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="user-action">
+                          <button class="btn icon icon-zzim">
+                            <span>관심상품</span>
+                          </button>
+                          <a class="etc"><b>기획전명</b><span>바로가기</span><i class="icon-right"></i></a>
+                          <!-- [D 06.04] prd-ctrl 추가  -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <!-- [D 06.04] btn-cart / btn-order 등 클래스 추가 -->
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                      <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                      <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                      <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                      <div class="swiper-slide item-element" data-item-user-code="G2000039500">
+                        <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                        <button class="item-detail">
+                          <span class="thumbnail-container">
+                            <span class="thumbnail-wrap redirect-item-view">
+                              <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                            </span>
+                            <!-- [D 06.04] tag-wrap 위치 변경 -->
+                            <span class="tag-wrap">
+                              <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                            </span>
+                          </span>
+                          <span class="info-container">
+                            <!-- [D 06.04] tag-promotion 위치 변경  -->
+                            <span class="tag tag-prd tag-promotion">기간한정</span>
+                            <span class="desc">판매자명</span>
+                            <!-- [D 06.04] span.type 삭제  -->
+                            <span class="title-main"> 제품명 영역 </span>
+                            <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                            <span class="title-sub">
+                              <b>전문/일반</b>
+                              <span>전문</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>보험코드</b>
+                              <span>040171</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>제조사명</b>
+                              <span>대원제약</span>
+                            </span>
+                            <span class="title-sub prd-detail">
+                              <b>규격</b>
+                              <span>5ml</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>단위</b>
+                              <span>5p</span>
+                              <span class="divider-vertical-line"></span>
+                              <b>포장</b>
+                              <span>박스</span>
+                            </span>
+                            <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                            <span class="prd-price">
+                              <span class="price">
+                                <span>9,999</span>
+                                <span>원</span>
+                              </span>
+                              <!-- [D 06.04] 일부 etc 내용이 이동되면서 status로 변경됨  -->
+                              <span class="status icon-clock">종료임박</span>
+                              <!-- [D] 장바구니에서의 user-action 위치 -->
+                            </span>
+                          </span>
+                        </button>
+                        <!-- [D] 상품리스트에서의 user-action 위치 -->
+                        <div class="user-action">
+                          <button class="btn icon icon-zzim">
+                            <span>관심상품</span>
+                          </button>
+                          <a class="etc"><b>기획전명</b><span>바로가기</span><i class="icon-right"></i></a>
+                          <!-- [D 06.04] prd-ctrl 추가  -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <!-- [D 06.04] btn-cart / btn-order 등 클래스 추가 -->
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-arrow swiper-button-prev"></div>
+                  <div class="swiper-arrow swiper-button-next"></div>
+                </div>
+              </div>
+              <div class="detail-reply">
+                <div class="replay-area">
+                  <div class="relative">
+                    <!-- [D] textarea로 변경 -->
+                    <textarea placeholder="댓글을 입력해주세요." cols="30" rows="7"></textarea>
+                  </div>
+                  <!-- [D] text-guide로 변경 -->
+                  <span class="text-guide"><b>56</b>/1000자</span>
+                  <div class="check-wrap">
+                    <label type="checkbox" class="input-checkbox" for="checkbox0">
+                      <input type="checkbox" name="checkbox" id="checkbox0">
+                      <i></i> 익명 등록 </label>
+                  </div>
+                  <button class="btn cta black-outline md">
+                    <span>등록하기</span>
+                  </button>
+                </div>
+                <!-- [D] table에서 div.reply-view-area로 변경 -->
+                <div class="reply-view-area">
+                  <!-- [D] div.reply-box 추가 -->
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 푸르름 </span>
+                      <span class="c-b777">2025.02.14</span>
+                      <button class="btn cta xs">
+                        <span>삭제</span>
+                      </button>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임최대열글자글자 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con view-manager"> 운영자만 볼 수 있는 댓글입니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 익명 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <div class="reply-box">
+                    <div class="flex">
+                      <span class="id"> 닉네임 </span>
+                      <span class="c-b777">2025.02.14</span>
+                    </div>
+                    <!-- [D] reply-con 위치 변경 -->
+                    <span class="reply-con"> 댓글 내용이 들어갑니다. </span>
+                  </div>
+                  <p class="pagination">
+                    <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                    <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                    <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                    <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                    <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                    <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                    <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                    <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                    <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                    <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                    <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                    <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="only-mo line-box">
+            <div class="no-contents">
+              <div class="img-wrap">
+                <img src="../static/content/image/icon/no-mobile.svg" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="text-wrap">
+                <p>현재 PC에서만 이용이 가능합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!-- //SNB content -->
+        </div>
+      </div>
+      <!-- //snb area -->
+    </div>
+  </div>
+  <!-- [D] gnb - to top - footer 순으로 위치 부탁드립니다. -->
+  <button class="btn-top"><span>Top</span></button>
+  <footer id="footer">
+    <!-- [D] "<div class="pc">" wrap 삭제 -->
+    <div class="link-area">
+      <!-- [D] section을 div로 수정하고 "flex-between" 추가-->
+      <div class="flex justify-between">
+        <div class="col-left">
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <!-- [D 07.10] 이용안내 삭제 -->
+            <!-- [D 0812] 이용안내 다시 추가 -->
+            <button>이용안내</button>
+            <button>개인정보처리방침</button>
+            <button>이용약관</button>
+          </div>
+          <!-- [D] div.flex 추가-->
+          <div class="flex">
+            <button>이메일무단수집거부</button>
+            <!-- [D 04-25 수정] 사이트맵 삭제 -->
+          </div>
+        </div>
+        <div class="col-right">
+          <!-- [D 04-25 수정] select 옵션명 수정 -->
+          <div class="select-wrap">
+            <select class="input-select" name="" onchange="window.open(value,'_blank');">
+              <option>관련사이트 바로가기</option>
+              <option>site1</option>
+              <option>site2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [D] section을 div로 수정-->
+    <div class="footer-info">
+      <div class="footer-brand">
+        <!-- [D 06.04] 약사몰 => 온다몰 alt 변경 -->
+        <img src="../static/content/image/logo-footer.png" alt="온다몰" loading="lazy" decoding="async" />
+      </div>
+      <div class="cs-center">
+        <!-- [D 04-25 수정] div.cs-tel , div.cs-time 영역 삭제 -->
+        <!-- [D] "<div class="cs-link">" 추가 -->
+        <div class="cs-link">
+          <!-- [D 04-25 수정] a태그 순서 변경 및 자주묻는질문 삭제 -->
+          <a href="#">고객센터</a>
+          <a href="#">원격지원</a>
+          <!-- [D 07.21] 로그아웃 버튼 추가 -->
+          <a href="#" class="only-mo">로그아웃</a>
+        </div>
+      </div>
+      <div class="info">
+        <p class="business-info">
+          <!-- [D 04-25 수정] company 이동 및 태그 변경 >> span.company 삭제 -->
+          <!-- <span class="company">대원제약(주)</span> -->
+          <!-- [D 04-25 수정] span.owner 순서 변경 -->
+          <span class="owner">대표이사 : 대표자명</span>
+          <!-- [D] span.address "company-info"에서 이동 -->
+          <span class="address">서울특별시 성동구 천호대로 386</span>
+        </p>
+        <!-- [D 04-25 수정] p.cs-info 영역 추가 -->
+        <p class="cs-info">
+          <span class="cs">고객센터 : 02-0000-0000(토,일요일, 공휴일 휴무)</span>
+          <span class="fax">팩스 : 000-0000-0000</span>
+          <span class="email">이메일 : <a href="mailto:메일주소">abcdefg@abc.com</a></span>
+        </p>
+        <p class="company-info">
+          <!-- [D] span.business-number "business-info"에서 이동 -->
+          <span class="business-number">사업자등록번호 : 207-81-36336</span>
+          <!-- [D] span.business-type "business-info"에서 이동 -->
+          <span class="business-type">통신판매신고번호 : 제2015-서울성동-0510호</span>
+          <!-- [D 04-25 수정] span.security 삭제 -->
+          <a onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=207-81-36336', '_blank', 'width=800, height=600'); return false;">사업자정보 확인</a>
+        </p>
+        <!-- [D 06.04] 약사몰 => 온다몰 문구 변경 -->
+        <!-- [D 04-25 수정] span 태그 추가 -->
+        <p class="copyright">본 사이트는 개별 판매자 판매 상품이 포함 되어 있고, 온다몰은 통신판매중개업자로서 통신판매의 당사자가 아니므로 해당 상품, 거래 정보 및 거래에 대하여는 개별 판매자에 책임이 있습니다. <span>Copyright 온다몰 Co.Ltd. All rights reserved.</span>
+        </p>
+        <!-- <p class="copyright">Copyright(C) 대원제약 온다몰. All rights reserved.</p> -->
+      </div>
+    </div>
+    <!-- [D] "<div class="mobile">" 모바일 버전 삭제 -->
+  </footer>
+  <!-- modal area -->
+  <!-- //modal area -->
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+  <!-- [D] 마크업.js 연결 -->
+  <script src="../static/content/js/markup.js"></script>
+  <script>
+    // 장바구니 버튼 성공시, 실행되어야함
+    const toCartBtn = document.querySelectorAll('.prd-ctrl .btn-cart, .floating-bar .btn-wrap button.btn:not(.icon):not(.filled), .reorder-btns .btn:not(.filled)');
+    if (toCartBtn.length > 0) {
+      toCartBtn.forEach((btn) => {
+        tippy(btn, {
+          arrow: false,
+          appendTo: 'parent',
+          placement: 'top-start',
+          content: `<span>장바구니에 상품을 담았습니다.</span>
+                    <a href="#none" class="btn cta outlined xs icon-right icon-chevron-down">
+                        <span>장바구니 바로가기</span>
+                    </a>`,
+          trigger: 'click',
+          hideOnClick: false,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 4],
+          onShow(instance) {
+            setTimeout(() => {
+              instance.hide();
+            }, 2000);
+          }
+        });
+      });
+    }
+    console.log(document.querySelector('.table-agreement-info'));
+    // 주문수량
+    const quantityBox = document.querySelectorAll('.quantity-box');
+    if (quantityBox.length > 0) {
+      quantityBox.forEach((box, index) => {
+        let numEl = `
+                    <!-- [D] 수량할인 제품일때만 노출 -->
+                    <span class="flex quantity-guide">
+                        <span>10개 이상 <em class="c-purple">5%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>100개 이상 <em class="c-purple">25%</em></span>
+                        <span>1000개 이상 <em class="c-purple">25%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>10000개 이상 <em class="c-purple">25%</em></span>
+                        <span>100000개 이상 <em class="c-purple">25%</em></span>
+                    </span>
+                `
+        let numGuide = '';
+        let needGuide = ((box.closest('.user-action')?.querySelector('div.etc') != null) || (box.closest('td > .prd-ctrl, td > .quantity-wrap') && box.closest('.all-seller-list') == null && box.closest('.video') == null) || (box.closest('.product-amount') != null)) && (document.querySelector('.table-agreement-info') == null) ? true : false;
+        if (needGuide) {
+          numGuide += numEl
+        }
+        let hasInventory = false;
+        if (document.querySelector('.content-inner')?.textContent.includes('재고') || document.querySelector('.modal')?.textContent.includes('재고')) hasInventory = true;
+        let inventoryContent = !hasInventory ? `<span class="divider-vertical-line"></span>
+                    <span>재고 <em class="c-red">99,999+</em>개</span>` : '';
+        tippy(box, {
+          placement: 'top',
+          content: `<span class="flex">
+                    <span>최대 <em class="c-red">99,999</em>개</span>
+                    ${inventoryContent}
+                </span>` + numGuide,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 9],
+          theme: 'light-border',
+        });
+      });
+    }
+  </script>
+  <!-- modal area -->
+  <!-- //modal area -->
+</body>
+
+</html>

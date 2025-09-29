@@ -1,0 +1,227 @@
+@mixin typo($type: 'body1'){
+    font-size: var(--#{$type});
+    letter-spacing: -0.02em;
+
+    @if $type == "body1" or $type == "tab" {
+        line-height: var(--typo-custom-lh, 1.5);
+    }
+    @else {
+        line-height: var(--typo-custom-lh, 1.3);
+    }
+
+    @if $type == "h1" or $type == "h2" or $type == "h3" {
+        font-weight: var(--typo-custom-w, 600);
+    }
+    @else {
+        font-weight: var(--typo-custom-w, 400);
+    }
+
+    @if $type == "h1" or $type == "h2" {
+        color: var(--typo-custom-c, #000);
+    }
+    @else if $type == "h3" {
+        color: var(--typo-custom-c, #222);
+    }
+    @else if $type == "body2" or $type == "body3" {
+        color: var(--typo-custom-c, #777);
+    }
+    @else {
+        color: var(--typo-custom-c, #333);
+    }
+}
+
+// for custom size
+@mixin fontSize ($size, $line, $lts: "-0.01em") {
+    font-size: #{$size}px;
+    line-height: $line;
+    letter-spacing: $lts;
+}
+
+@mixin ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@mixin ellipseMulti($num) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: normal;
+    word-break: break-word; // for old browser
+    overflow-wrap: break-word;
+    overflow: hidden;
+    -webkit-line-clamp: $num;
+}
+
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+// @media only screen and (max-device-height: 540px) and (orientation: landscape), only screen and (max-width: 828px) {
+@mixin media {
+    @media only screen and (max-width: 767px) {
+        @content;
+    }
+}
+@mixin mediaForFold {
+    @media only screen and (max-width: 344px) {
+        @content;
+    }
+}
+@mixin mediaForMini {
+    @media only screen and (max-width: 343px) {
+        @content;
+    }
+}
+@mixin mediaForPc {
+    @media only screen and (min-width: 768px)  {
+        @content;
+    }
+}
+
+@mixin notch ($css, $direct, $value, $minus: false) {
+    @if $minus == false {
+        #{$css}-#{$direct}: $value;
+        #{$css}-#{$direct}: calc(constant(safe-area-inset-#{$direct}) + $value);
+        #{$css}-#{$direct}: calc(env(safe-area-inset-#{$direct}) + $value);
+    } @else {
+        #{$css}-#{$direct}: calc($value * -1px);
+        #{$css}-#{$direct}: calc((constant(safe-area-inset-#{$direct}) + $value) * -1);
+        #{$css}-#{$direct}: calc((env(safe-area-inset-#{$direct}) + $value) * -1);
+    }
+}
+
+@mixin notchPosition ($css, $direct, $value) {
+    #{$css}: $value;
+    #{$css}: calc(constant(safe-area-inset-#{$direct}) + $value);
+    #{$css}: calc(env(safe-area-inset-#{$direct}) + $value);
+}
+
+@mixin flex ($vertical, $horizontal) {
+    display: flex;
+    align-items: $vertical;
+    justify-content: $horizontal;
+}
+
+// 한 줄 아이템 수, 가로 간격, 세로 간격
+@mixin grid ($col, $colGap, $rowGap) {
+    grid-template-columns: repeat($col, 1fr);
+    column-gap: $colGap;
+    row-gap: $rowGap;
+}
+
+@mixin bg ($url, $size: contain) {
+    background-image: $url;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: $size;
+}
+
+@mixin before {
+    &:before {
+        display: inline-block;
+        content: '';
+        @content;
+    }
+}
+@mixin beforeImage ($width, $height, $url) {
+    @include before {
+        flex-shrink: 0;
+        width: $width;
+        height: $height;
+        @include bg($url);
+        @content;
+    }
+}
+@mixin after {
+    &:after {
+        content: '';
+        @content;
+    }
+}
+@mixin afterImage ($width, $height, $url) {
+    @include after {
+        flex-shrink: 0;
+        display: inline-block;
+        width: $width;
+        height: $height;
+        @include bg($url);
+        @content;
+    }
+}
+
+@mixin word-break {
+    word-wrap: break-word; // for old browser
+    word-break: normal;
+    word-break: break-word; // for old browser
+    overflow-wrap: break-word;
+}
+
+@mixin layoutMedia {
+    @include media {
+        max-width: 100%;
+    }
+}
+
+@mixin content-width {
+    max-width: calc(var(--content-width) + (var(--side-padding) * 2));
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: var(--side-padding);
+    padding-left: var(--side-padding);
+    @include layoutMedia;
+    @include media {
+        @include notch(padding, right, var(--side-padding));
+        @include notch(padding, left, var(--side-padding));
+    }
+}
+
+@mixin scrollDesign {
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}
+
+@mixin prdMoRow {
+    @include media {
+        padding: 16px 8px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 12px;
+
+        .item-element {
+            padding-left: 0;
+            --prd-thumb-size: 100%;
+            --item-info-container-mt: 16px;
+            justify-content: flex-start;
+            .item-detail {
+                margin: unset;
+            }
+            .thumbnail-container {
+                position: static;
+                transform: none;
+            }
+            .thumbnail-wrap:after {
+                transform: none;
+            }
+            .title-main {
+                -webkit-line-clamp: 2;
+                min-height: 34px !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>의약품외 상세</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 상세보기 </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="item-modal">
+          <!-- [D] 상품 타이틀 -->
+          <h2 class="h2">제품명 영역 제품명 영역 제품명 영역제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역</h2>
+          <!-- [D] breadcrumb -->
+          <div class="breadcrumb">
+            <span class="bc-depth">일반의약품</span>
+            <span class="bc-depth">조직세포의 기능용 의약품</span>
+            <span class="bc-depth">기타의 조직세포의 기능용 의약품</span>
+          </div>
+          <!-- [D 06.04] prd-detail 타입으로 추가 -->
+          <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+          <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+          <div class="prd-item-list type-column type-detail">
+            <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+            <!-- [D] .item-list.main-item-best 클래스 삭제-->
+            <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+            <div class="item-element" data-item-user-code="G2000039500">
+              <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+              <div class="item-detail">
+                <span class="thumbnail-container">
+                  <span class="thumbnail-wrap redirect-item-view">
+                    <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                  </span>
+                </span>
+                <span class="info-container">
+                  <!-- [D 06.04] span.type 삭제  -->
+                  <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                  <span class="title-sub">
+                    <b><!-- [D 07.10] 문구 변경 -->제조사</b>
+                    <span>대원제약</span>
+                    <span class="divider-vertical-line"></span>
+                    <b>규격</b>
+                    <span>5ml</span>
+                    <span class="divider-vertical-line"></span>
+                    <b>단위</b>
+                    <span>-</span>
+                    <span class="divider-vertical-line"></span>
+                    <b>포장</b>
+                    <span>-</span>
+                  </span>
+                </span>
+              </div>
+              <!-- [D] 상품리스트에서의 user-action 위치 -->
+              <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+            </div>
+          </div>
+          <!-- [D] 상품 상세정보 -->
+          <div class="detail-info">
+            <img src="../static/content/image/temp/prd_326x326.jpg" alt="" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

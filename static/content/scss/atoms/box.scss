@@ -1,0 +1,66 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.gray-box {
+    background-color: var.$bgNormal;
+    padding: 16px;
+    line-height: var(--dot-list, 21px);
+    font-size: 14px;
+    color: var.$b777; // need to check
+    --dot-list-gap: 0;
+    --dot-list-fw: 400;
+
+    .title {
+        display: block;
+        @include typo('body1');
+        --typo-custom-c: #{var.$b000};
+        --typo-custom-w: 600;
+        padding-bottom: 12px;
+    }
+}
+.dot-list {
+    color: #{var.$b777};
+    font-weight: var(--dot-list-fw, 500);
+    li {
+        position: relative;
+        padding-left: 16px;
+        .btn.xs {
+            margin: -1.5px 0;
+        }
+        @include before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 3px;
+            background-color: var.$b777;
+            border-radius: 50%;
+            margin-right: 8px;
+            margin-left: 5px;
+            margin-top: calc((var(--dot-list, 21px) - 3px) / 2);
+        };
+        &:not(:first-child) {
+            margin-top: var(--dot-list-gap, 5px);
+        }
+    }
+}
+.line-box {
+    border-radius: 12px; //temp
+    border: 1px solid var.$lineNormal; //temp
+    padding: 30px 40px;
+}
+
+.caution {
+    margin-top: 24px;
+    padding-left: 32px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var.$lineNormal;
+    margin-bottom: 12px;
+    background-image: url('../image/icon/caution.svg');
+    background-size: 24px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    @include media {
+        margin-top: 32px;
+    }
+}

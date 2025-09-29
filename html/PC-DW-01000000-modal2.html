@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>메인</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body>
+  <!-- [D 07.17] 마케팅 팝업
+            1. 마켓팅 팝업은 최상단으로 위치 고정
+            2. 마켓팅 팝업이 노출될때는 다른 팝업과 달리 body에 scrolllock이 붙지 않음
+        -->
+  <div class="modal marketing-modal">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide grid">
+              <a href="#none">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="../static/content/image/temp/img_624x706.jpg">
+                  <img src="../static/content/image/temp/img_460x520.jpg" alt="" />
+                </picture>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#none">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="../static/content/image/temp/img_624x706.jpg">
+                  <img src="../static/content/image/temp/img_460x520.jpg" alt="" />
+                </picture>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#none">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="../static/content/image/temp/img_624x706.jpg">
+                  <img src="../static/content/image/temp/img_460x520.jpg" alt="" />
+                </picture>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#none">
+                <picture>
+                  <source media="(max-width: 767px)" srcset="../static/content/image/temp/img_624x706.jpg">
+                  <img src="../static/content/image/temp/img_460x520.jpg" alt="" />
+                </picture>
+              </a>
+            </div>
+          </div>
+          <div class="swiper-controller">
+            <div>
+              <div class="swiper-arrow swiper-button-prev"></div>
+              <div class="swiper-arrow swiper-button-next"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap">
+          <button class="btn cta">
+            <span>오늘 하루 보지 않기</span>
+          </button>
+          <span class="divider-vertical-line"></span>
+          <button class="btn cta">
+            <span>닫기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 아래 형제요소 -->
+  <!-- header -->
+  <!-- content-inner main -->
+  <!-- mobile-category -->
+  <!-- btn-top -->
+  <!-- footer -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

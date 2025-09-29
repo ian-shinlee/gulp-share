@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>닉네임 등록</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 닉네임 등록 </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="talk-nickname">
+          <form>
+            <div class="gray-box">
+              <div class="form-line">
+                <div class="flex">
+                  <div class="relative">
+                    <input type="text" class="form-basic " value="" placeholder="닉네임을 입력하세요." />
+                    <button class="btn icon md icon-close">
+                      <span>삭제하기</span>
+                    </button>
+                  </div>
+                  <button class="btn cta lg">
+                    <span>중복체크</span>
+                  </button>
+                </div>
+                <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+                <span class="feedback">사용할 수 있는 닉네임입니다.</span>
+                <!-- [D] 사용 불가한 닉네임 설정 시 -->
+                <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+                <span class="feedback invalid">이미 사용 중인 닉네임입니다.</span>
+              </div>
+            </div>
+            <h4 class="h3 caution">유의사항</h4>
+            <ul class="dot-list">
+              <li>약톡톡은 닉네임 설정을 하신 후 이용이 가능합니다.</li>
+              <li>닉네임은 영문/한글/숫자 조합으로 최대 10자까지 가능합니다.</li>
+              <li>개인정보보호를 위해 실명, <!-- [D 07.22] 문구 수정 -->휴대전화번호는 닉네임으로 사용하실 수 없습니다.</li>
+              <li>설정한 닉네임은 마이페이지 > 회원정보관리에서 재설정 하실 수 있습니다.</li>
+            </ul>
+            <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+            <div class="btn-wrap">
+              <a href="#none" class="btn cta gray md">
+                <!-- [D] span이 추가됨 -->
+                <span>취소</span>
+              </a>
+              <a href="#none" class="btn cta filled md">
+                <!-- [D] span이 추가됨 -->
+                <span>확인</span>
+              </a>
+            </div>
+          </form>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

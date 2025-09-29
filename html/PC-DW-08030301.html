@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>예치금 완료</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 예치금 충전 완료 </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="deposit-complete-modal">
+          <div class="order-complete-head">
+            <img src="../static/content/image/order/icon-order-complete.svg" alt="">
+            <h4 class="h3">예치금을 충전했습니다.</h4>
+            <p class="body1">주문번호:<b>1234556787990</b></p>
+          </div>
+          <div class="prd-item-list type-column">
+            <div class="line-box">
+              <div class="item-element">
+                <div class="item-detail">
+                  <span class="thumbnail-container">
+                    <span class="thumbnail-wrap redirect-item-view">
+                      <img class="thumbnail" src="../static/content/image/order/deposit-order-img.png" alt="예치금충전" onerror="errorImage(this)" loading="lazy" decoding="async">
+                    </span>
+                  </span>
+                  <span class="info-container">
+                    <span class="title-main">예치금</span>
+                  </span>
+                </div>
+              </div>
+              <div class="flex">
+                <div class="prd-price">
+                  <span class="price">
+                    <span>1,000,000</span>
+                    <span>원</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-price">
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">총 주문금액</p>
+                  <p class="price c-red"><span>9,999,999,999</span>원</p>
+                </div>
+              </div>
+              <!-- [D] 카드 간편결제 경우 -->
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">카드사 즉시할인</p>
+                  <p class="price"><span>9,999,999,999</span>원</p>
+                </div>
+                <div class="flex">
+                  <p class="title">카드 간편결제</p>
+                  <p class="price"><span>9,999,999,999</span>원</p>
+                </div>
+                <span class="feedback">신한 (1234-****-****-1234) | 2025-01-01 23:22 | 일시불</span>
+              </div>
+              <!-- [D] 신용카드 결제일 경우 -->
+              <div class="price-info-total">
+                <div class="flex">
+                  <p class="title">신용카드 결제</p>
+                  <p class="price"><span>9,999,999,999</span>원</p>
+                </div>
+                <span class="feedback">신한 (1234-****-****-1234) | 2025-01-01 23:22 | 일시불</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <a href="#none" class="btn cta gray md">
+            <!-- [D] span이 추가됨 -->
+            <span>예치금 조회</span>
+          </a>
+          <button class="btn cta filled md">
+            <span>확인</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+</body>
+
+</html>

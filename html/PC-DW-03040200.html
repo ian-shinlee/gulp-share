@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>쿠폰 적용</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header">
+        <!-- [D 07.14] 문구 수정 -->쿠폰 적용
+      </div>
+      <div class="modal-body button-fixed">
+        <!-- modal 콘텐츠 -->
+        <div class="order-modal">
+          <div class="head-wrap">
+            <div>
+              <h2 class="h2">
+                <em>999,999,999원</em> 할인이 적용중입니다.
+              </h2>
+              <p class="body1 c-orange"><!-- [D 07.14] 문구 변경 -->※ 쿠폰은 의약외품/일반상품 구매 시 적용됩니다.</p>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <em class="h3">대원제약</em>
+            </div>
+            <div class="brand-wrap">
+              <div class="product-list-container">
+                <div class="product-list-container">
+                  <!-- [D 06.04] 유닛변경 -->
+                  <div class="prd-item-list type-column">
+                    <div>
+                      <div class="line-box">
+                        <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                        <div class="item-element" data-item-user-code="G2000039500">
+                          <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                          <div class="item-detail">
+                            <span class="thumbnail-container">
+                              <span class="thumbnail-wrap redirect-item-view">
+                                <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                              </span>
+                              <!-- [D 06.04] tag-wrap 위치 변경 -->
+                              <span class="tag-wrap">
+                                <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                                <span class="tag tag-prd tag-event">포인트</span>
+                                <span class="tag tag-prd tag-product">인기상품</span>
+                              </span>
+                            </span>
+                            <span class="info-container">
+                              <!-- [D 06.04] span.type 삭제  -->
+                              <span class="title-main"> 제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역 </span>
+                              <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                              <span class="title-sub">
+                                <b>전문/일반</b>
+                                <span>전문</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>보험코드</b>
+                                <span>040171</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>제조사명</b>
+                                <span>대원제약</span>
+                              </span>
+                              <span class="title-sub prd-detail">
+                                <b>규격</b>
+                                <span>5ml</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>단위</b>
+                                <span>5p</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>포장</b>
+                                <span>박스</span>
+                                <!-- [D 08.27] 유통기한 위치 변경 -->
+                                <span class="divider-vertical-line"></span>
+                                <span>유통기한&nbsp;2025.07.18</span>
+                                <!-- //[D 08.27] 유통기한 위치 변경 -->
+                              </span>
+                              <span class="prd-order-num only-mo"> 주문수량&nbsp;999,999 </span>
+                              <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                              <span class="prd-price">
+                                <span class="discounted">
+                                  <span>9,000,000</span>
+                                  <span>원</span>
+                                </span>
+                                <span class="sale">
+                                  <span>10</span>
+                                  <span>%</span>
+                                </span>
+                                <span class="price">
+                                  <span>9,000,000</span>
+                                  <span>원</span>
+                                </span>
+                                <!-- [D] 장바구니에서의 user-action 위치 -->
+                              </span>
+                            </span>
+                          </div>
+                          <!-- [D] 상품리스트에서의 user-action 위치 -->
+                          <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                        </div>
+                        <div class="flex only-pc">
+                          <em class="body2">주문수량</em>
+                          <p class="body2">99,999</p>
+                        </div>
+                        <div class="flex only-pc">
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="select-discount-option">
+                        <em class="body1">쿠폰할인</em>
+                        <!-- [D 07.14] 옵션 순서 변경 -->
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp1option30" class="input-radio">
+                            <input type="radio" checked name="temp1option3" id="temp1option30">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp1option31" class="input-radio">
+                            <input type="radio" name="temp1option3" id="temp1option31">
+                            <i></i> -10,000원 </label>
+                          <label type="radio" for="temp1option32" class="input-radio">
+                            <input type="radio" name="temp1option3" id="temp1option32">
+                            <i></i> 5%, 최대 -7,000원 </label>
+                          <label type="radio" for="temp1option33" class="input-radio">
+                            <input type="radio" name="temp1option3" id="temp1option33">
+                            <i></i> -5,000원(2025-12-11 23:59:59까지 사용 가능) </label>
+                        </div>
+                        <!-- [D 07.14] hr 구분선 필요시 추가 -->
+                        <hr />
+                        <em class="body1">주문 프리패스</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp1option40" class="input-radio">
+                            <input type="radio" checked name="temp1option4" id="temp1option40">
+                            <i></i> 적용 </label>
+                        </div>
+                        <em class="body1">입점사 장바구니 쿠폰</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp1option50" class="input-radio">
+                            <input type="radio" checked name="temp1option5" id="temp1option50">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp1option51" class="input-radio">
+                            <input type="radio" name="temp1option5" id="temp1option51">
+                            <i></i> -10,000원 </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="line-box">
+                        <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                        <div class="item-element" data-item-user-code="G2000039500">
+                          <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                          <div class="item-detail">
+                            <span class="thumbnail-container">
+                              <span class="thumbnail-wrap redirect-item-view">
+                                <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                              </span>
+                              <!-- [D 06.04] tag-wrap 위치 변경 -->
+                              <span class="tag-wrap">
+                                <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                                <span class="tag tag-prd tag-product">인기상품</span>
+                              </span>
+                            </span>
+                            <span class="info-container">
+                              <!-- [D 06.04] span.type 삭제  -->
+                              <span class="title-main"> 제품명 영역 </span>
+                              <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                              <span class="title-sub">
+                                <b>전문/일반</b>
+                                <span>전문</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>보험코드</b>
+                                <span>040171</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>제조사명</b>
+                                <span>대원제약</span>
+                              </span>
+                              <span class="title-sub prd-detail">
+                                <b>규격</b>
+                                <span>5ml</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>단위</b>
+                                <span>5p</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>포장</b>
+                                <span>박스</span>
+                                <!-- [D 08.27] 유통기한 위치 변경 -->
+                                <span class="divider-vertical-line"></span>
+                                <span>유통기한&nbsp;2025.07.18</span>
+                                <!-- //[D 08.27] 유통기한 위치 변경 -->
+                              </span>
+                              <span class="prd-order-num only-mo"> 주문수량&nbsp;999,999 </span>
+                              <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                              <span class="prd-price">
+                                <span class="price">
+                                  <span>9,999</span>
+                                  <span>원</span>
+                                </span>
+                                <!-- [D] 장바구니에서의 user-action 위치 -->
+                              </span>
+                            </span>
+                          </div>
+                          <!-- [D] 상품리스트에서의 user-action 위치 -->
+                          <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                        </div>
+                        <div class="flex only-pc">
+                          <em class="body2">주문수량</em>
+                          <p class="body2">99,999</p>
+                        </div>
+                        <div class="flex only-pc">
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="select-discount-option">
+                        <em class="body1">쿠폰할인</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp1option60" class="input-radio">
+                            <input type="radio" checked name="temp1option6" id="temp1option60">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp1option61" class="input-radio">
+                            <input type="radio" name="temp1option6" id="temp1option61">
+                            <i></i> -123,456 원 </label>
+                          <label type="radio" for="temp1option62" class="input-radio">
+                            <input type="radio" name="temp1option6" id="temp1option62">
+                            <i></i> -123,456 원 </label>
+                        </div>
+                        <em class="body1">쿠폰할인</em>
+                        <!-- [D 07.14] 옵션 순서 변경 -->
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp1option70" class="input-radio">
+                            <input type="radio" checked name="temp1option7" id="temp1option70">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp1option71" class="input-radio">
+                            <input type="radio" name="temp1option7" id="temp1option71">
+                            <i></i> -123,456 원 </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-name">
+              <em class="h3">대원제약</em>
+            </div>
+            <div class="brand-wrap">
+              <div class="product-list-container">
+                <div class="product-list-container">
+                  <!-- [D 06.04] 유닛변경 -->
+                  <div class="prd-item-list type-column">
+                    <div>
+                      <div class="line-box">
+                        <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                        <div class="item-element" data-item-user-code="G2000039500">
+                          <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                          <div class="item-detail">
+                            <span class="thumbnail-container">
+                              <span class="thumbnail-wrap redirect-item-view">
+                                <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                              </span>
+                              <!-- [D 06.04] tag-wrap 위치 변경 -->
+                              <span class="tag-wrap">
+                                <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                                <span class="tag tag-prd tag-event">포인트</span>
+                                <span class="tag tag-prd tag-product">인기상품</span>
+                              </span>
+                            </span>
+                            <span class="info-container">
+                              <!-- [D 06.04] span.type 삭제  -->
+                              <span class="title-main"> 제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역제품명 영역 </span>
+                              <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                              <span class="title-sub">
+                                <b>전문/일반</b>
+                                <span>전문</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>보험코드</b>
+                                <span>040171</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>제조사명</b>
+                                <span>대원제약</span>
+                              </span>
+                              <span class="title-sub prd-detail">
+                                <b>규격</b>
+                                <span>5ml</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>단위</b>
+                                <span>5p</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>포장</b>
+                                <span>박스</span>
+                                <!-- [D 08.27] 유통기한 위치 변경 -->
+                                <span class="divider-vertical-line"></span>
+                                <span>유통기한&nbsp;2025.07.18</span>
+                                <!-- //[D 08.27] 유통기한 위치 변경 -->
+                              </span>
+                              <span class="prd-order-num only-mo"> 주문수량&nbsp;999,999 </span>
+                              <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                              <span class="prd-price">
+                                <span class="discounted">
+                                  <span>9,000,000</span>
+                                  <span>원</span>
+                                </span>
+                                <span class="sale">
+                                  <span>10</span>
+                                  <span>%</span>
+                                </span>
+                                <span class="price">
+                                  <span>9,000,000</span>
+                                  <span>원</span>
+                                </span>
+                                <!-- [D] 장바구니에서의 user-action 위치 -->
+                              </span>
+                            </span>
+                          </div>
+                          <!-- [D] 상품리스트에서의 user-action 위치 -->
+                          <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                        </div>
+                        <div class="flex only-pc">
+                          <em class="body2">주문수량</em>
+                          <p class="body2">99,999</p>
+                        </div>
+                        <div class="flex only-pc">
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="select-discount-option">
+                        <em class="body1">쿠폰할인</em>
+                        <!-- [D 07.14] 옵션 순서 변경 -->
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp2option30" class="input-radio">
+                            <input type="radio" checked name="temp2option3" id="temp2option30">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp2option31" class="input-radio">
+                            <input type="radio" name="temp2option3" id="temp2option31">
+                            <i></i> -10,000원 </label>
+                          <label type="radio" for="temp2option32" class="input-radio">
+                            <input type="radio" name="temp2option3" id="temp2option32">
+                            <i></i> 5%, 최대 -7,000원 </label>
+                          <label type="radio" for="temp2option33" class="input-radio">
+                            <input type="radio" name="temp2option3" id="temp2option33">
+                            <i></i> -5,000원(2025-12-11 23:59:59까지 사용 가능) </label>
+                        </div>
+                        <!-- [D 07.14] hr 구분선 필요시 추가 -->
+                        <hr />
+                        <em class="body1">주문 프리패스</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp2option40" class="input-radio">
+                            <input type="radio" checked name="temp2option4" id="temp2option40">
+                            <i></i> 적용 </label>
+                        </div>
+                        <em class="body1">입점사 장바구니 쿠폰</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp2option50" class="input-radio">
+                            <input type="radio" checked name="temp2option5" id="temp2option50">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp2option51" class="input-radio">
+                            <input type="radio" name="temp2option5" id="temp2option51">
+                            <i></i> -10,000원 </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="line-box">
+                        <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                        <div class="item-element" data-item-user-code="G2000039500">
+                          <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                          <div class="item-detail">
+                            <span class="thumbnail-container">
+                              <span class="thumbnail-wrap redirect-item-view">
+                                <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                              </span>
+                              <!-- [D 06.04] tag-wrap 위치 변경 -->
+                              <span class="tag-wrap">
+                                <!-- [D 06.04] 메인이 아닐 경우 tag-wrap 안에 num 위치 -->
+                                <span class="tag tag-prd tag-product">인기상품</span>
+                              </span>
+                            </span>
+                            <span class="info-container">
+                              <!-- [D 06.04] span.type 삭제  -->
+                              <span class="title-main"> 제품명 영역 </span>
+                              <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                              <span class="title-sub">
+                                <b>전문/일반</b>
+                                <span>전문</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>보험코드</b>
+                                <span>040171</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>제조사명</b>
+                                <span>대원제약</span>
+                              </span>
+                              <span class="title-sub prd-detail">
+                                <b>규격</b>
+                                <span>5ml</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>단위</b>
+                                <span>5p</span>
+                                <span class="divider-vertical-line"></span>
+                                <b>포장</b>
+                                <span>박스</span>
+                                <!-- [D 08.27] 유통기한 위치 변경 -->
+                                <span class="divider-vertical-line"></span>
+                                <span>유통기한&nbsp;2025.07.18</span>
+                                <!-- //[D 08.27] 유통기한 위치 변경 -->
+                              </span>
+                              <span class="prd-order-num only-mo"> 주문수량&nbsp;999,999 </span>
+                              <!-- [D 06.04] price-wrap을 prd-price로 변경 -->
+                              <span class="prd-price">
+                                <span class="price">
+                                  <span>9,999</span>
+                                  <span>원</span>
+                                </span>
+                                <!-- [D] 장바구니에서의 user-action 위치 -->
+                              </span>
+                            </span>
+                          </div>
+                          <!-- [D] 상품리스트에서의 user-action 위치 -->
+                          <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                        </div>
+                        <div class="flex only-pc">
+                          <em class="body2">주문수량</em>
+                          <p class="body2">99,999</p>
+                        </div>
+                        <div class="flex only-pc">
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="select-discount-option">
+                        <em class="body1">쿠폰할인</em>
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp2option60" class="input-radio">
+                            <input type="radio" checked name="temp2option6" id="temp2option60">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp2option61" class="input-radio">
+                            <input type="radio" name="temp2option6" id="temp2option61">
+                            <i></i> -123,456 원 </label>
+                          <label type="radio" for="temp2option62" class="input-radio">
+                            <input type="radio" name="temp2option6" id="temp2option62">
+                            <i></i> -123,456 원 </label>
+                        </div>
+                        <em class="body1">쿠폰할인</em>
+                        <!-- [D 07.14] 옵션 순서 변경 -->
+                        <div class="radio-wrap">
+                          <label type="radio" for="temp2option70" class="input-radio">
+                            <input type="radio" checked name="temp2option7" id="temp2option70">
+                            <i></i> 적용 안 함 </label>
+                          <label type="radio" for="temp2option71" class="input-radio">
+                            <input type="radio" name="temp2option7" id="temp2option71">
+                            <i></i> -123,456 원 </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="brand-container">
+            <div class="brand-wrap">
+              <div class="select-discount-option">
+                <!-- [D 07.14] 문구 수정 -->
+                <em class="body1">온다몰 장바구니 쿠폰</em>
+                <div class="radio-wrap">
+                  <label type="radio" for="temp3option50" class="input-radio">
+                    <input type="radio" checked name="temp3option5" id="temp3option50">
+                    <i></i> 적용 안 함 </label>
+                  <label type="radio" for="temp3option51" class="input-radio">
+                    <input type="radio" name="temp3option5" id="temp3option51">
+                    <i></i> -123,456 원 </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- [D 07.14] dotlist를 통한 가이드 삭제 -->
+        </div>
+        <!-- //modal 콘텐츠 -->
+        <div class="btn-wrap to-bottom">
+          <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+          <button class="btn cta filled md">
+            <span>567,456원 할인 적용</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

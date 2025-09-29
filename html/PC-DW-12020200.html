@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>비밀번호 찾기 완료</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            const searchedPassword =  `<!-- [D] 결과 -->
+                    <!-- [D 1차 회원수정] tab 삭제 및 modal-desc 영역 추가 -->
+                    <p class="modal-desc">아래 <!-- [D 07.22] 문구 수정 -->휴대전화번호로 임시 비밀번호를 발송합니다.<br/>로그인 후 마이페이지>내 정보 변경>비밀번호 변경 메뉴에서 비밀번호를 변경해 주세요.</p>
+                        ${include('./atoms/box.ejs', {
+                            type: 'box',
+                            custom: 'find-id-pw',
+                            content: `
+                                <p class="body1"><!-- [D 07.22] 문구 수정 -->휴대전화번호</p>
+                                <p class="body1 word-break">010-****-1234</p>
+                            `
+                        })}
+                        <!-- [D 1차 회원수정] p를 ul로 구조 변경 -->
+                        ${include('./atoms/dotlist.ejs', {
+                            custom: 'border-dotted',
+                            content: [
+                                "임시 비밀번호 안내 문자를 못 받으신 경우에는 스팸메시지함을 확인해 주세요.",
+                                "아래 <!-- [D 07.22] 문구 수정 -->휴대전화번호로 문자를 받으실 수 없는 경우에는 담당직원 혹은 고객센터에 문의해 주세요."
+                            ]
+                        })}
+                        <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+                        <div class="btn-wrap">
+                            ${include('./atoms/button.ejs', {
+                                value: '취소',
+                                size: 'md',
+                                type: 'gray'
+                            })}
+                            ${include('./atoms/button.ejs', {
+                                value: '임시 비밀번호 발송',
+                                size: 'md',
+                                type: 'filled'
+                            })}
+                        </div>
+                    <!-- //[D] 결과 -->`
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '비밀번호 찾기',
+            content: searchedPassword
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>
+세요.</li>
+        </ul>
+        <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+        <div class="btn-wrap">
+          <button class="btn cta gray md">
+            <span>취소</span>
+          </button>
+          <button class="btn cta filled md">
+            <span>임시 비밀번호 발송</span>
+          </button>
+        </div>
+        <!-- //[D] 결과 -->
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

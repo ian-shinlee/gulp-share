@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>정보 입력(기존거래처) | 회원가입</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body>
+        <%- include('./join/header.ejs', { step: 3 }) %>
+        <div class="content-inner">
+            <div class="section-narrow">
+
+                <div class="join step2">
+                    <%- include('./join/step.ejs', { step: 2 }) %>
+                    <form>
+                        <!-- [D 1차 회원수정] 설명문구 추가 -->
+                        <%- include('./atoms/title.ejs', {
+                            tag: 'p',
+                            type: 'body1',
+                            con: '회원가입을 위해 아래 정보를 입력해 주세요.',
+                            desc: `<em class="mandatory-mark">*</em> 는 필수입력 항목입니다.`,
+                        }) %>
+                        <!-- [D 1차 회원수정] .h3 클래스를 h2로 변경 -->
+                        <%- include('./atoms/title.ejs', {
+                            type: 2,
+                            con: '가입정보 등록',
+                        }) %>
+                        <div class="form-wrap">
+                            <!-- [D] h3.form-title을 h4.form-title으로 일괄 변경 -->
+                            <h4 class="form-title">아이디<em class="mandatory-mark">*</em></h4>
+                            <div class="form-line">
+                                <!-- [D 1차 회원수정] div.flex 추가 및 내부 중복 체크 버튼 추가 -->
+                                <div class="flex">
+                                    <!-- [D 05.26] placeholder 수정-->
+                                    <%- include('./atoms/input.ejs', { placeholder: '아이디를 입력해 주세요.' }) %>
+                                    <%- include('./atoms/button.ejs', { value: '중복체크', size: 'md' }) %>
+                                </div>
+                                <!-- [D 06.16] 가이드 문구 추가 -->
+                                <%- include('./atoms/guide.ejs', { invalid: false, guide : '아이디는 영문/숫자 조합으로 6~10자를 입력해 주세요.', show: true }) %>
+                                <%- include('./atoms/guide.ejs', { invalid: false, guide: '사용할 수 있는 아이디 입니다.', show: true }) %>
+                            </div>
+
+                            <h4 class="form-title">비밀번호<em class="mandatory-mark">*</em></h4>
+                            <div class="form-line">
+                                <%- include('./atoms/input.ejs', { type: 'password', showPassword: false, placeholder: '영문/숫자/특수문자 조합으로 8자 이상 입력해 주세요.' }) %>
+                                <!-- [D 06.16] 가이드 문구 추가 -->
+                                <%- include('./atoms/guide.ejs', { invalid: false, guide : '비밀번호는 영문 대/소문자, 숫자, 특수문자 중 2개 이상 조합하여 8~32자를 입력해 주세요.', show: true }) %>
+                                <%- include('./atoms/guide.ejs', { invalid: true, guide: '영문/숫자/특수문자 조합으로 8자 이상 입력해 주세요.', show: false }) %>
+                            </div>
+
+                            <h4 class="form-title">비밀번호 확인<em class="mandatory-mark">*</em></h4>
+                            <div class="form-line">
+                                <%- include('./atoms/input.ejs', { type: 'password', showPassword: false, placeholder: '비밀번호를 다시 입력해 주세요.' }) %>
+                                <%- include('./atoms/guide.ejs', { invalid: true, guide: '일치하지 않습니다. 다시 입력해주세요.', show: false }) %>
+                            </div>
+                        </div>
+                        <!-- //가입정보 -->
+
+                        <!-- 약국정보: 이전 기록 -->
+                        <!-- [D 1차 회원수정] title-has-button 커스텀 클래스 및 설명문구/버튼 추가 -->
+                        <!-- [D 05.26] toggle-area로 히든 처리해야할 곳 감쌈, 히든처리 클래스: hidden -->
+                        <div class="toggle-area pharmacy-info-origin">
+                            <%- include('./atoms/title.ejs', {
+                                type: 2,
+                                typeCustom: 'title-has-button',
+                                con: '약국정보 등록',
+                                desc: `<!-- [D 06.16] 문구 변경 -->기존 직거래처 정보로 등록됩니다. 번경이 필요하실 경우 [약국정보 변경] 버튼을 선택해 주세요.`,
+                                button: `<!-- [D 05.26] btn-pharmacy-toggle 클래스 추가(마크업 처리로 요청주셔서 func 추가함)-->` + include('./atoms/button.ejs', {
+                                    value: '약국정보 변경',
+                                    custom: 'btn-pharmacy-toggle'
+                                })
+                            }) %>
+                            <div class="form-wrap">
+                                <div class="grid">
+                                    <div class="grid-item">
+                                        <h4 class="form-title">대표자 이름</h4>
+                                        <div class="form-line">김약국</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">생년월일</h4>
+                                        <div class="form-line"><!-- [D 07.04] 날짜표기 방식 수정 -->1999.12.31</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title"><!-- [D 07.22] 문구 수정 -->휴대전화번호</h4>
+                                        <div class="form-line">010-1234-1234</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">사업자등록번호</h4>
+                                        <div class="form-line">123-12-12345</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">약사면허번호</h4>
+                                        <div class="form-line">12345678</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">요양기관번호</h4>
+                                        <div class="form-line">12345678</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">약국명</h4>
+                                        <div class="form-line">건대입구1번출구약국</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">업종</h4>
+                                        <div class="form-line">양약외의약품</div>
+                                    </div>
+                                    <!-- [D 1차 회원수정] 주소란에 col-span-2 클래스 추가 -->
+                                    <div class="grid-item col-span-2">
+                                        <!-- [D 06.16] 띄어쓰기 -->
+                                        <h4 class="form-title">약국 주소</h4>
+                                        <div class="form-line">(12345) 서울특별시 광진구 아차산로 229 상세주소 상세주소 상세주소</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <h4 class="form-title">약국 전화번호</h4>
+                                        <div class="form-line">02-1234-1234</div>
+                                    </div>
+                                    <div class="grid-item">
+                                        <!-- [D 06.16] 문구 변경 -->
+                                        <h4 class="form-title">담당직원</h4>
+                                        <div class="form-line">김담당</div>
+                                    </div>
+                                    <!-- [D 06.16] 추가 -->
+                                    <div class="grid-item">
+                                        <h4 class="form-title">세금계산서 이메일 주소</h4>
+                                        <div class="form-line">abc@abc.c0m</div>
+                                    </div>
+                                    <div class="grid-item col-span-2">
+                                        <h4 class="form-title">약사면허증</h4>
+                                        <div class="form-line">
+                                            <%- include('./atoms/file_upload.ejs', { id: 'file-drop0' })%>
+                                        </div>
+                                    </div>
+                                    <!-- //[D 06.16] 추가 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //약국정보: 이전 기록 -->
+
+                        <!-- 약국정보 변경 -->
+                        <!-- [D 1차 회원수정] title-has-button 커스텀 클래스 추가 및 버튼 변경, 문구 변경 -->
+                        <!-- [D 05.26] toggle-area로 히든 처리해야할 곳 감쌈, 히든처리 클래스: hidden -->
+                        <div class="toggle-area pharmacy-info-change hidden">
+                            <%- include('./atoms/title.ejs', {
+                                type: 2,
+                                typeCustom: 'title-has-button',
+                                con: '약국정보 변경',
+                                desc: `<!-- [D 06.16] 문구변경 -->변경이 필요한 정보는 수정해 주세요.`,
+                                button: `<!-- [D 05.26] btn-pharmacy-toggle 클래스 추가(마크업 처리로 요청주셔서 func 추가함)-->` + include('./atoms/button.ejs', {
+                                    value: '변경 취소',
+                                    custom: 'btn-pharmacy-toggle'
+                                })
+                            }) %>
+                            <div class="form-wrap">
+                                <!-- [D 06.16] 추가 및 순서 변경 -->
+                                <h4 class="form-title">사업자등록증<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/file_upload.ejs', { id: 'file-drop1' })%>
+                                </div>
+                                <h4 class="form-title">약사면허증<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/file_upload.ejs', { id: 'file-drop2' })%>
+                                </div>
+
+
+                                <!-- [D 06.16] 일구 태그 및 순서 변경  -->
+                                <h4 class="form-title">이름</h4>
+                                <div class="form-line">김약국</div>
+                                <h4 class="form-title">생년월일</h4>
+                                <div class="form-line"><!-- [D 07.04] 날짜표기 방식 수정 -->1999.12.31</div>
+                                <h4 class="form-title">휴대전화번호</h4>
+                                <div class="form-line">010-1234-1234</div>
+                                <h4 class="form-title">사업자등록번호</h4>
+                                <div class="form-line">01O1234234</div>
+
+                                <h4 class="form-title">약국명<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/input.ejs', { join: true, placeholder: '약국명을 입력해 주세요.' }) %>
+                                </div>
+                                <h4 class="form-title">사업장설립일<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/input.ejs', { type: 'date', join: true }) %>
+                                </div>
+                                <h4 class="form-title">주소<em class="mandatory-mark">*</em></h4>
+                                <!-- [D 06.16] form-address 삭제 및 주소 입력 방법 변경됨 -->
+                                <div class="form-line">
+                                    <div class="flex space-x-8">
+                                        <!-- [D 07.04] 주소입력 input에 readonly 추가 -->
+                                        <%- include('./atoms/input.ejs', { join: true, placeholder: '주소 입력', readonly: true }) %>
+                                        <%- include('./atoms/button.ejs', { value: '주소변경' }) %>
+                                    </div>
+                                </div>
+                                <h4 class="form-title">업태/업종<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <div class="flex flex-x-8">
+                                        <%- include('./atoms/input.ejs', { join: true, placeholder: '업태' }) %>
+                                        <%- include('./atoms/input.ejs', { join: true, placeholder: '업종' }) %>
+                                    </div>
+                                </div>
+
+                                <!-- [D 06.16] 이메일 입력 방법 변경됨 -->
+                                <h4 class="form-title">세금계산서 발행용 이메일 주소<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <div class="input-email">
+                                        <%- include('./atoms/input.ejs', { placeholder: '이메일 주소를 입력해 주세요.' }) %>
+                                        <div class="flex">
+                                            <span>@</span>
+                                            <!-- [D 08.22] 이메일 도메인 입력 input을 div.flex 안으로 위치 이동 -->
+                                            <!-- [D 06.16] 직접입력란은 hidden 클래스로 제어 -->
+                                            <%- include('./atoms/input.ejs', { placeholder: '도메인을 입력해 주세요.', custom: 'hidden' }) %>
+                                            <%- include('./atoms/selectbox.ejs', { options: ['선택'] }) %>
+                                        </div>
+                                    </div>
+                                    <%- include('./atoms/guide.ejs', { invalid: false, guide : '입력한 이메일 주소로 세금계산서가 발행됩니다.', show: true }) %>
+                                    <%- include('./atoms/guide.ejs', { invalid: true, guide: '이메일 주소를 정확히 입력해 주세요.', show: true }) %>
+                                </div>
+
+
+                                <h4 class="form-title">약사면허번호<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/input.ejs', { type: 'number', join: true, placeholder: '약사면허번호를 입력해 주세요.' }) %>
+                                </div>
+
+                                <!-- [D 06.16] 요양기관번호 구조 변경됨: div.flex 추가됨 -->
+                                <h4 class="form-title">요양기관번호<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <div class="input-care-num flex space-x-8">
+                                        <%- include('./atoms/input.ejs', { type: 'number', join: true, placeholder: '요양기관번호 숫자 8자리를 입력해 주세요.', isError: true}) %>
+                                        <!-- [D 06.16] 체크시 input disabled 상태로 전환 -->
+                                        <%- include('./atoms/checkbox.ejs', { name: 'ck4-', checkboxList: ["임시요양기관번호 사용<span class='tooltip'></span>"] }) %>
+                                    </div>
+                                    <%- include('./atoms/guide.ejs', { invalid: true, guide: '숫자 8자리를 입력해 주세요.', show: true }) %>
+                                </div>
+
+                                <h4 class="form-title">약국 전화번호<em class="mandatory-mark">*</em></h4>
+                                <div class="form-line">
+                                    <%- include('./atoms/input.ejs', { type: 'call', isError: true }) %>
+                                    <%- include('./atoms/guide.ejs', { invalid: true, guide: '연락 가능한 약국 전화번호를 정확히 입력해 주세요.', show: true }) %>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- //약국정보 변경 -->
+
+
+                        <!-- 약관 동의 -->
+                        <!-- [D 06.16] form-agree 추가 및 요소 변경 -->
+                        <div class="form-wrap form-agree">
+                            <h4 class="form-title">선택동의사항</h4>
+                            <div class="agreement">
+                                <div class="grid">
+                                    <div class="grid-item col-span-2">
+                                        <%- include('./atoms/checkbox.ejs', {
+                                            checkboxList: ["마케팅정보 수신 동의"],
+                                            name: 'agree5',
+                                        }) %>
+                                        <%- include('./atoms/button.ejs', {
+                                            value: '전체보기',
+                                            buttonType: 'text',
+                                            icon: 'chevron-down',
+                                            iconRight: true
+                                        }) %>
+                                        <%- include('./atoms/checkbox.ejs', { name: 'check-sns', checkboxList: ['알림톡(SMS)', '이메일'], checkCustom: 'hidden-option hidden', checked: false }) %>
+                                    </div>
+                                    <div class="grid-item col-span-2">
+                                        <%- include('./atoms/checkbox.ejs', {
+                                            checkboxList: ["담당자 주문/결제 대행 서비스 동의"],
+                                            name: 'agree6',
+                                        }) %>
+                                        <%- include('./atoms/button.ejs', {
+                                            value: '전체보기',
+                                            buttonType: 'text',
+                                            icon: 'chevron-down',
+                                            iconRight: true
+                                        }) %>
+                                        <%- include('./atoms/checkbox.ejs', { name: 'checkbox-tab', checkboxList: ['<span>대원제약</span>'], checkCustom: 'checkbox-tab hidden-option hidden', checked: false }) %>
+                                    </div>
+                                    <!-- //[D 06.16] 추가 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //약국정보 등록 -->
+
+                        <!-- [D 06.16] 약관 동의가 스텝1로 변경되었습니다. -->
+                        <!-- [D 06.16] 간편결제 등록은 모달로 변경되었습니다. -->
+                        <div class="flex crud">
+                            <!-- [D 06.16] 버튼 변경 -->
+                            <%- include('./atoms/button.ejs', { size: 'md', value: '가입신청 완료', type: 'filled' }) %>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- [D] tippy 연결 -->
+        <script src="../static/content/js/swiper-bundle.min.js"></script>
+        <script src="../static/content/js/popper.min.js"></script>
+        <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+        <!-- [D] 날짜 선택을 위한, 제이쿼리 연결 및 관련 func -->
+        <%- include('./molecules/sub_filter_js.ejs') %>
+        <script src="../static/content/js/markup.js"></script>
+        <script>
+            // 임시요양기관번호 사용
+            tippy(document.querySelector('.tooltip'), {
+                placement: 'top',
+                content: `
+                    <em class="tooltip-head">임의 요양기관번호 사용 안내</em>
+                    가입 후 15일 이내 정식 번호  미입력 시, 의약품을 주문할 수 없습니다.
+                `,
+                animation: false,
+                onClickOutside(instance) {
+                    instance.hide();
+                },
+                zIndex: 3,
+                allowHTML: true,
+                theme: 'light-border',
+                maxWidth: 203,
+            });
+
+        </script>
+    </body>
+</html>

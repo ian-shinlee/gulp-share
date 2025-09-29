@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>반품비 적용내역 상세</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            let cell = ( store , text, radio = false, cost) => {
+                return `
+                    <tr>
+                        <td><span>${store}</span></td>
+                        <td><span>5,000원</span></td>
+                        <td class="align-left">
+                            ${ !radio
+                                ? `<span>${text}</span>`
+                                : `
+                                    <!-- [D] 무료반품 쿠폰 보유시 적용여부 노출 -->
+                                    ${include('./atoms/radio.ejs', {
+                                        name: 'option1',
+                                        radioList: ["무료반품 쿠폰 적용(2매 보유)","유료반품(당월 무료반품 잔여횟수 0)"],
+                                    })}
+                                `
+                            }
+                        </td>
+                        <td class="align-right"><span>${cost}원</span></td>
+                    </tr>
+                `;
+            }
+            var infoContent = `
+                <div class="table-wrap table-return-cost">
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>입점업체</th>
+                                <th>반품비용</th>
+                                <th>무료반품 가능여부</th>
+                                <th>반품비 적용</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${cell('대원제약','무료반품(당월 무료반품 잔여횟수 3)', false, '0')}
+                            ${cell('대원제약대원제약대원제약','유료반품(당월 무료반품 잔여횟수 0)', false, '5,000')}
+                            ${cell('고구려약국','', true, '0')}
+                            ${cell('백제약국','무료반품 쿠폰 적용', false, '0')}
+                            <tr>
+                                <th colspan="3" class="total">반품비용 계</th>
+                                <td class="align-right"><span>5,000원</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                `
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '반품비 적용내역 상세',
+            content: infoContent,
+            buttonFixed: true,
+            btns: include('./atoms/button.ejs', {
+                    value: '취소',
+                    size: 'md',
+                    type: 'gray',
+                }) +include('./atoms/button.ejs', {
+                    value: '적용',
+                    size: 'md',
+                    type: 'filled',
+                })
+        }) %>
+        <!-- //modal area -->
+
+    </body>
+</html>

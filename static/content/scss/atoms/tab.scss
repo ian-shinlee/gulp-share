@@ -1,0 +1,157 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.tab {
+    .tabs {
+        align-items: center;
+    }
+    .tab-item {
+        white-space: nowrap;
+        @include typo('tab');
+        --typo-custom-w: 600;
+        --typo-custom-c: #{var.$b777};
+
+    }
+    .tabs-content {
+        &[aria-hidden="true"] {
+            display: none;
+        }
+    }
+
+    &.line {
+        .scroll-area {
+            margin-bottom: var(--tab-item-mb, 16px);
+            -webkit-overflow-scrolling: touch;
+            -webkit-touch-callout: none;
+            overflow-x: auto;
+            overflow-y: hidden;
+            @include mediaForPc {
+                width: 100%;
+                box-shadow: inset 0 -1px 0 var.$lineNormal;
+            }
+            @include media {
+                --tab-item-mb: 20px;
+                min-width: 100%;
+                @include notch(margin, left, var(--side-padding), true);
+                @include notch(margin, right, var(--side-padding), true);
+                @include notch(padding, left, var(--side-padding));
+            }
+        }
+        .tabs {
+            overflow: hidden;
+            min-width: max-content;
+            display: grid;
+            grid-template-columns: var(--tabs-column, repeat(auto-fit, minmax(10px, 1fr)));
+            gap: var(--tabitem-gap, 0);
+        }
+        .tab-item {
+            padding: 0 var(--tabitom-px, 12px);
+            --typo-custom-lh: 45px;
+            &[aria-selected="true"] {
+                --typo-custom-c: #{var(--tab-line-active, var.$primary)};
+                box-shadow: inset 0 -2px 0 var(--tab-line-active, var.$primary);
+            }
+            &:hover {
+                --typo-custom-c: #{var(--tab-line-active, var.$primary)};
+            }
+            &:disabled {
+                --typo-custom-c: #{var.$bccc};
+            }
+        }
+        @include media {
+            width: 100%;
+            --tabitem-gap: 16px;
+            .tabs {
+                @include notch(padding, right, var(--side-padding));
+                display: flex;
+                position: relative;
+                gap: 0;
+                @include before {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: var(--side-padding);
+                    right: calc( var(--side-padding) + constant(safe-area-inset-right));
+                    right: calc( var(--side-padding) + env(safe-area-inset-right));
+                    height: 1px;
+                    background-color: var.$lineNormal;
+                }
+            }
+            .tab-item {
+                flex: 1;
+                --tabitom-px: 8px;
+                --typo-custom-lh: 34px;
+                --tabitem-gap: 8px;
+                ~ .tab-item {
+                    margin-left: var(--tabitem-gap, 0);
+                }
+            }
+        }
+    }
+    &.box {
+        position: relative;
+        .tabs {
+            display: grid;
+            grid-template-columns: var(--tabs-grid-columns, repeat(auto-fit, minmax(25%, 1fr)));
+            background-color: var(--tabs-bg, var.$bfff);
+            border-radius: var(--tabs-radius, 0);
+            overflow: hidden;
+            margin-bottom: var(--box-tabs-mb, 16px);
+            background-image: url('../image/icon/tab-pattern-4.jpg');
+            background-size: 100% auto;
+            position: relative;
+            @include after {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                box-shadow: inset 0 1px 0 var.$lineNormal, inset 0 -1px 0 var.$lineNormal,inset 1px 0 0 var.$lineNormal, inset -1px 0 0 var.$lineNormal;
+                pointer-events: none;
+            }
+        }
+        .tab-item {
+            min-width: 0;
+            padding: 0 14px;
+            --typo-custom-lh: 55px;
+            --tabitem-bdw: 1px;
+            background-color: var(--tabitem-active-bg, var(--tabitem-bg, transparent));
+            border-right: var(--tabitem-bdw) solid var.$lineNormal;
+            border-bottom: var(--tabitem-bdw) solid var.$lineNormal;
+            @include ellipse;
+            --typo-custom-c: #{var.$b333};
+            --typo-custom-w: 500;
+            line-height: calc(var(--typo-custom-lh) - var(--tabitem-bdw));
+            &[aria-selected="true"] {
+                --tabitem-bdw: 0;
+                --typo-custom-c: #{var.$bfff};
+                --typo-custom-w: 600;
+                --tabitem-active-bg: #{var.$primary};
+                --tabitem-bdc: #{var.$primary};
+                line-height: var(--typo-custom-lh);
+            }
+            &:not([aria-selected="true"]):hover {
+                --typo-custom-c: #{var.$b333};
+            }
+            &:disabled {
+                --typo-custom-c: #{var.$bccc};
+                --tabitem-active-bg: #{var.$bgHeavy};
+            }
+            &:nth-child(n+1):nth-child(-n+4) {
+                --tabitem-bg: #{var.$bfff};
+            }
+        }
+        @include media {
+            --tabs-grid-columns: repeat(auto-fit, minmax(50%, 1fr));
+            .tabs {
+                --box-tabs-mb: 20px;
+                background-image: none;
+            }
+            .tab-item {
+                --tab: 12px;
+                --typo-custom-lh: 35px;
+            }
+        }
+
+    }
+}

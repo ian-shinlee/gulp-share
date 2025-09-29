@@ -1,0 +1,91 @@
+.icon-chevron-down {
+    --icon-url: url('../image/icon/chevron-down.svg');
+}
+.icon-arrow-left {
+    --icon-url: url('../image/icon/chevron-down.svg');
+    &:before {
+        transform: rotate(90deg);
+    }
+}
+
+.icon-download {
+    --icon-url: url('../image/icon/download.svg');
+}
+.icon-trash {
+    --icon-url: url('../image/icon/trash.svg');
+}
+.icon-arrow-right {
+    --icon-url: url('../image/icon/arrow-right.svg');
+}
+.icon-close {
+    --icon-url: url('../image/icon/close.svg');
+}
+.icon-print {
+    --icon-url: url('../image/icon/print.svg');
+}
+.icon-reset {
+    --icon-url: url('../image/icon/reset.svg');
+}
+.icon-share {
+    --icon-url: url('../image/icon/share.svg');
+}
+
+// product
+.icon-cart {
+    --icon-url: url('../image/product/cart.svg');
+    &:hover {
+        --icon-url: url('../image/product/cart-hover.svg');
+    }
+    &:active {
+        --icon-url: url('../image/product/cart-active.svg');
+    }
+}
+.icon-circle-pause {
+    --icon-url: url('../image/product/circle-pause.svg');
+}
+.icon-search {
+    --icon-url: url('../image/icon/search.svg');
+}
+.icon-zzim {
+    --icon-url: var(--icon-active-url, url('../image/product/zzim.svg'));
+    // &:hover:not(:disabled):not(.disabled),
+    &.active {
+        --icon-active-url: url('../image/product/zzim-active.svg');
+    }
+    &:disabled,
+    &.disabled {
+        --icon-url: url('../image/product/zzim-disabled.svg');
+    }
+}
+.icon-pin {
+    --icon-url: var(--icon-active-url, url('../image/product/pin.svg'));
+    &:hover  {
+        --icon-active-url: url('../image/product/pin-hover.svg');
+    }
+    &.active {
+        --icon-active-url: url('../image/product/pin-active.svg');
+    }
+    &:disabled,
+    &.disabled {
+        --icon-url: url('../image/product/pin-disabled.svg');
+    }
+}
+.icon-alarm {
+    --icon-url: var(--icon-active-url, url('../image/product/alarm.svg'));
+}
+
+// brand
+.icon-brand {
+    --icon-url: url('../image/icon/brand.svg');
+}
+
+.icon-plus-circle {
+    --icon-url: url('../image/icon/plus-circle.svg');
+    &:disabled,
+    &.disabled {
+        --icon-url: url('../image/icon/plus-circle-b777.svg');
+    }
+}
+.icon-check-square {
+    --icon-url: url('../image/icon/icon-check-square.svg');
+}

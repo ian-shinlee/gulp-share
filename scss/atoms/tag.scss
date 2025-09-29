@@ -1,0 +1,134 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.tag-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    // --tag-mr: 8px;
+}
+
+.tag {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--tag-mr, 4px);
+    white-space: nowrap;
+
+    // event
+    &[class*="tag-event-"]{
+        @include typo('body2');
+        --typo-custom-lh: 20px;
+        --typo-custom-w: 600;
+        padding: 0 8px;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    &.tag-event-ing {
+        background-color: #{var.$primarySecondary};
+        --typo-custom-c: #{var.$bfff};
+    }
+    &.tag-event-end {
+        background-color: #{var.$b999};
+        --typo-custom-c: #{var.$bfff};
+    }
+
+    // 결제카드
+    &[class*="bg-"]{
+        font-size: 10px;
+        line-height: 15px;
+        font-weight: 700;
+        padding: 0 8px;
+        overflow: hidden;
+        border-radius: 4px;
+        color: var.$bfff;
+    }
+    &.bg-red {
+        background-color: #{var.$p_red};
+    }
+
+    // 상품
+    &.tag-prd {
+        @include typo('body3');
+        --typo-custom-lh: 16px;
+        --typo-custom-w: 600;
+        padding: 0 6px;
+        overflow: hidden;
+        border-radius: 9px;
+    }
+    &.tag-mr {
+        border: 1px solid var.$p_orange;
+        --typo-custom-c: #{var.$p_orange};
+        border-radius: 4px;
+    }
+    &.tag-promotion {
+        border: 1px solid var.$ac_purpleHover;
+        --typo-custom-c: #{var.$ac_purpleHover};
+        border-radius: 4px;
+    }
+    &.tag-product {
+        background-color: var.$ac_skyBlueHover;
+        --typo-custom-c: #{var.$bfff};
+    }
+    &.tag-event {
+        background-color: #D54361;
+        --typo-custom-c: #{var.$bfff};
+    }
+    &.tag-exhibition,
+    &.tag-required {
+        background-color: var.$ac_purple;
+        --typo-custom-c: #{var.$bfff};
+    }
+    &.tag-type {
+        border: 1px solid var.$ac_purpleHover;
+        --typo-custom-c: #{var.$ac_purpleHover};
+        border-radius: 4px;
+    }
+
+    &.tag-quantity {
+        padding: 0 6px;
+        border-radius: 7.5px;
+        background: rgba(255, 145, 0, 0.10);
+        @include typo('body3');
+        --typo-custom-c: #B26600;
+        --typo-custom-lh: 15px;
+    }
+    &.tag-deadline {
+        padding: 0 6px;
+        border-radius: 7.5px;
+        @include typo('body3');
+        --typo-custom-c: #{var.$b777};
+        --typo-custom-lh: 13px;
+        --typo-custom-w: 500;
+        border: 1px solid var.$lineNormal;
+    }
+    // &.tag-mr {
+    //     font-weight: 600;
+    //     font-size: var(--body3);
+    //     line-height: 15px;
+    //     color: var.$p_orange;
+    //     padding: 0 4px;
+    //     border-radius: 4px;
+    //     border: 1px solid var.$p_orange;
+    // }
+}
+
+// disabled
+.disabled {
+    .tag.tag-prd {
+        border-color: var(--tag-disabled-color, var.$disabled);
+    }
+    .tag-product,
+    .tag-event,
+    .tag-exhibition,
+    .tag-required {
+        background-color: var(--tag-disabled-color, var.$disabled);
+        color: var.$bfff;
+    }
+    .tag-mr,
+    .tag-promotion,
+    .tag-type{
+        color: var(--tag-disabled-color, var.$disabled);
+    }
+}

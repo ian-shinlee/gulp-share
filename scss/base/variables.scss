@@ -1,0 +1,93 @@
+@use "../base/mixins.scss" as *;
+
+// markup
+$pageBg: #F3F3F3;
+
+$dimmed: rgba(15, 15, 15, 0.65);
+$dimmedStrong: rgba(15, 15, 15, 0.85);
+$dimmedWeak: rgba(15, 15, 15, 0.5);
+
+// colour
+$disabled: #D8D8D8;
+
+$primary: #5F0080;
+$primaryStrong: #4D0073;
+$primarySecondary: #BD76FF;
+$primaryTeriary: #EADDFF;
+$primaryQuaternary: #F9F4FF;
+
+$b000: #000;
+$b222: #222;
+$b333: #333;
+$b777: #777;
+$b999: #999;
+$bccc: #ccc;
+$bfff: #fff;
+
+$p_red: #E6002D;
+$p_orange: #F08300;
+$p_green: #03C75B;
+$p_purple: #5D37CB; // 안쓰임
+
+$ac_yellow: #FFE500;
+$ac_yellowHover: #F2D700;
+$ac_green: #6BE66D;
+$ac_greenHover: #5AC467;
+$ac_skyblue: #51A9EF;
+$ac_skyBlueHover: #4999EE;
+$ac_purple: #7346F3;
+$ac_purpleHover: #522ECE;
+$ac_bluegray: #7F96B9;
+$ac_bluegrayHover: #49658F;
+
+$bgNormal: #F8F8F8;
+$bgStrong: #F4F4F4;
+$bgHeavy: #EDEDED;
+
+$lineNormal: #DDDDDD;
+$lineWeak: #EDEDED;
+
+$positive: #3385FF;
+$cautionary: #FF9100;
+$destructive: #FF3F67;
+
+$inputDefault: #BEBEBE;
+$inputFocus: #222;
+
+:root {
+  --content-width: 1280px;
+  --content-width-narrow: 688px;
+  --side-padding: 40px;
+  --item-gap: 8px;
+  --item-height: 35px;
+  --check-icon-size: 20px;
+
+  // typography
+  --lnb1: var(--lnb1-mo, 28px);
+  --lnb2: var(--lnb2-mo, 18px);
+  --lnb3: var(--lnb3-mo, 14px);
+  --h1: var(--h1-mo, 26px);
+  --h2: var(--h2-mo, 20px);
+  --h3: var(--h3-mo, 18px);
+  --body1: var(--body1-mo, 14px);
+  --body2: var(--body2-mo, 12px);
+  --body3: var(--body3-mo, 10px);
+  --tab: var(--tab-mo, 16px);
+
+  --content-pt: 32px;
+  --content-pb: 32px;
+
+  @include media {
+    --side-padding: 16px;
+    --content-width: 100%;
+
+    --lnb2-mo: 16px;
+    --h1-mo: 24px;
+    --h2-mo: 18px;
+    --h3-mo: 16px;
+    --tab: 14px;
+
+    --content-pt: 28px;
+    --content-pb: 28px;
+  }
+}

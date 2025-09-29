@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+        <title>거래처코드 입력 | 회원가입</title>
+        <%- include('./includes/head.ejs') %>
+    </head>
+    <body class="scrolllock">
+        <!-- header area -->
+        <!-- //header area -->
+        <div class="content-inner">
+        </div>
+        <!-- footer area -->
+        <!-- //footer area -->
+
+        <!-- modal area -->
+        <%
+            var memberInfo = `
+                <!-- [D 06.16] 문구 수정 -->
+                <p class="modal-desc">선택하신 직거래처에 일치하는 정보가 없습니다.<br/>직거래 이력이 있으시다면, 직거래처의 거래처코드를 입력해 주세요.</p>
+                <div class="join">
+                    <form>
+                        <div class="gray-box account-code">
+                            <!-- [D 06.16] checkbox-tab 삭제 -->
+                            <div class="grid grid-auto-1fr">
+                                ${include('./atoms/selectbox.ejs', { options: ['입점업체1', '입점업체2', '입점업체입점업체체'] })}
+                                ${include('./atoms/input.ejs', { form: true, guide: '에러 메시지', placeholder: "선택한 직거래처의 거래처 코드를 입력해 주세요.", invalid: true })}
+                            </div>
+                        </div>
+                        <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+                        <div class="btn-wrap">
+                            <!-- [D 08.27] 버튼 추가 -->
+                            ${include('./atoms/button.ejs', {
+                                value: '연동하지 않고 신규가입',
+                                size: 'md',
+                                type: 'gray',
+                                isLink: true
+                            })}
+                            <!-- [D 06.16] 버튼 하나로 변경 -->
+                            ${include('./atoms/button.ejs', {
+                                value: '간편가입',
+                                size: 'md',
+                                type: 'filled'
+                            })}
+                        </div>
+                    </form>
+                </div>
+            `
+        %>
+        <%- include('./includes/modal.ejs', {
+            show: true,
+            title: '거래처코드 입력',
+            content: memberInfo
+        }) %>
+        <!-- //modal area -->
+
+        <script src="../static/content/js/markup.js"></script>
+    </body>
+</html>
+2">입점업체2</option>
+                    <option value="입점업체입점업체체">입점업체입점업체체</option>
+                  </select>
+                </div>
+                <div class="form-line">
+                  <input type="text" class="form-basic " value="" placeholder="선택한 직거래처의 거래처 코드를 입력해 주세요." />
+                  <!-- [D] hidden을 위해서는 hidden 클래스 추가 -->
+                  <span class="feedback hidden invalid">에러 메시지</span>
+                </div>
+              </div>
+            </div>
+            <!-- [D 06.04] 버튼 사이즈 md로 변경 -->
+            <div class="btn-wrap">
+              <!-- [D 08.27] 버튼 추가 -->
+              <a href="#none" class="btn cta gray md">
+                <!-- [D] span이 추가됨 -->
+                <span>연동하지 않고 신규가입</span>
+              </a>
+              <!-- [D 06.16] 버튼 하나로 변경 -->
+              <button class="btn cta filled md">
+                <span>간편가입</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- //modal area -->
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

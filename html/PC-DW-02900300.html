@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- [D] viewport-fit=cover, user-scalable=no, 추가 -->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, viewport-fit=cover" />
+  <title>바로구매팝업</title>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="../static/content/css/daewonmall.css" />
+  <!-- [D] favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/content/image/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../static/content/image/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="../static/content/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/content/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/content/image/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../static/content/image/favicon-96x96.png" />
+  <link rel="manifest" href="../static/content/image/site.webmanifest">
+</head>
+
+<body class="scrolllock">
+  <!-- header area -->
+  <!-- //header area -->
+  <div class="content-inner">
+  </div>
+  <!-- footer area -->
+  <!-- //footer area -->
+  <!-- modal area -->
+  <!-- [D]
+    1. modal 활성화시 .modal에 show 클래스 추가
+    2. modal 활성화시 body에 scrolllock 클래스 추가(하단 스크롤 방지)
+    3. dimmed-bg 클릭시 모달 닫아짐
+-->
+  <div class="modal quick-order-modal show">
+    <div class="dimmed-bg" data-dismiss=""></div>
+    <div class="modal-wrap">
+      <button class="modal-close" data-dismiss=""><span>닫기</span></button>
+      <div class="modal-header"> 상세보기 </div>
+      <div class="modal-body">
+        <!-- modal 콘텐츠 -->
+        <div class="grid">
+          <div class="only-pc">
+            <!-- [D 06.04] only-pc 안의 콘텐츠를 한번 더 div로 감쌌습니다.  -->
+            <div>
+              <div class="item-modal">
+                <!-- [D] 상품 타이틀 -->
+                <h2 class="h2">제품명 영역 제품명 영역 제품명 영역제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역 제품명 영역</h2>
+                <!-- [D] breadcrumb -->
+                <div class="breadcrumb">
+                  <span class="bc-depth">일반의약품</span>
+                  <span class="bc-depth">조직세포의 기능용 의약품</span>
+                  <span class="bc-depth">기타의 조직세포의 기능용 의약품</span>
+                </div>
+                <!-- [D 06.04] prd-detail 타입으로 추가 -->
+                <!-- [D] 베스트 상품을 기준으로 제작되었습니다.-->
+                <!-- [D 06.04] 1. master일 경우 prd-master / PC에서 가로형이 되어야한다면 type-column / 썸네일 없이 노출되어야할 땐 type-mini / 상품상세보기 type-detail 클래스 추가  -->
+                <div class="prd-item-list type-column type-detail">
+                  <!-- [D] redirect-item-view, paragraph-ellipsis 마크업X 솔루션 클래스 -->
+                  <!-- [D] .item-list.main-item-best 클래스 삭제-->
+                  <!-- [D] 품절일 경우 item-element에 disabled 추가  -->
+                  <div class="item-element" data-item-user-code="G2000039500">
+                    <!-- [D] 장바구니, 브랜드관 링크 영역에서는 div 그 외에 button -->
+                    <div class="item-detail">
+                      <span class="thumbnail-container">
+                        <span class="thumbnail-wrap redirect-item-view">
+                          <img class="thumbnail" src="../static/content/image/temp/prd_326x326.jpg" alt="상품테스트1" onerror="errorImage(this)" loading="lazy" decoding="async">
+                        </span>
+                      </span>
+                      <span class="info-container">
+                        <!-- [D 06.04] span.type 삭제  -->
+                        <!-- [D 06.04]
+                        1. title-sub 내부 구조 변경(span wrap 벗김)
+                        2. type-mini가 아니면, title-sub는 콘텐츠가 없어도 빈태그로 노출
+                    -->
+                        <span class="title-sub">
+                          <b><!-- [D 07.10] 문구 변경 -->제조사</b>
+                          <span>대원제약</span>
+                          <span class="divider-vertical-line"></span>
+                          <b>규격</b>
+                          <span>5ml</span>
+                          <span class="divider-vertical-line"></span>
+                          <b>단위</b>
+                          <span>5p</span>
+                          <span class="divider-vertical-line"></span>
+                          <b>포장</b>
+                          <span>박스</span>
+                          <span class="divider-vertical-line"></span>
+                          <b>보험코드</b>
+                          <span>040171</span>
+                          <span class="divider-vertical-line"></span>
+                          <b>전문/일반</b>
+                          <span>전문</span>
+                        </span>
+                      </span>
+                    </div>
+                    <!-- [D] 상품리스트에서의 user-action 위치 -->
+                    <div class="item-analytics-data" style="display: none" data-item-user-code="G2000039500" data-item-name="상품테스트1" data-brand="" data-present-price="900" data-discount-amount="100"></div>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                  <table class="table">
+                    <colgroup>
+                      <col>
+                      <col>
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th><span>성분</span></th>
+                        <td><span>성분</span></td>
+                      </tr>
+                      <tr>
+                        <th><span>효능/효과(특성)</span></th>
+                        <td><span>특성</span></td>
+                      </tr>
+                      <tr>
+                        <th><span>용법</span></th>
+                        <td><span>용법</span></td>
+                      </tr>
+                      <tr>
+                        <th><span>표준코드</span></th>
+                        <td><span>0401171</span></td>
+                      </tr>
+                      <tr>
+                        <th><span>급여구분</span></th>
+                        <td><span>급여</span></td>
+                      </tr>
+                      <tr>
+                        <th><span>주성분코드</span></th>
+                        <td><span></span></td>
+                      </tr>
+                      <tr>
+                        <th><span>품목기준코드</span></th>
+                        <td><span></span></td>
+                      </tr>
+                      <tr>
+                        <th><span>복지부분분류번호</span></th>
+                        <td><span></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <!-- [D 06.04] only-pc 와 동일하게 내부 콘텐츠를 한번 더 div로 감쌌습니다.  -->
+            <div>
+              <div class="all-seller-list">
+                <div class="head-wrap">
+                  <div>
+                    <h4 class="h3"> 전체 입점업체 (10) </h4>
+                  </div>
+                </div>
+                <!-- [D 06.04] 라디오버튼으로 변경 -->
+                <!-- [D 06.04] radio 변경 -->
+                <div class="radio-wrap type-divider">
+                  <label type="radio" for="prd-filter0" class="input-radio">
+                    <input type="radio" checked name="prd-filter" id="prd-filter0">
+                    <i></i>
+                    <span>낮은가격순</span>
+                  </label>
+                  <span class="divider-vertical-line"></span>
+                  <label type="radio" for="prd-filter0" class="input-radio">
+                    <input type="radio" checked name="prd-filter" id="prd-filter0">
+                    <i></i>
+                    <span>높은가격순</span>
+                  </label>
+                  <span class="divider-vertical-line"></span>
+                  <label type="radio" for="prd-filter0" class="input-radio">
+                    <input type="radio" checked name="prd-filter" id="prd-filter0">
+                    <i></i>
+                    <span>판매많은순</span>
+                  </label>
+                </div>
+                <div class="table-wrap ">
+                  <table class="table">
+                    <colgroup>
+                      <col>
+                      <col>
+                      <col>
+                      <col>
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th><!-- [D 06.20] 업체명 => 입점업체로 문구 변경 -->입점업체</th>
+                        <th>가격</th>
+                        <th>재고</th>
+                        <th>수량</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  --> 동아제약 동아제약 동아제약 동아제약 <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 품절 표시 위치/클래스 변경 -->
+                          <span class="body1 c-red">품절</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <!-- [D 06.20] active시 버튼명 변경 -->
+                            <button class="btn cta light-outline icon-alarm active">
+                              <span>해제</span>
+                            </button>
+                            <!-- [D 07.10] 추가 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim active">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 품절 표시 위치/클래스 변경 -->
+                          <span class="body1 c-red">품절</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <button class="btn cta light-outline icon-alarm">
+                              <span>재입고 알림</span>
+                            </button>
+                            <!-- [D 07.10] 추가 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tr-promo" colspan="4">
+                          <div class="grid">
+                            <span class="tag tag-event-ing">기획전명</span>
+                            <div>
+                              <a href="#none" class="body2 fw-semibold">최대 70% 초특가 할인 상품 모음전</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tr-promo" colspan="4">
+                          <div class="grid">
+                            <span class="tag tag-event-ing">수량할인</span>
+                            <div>
+                              <!-- [D 06.20] 할인적용금액 삭제 및 문구 변경 -->
+                              <p class="body2">100개 이상<b class="c-red">10%</b></p>
+                              <p class="body2">100개 이상<b class="c-red">20%</b></p>
+                              <p class="body2">100개 이상<b class="c-red">30%</b></p>
+                              <p class="body2">1000개 이상<b class="c-red">40%</b></p>
+                              <p class="body2">1000개 이상<b class="c-red">50%</b></p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="flex">
+                            <em class="body1">
+                              <!-- [D 06.04] 업체명 a링크로 감쌈 -->
+                              <!-- [D 06.20] 링크가 있는 경우에만 a태그로 감쌈  -->
+                              <a href="#none" class="underline">동아제약 동아제약 동아제약 동아제약</a>
+                              <!-- [D 06.04] 찜버튼 추가 -->
+                              <button class="btn icon icon-zzim">
+                                <span></span>
+                              </button>
+                            </em>
+                            <!-- [D 06.20] 최소주문금액 삭제 -->
+                            <span class="tag tag-deadline">16:00 마감</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 심플화 -->
+                          <span class="prd-price">
+                            <span class="discounted">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                            <span class="sale">
+                              <span>10</span>
+                              <span>%</span>
+                            </span>
+                            <span class="price">
+                              <span>9,000,000</span>
+                              <span>원</span>
+                            </span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="body1">99999</span>
+                        </td>
+                        <td>
+                          <!-- [D 06.04] 공통화 -->
+                          <div class="prd-ctrl">
+                            <div class="quantity-wrap">
+                              <div class="quantity-box" data-max-quantity="-1" data-min-quantity="1">
+                                <button type="button" class="btn-quantity btn-minus"></button>
+                                <!-- [D] readonly / maxlength 삭제, 수량 초과시 above 클래스 추가  -->
+                                <input type="number" title="수량" value="3" data-quantity="3" class="quantity number">
+                                <button type="button" class="btn-quantity btn-plus"></button>
+                              </div>
+                            </div>
+                            <button class="btn cta filled icon-cart btn-cart">
+                              <span>장바구니</span>
+                            </button>
+                            <!-- [D 07.10] 바로구매 추가 -->
+                            <button class="btn cta filled btn-order">
+                              <span>바로구매</span>
+                            </button>
+                            <!-- [D 06.04] c-red 영역이 추가됨 -->
+                            <!-- [D 06.20] "반품불가" 일 경우, "반품불가"만 노출로 문구 변경 -->
+                            <span class="body3 c-b777 fw-medium">주문단위:<span class="c-red">10</span>개<span class="c-red">반품불가</span></span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="pagination">
+                  <!-- [D] 첫번째 페이지로 이동 버튼 추가-->
+                  <!-- [D] 비활성화시 disabled 클래스 추가 -->
+                  <a href="#none" class="page-item disabled"><span class="page-first">첫 페이지</span></a>
+                  <a href="#none" class="page-item disabled"><span class="page-prev">이전페이지</span></a>
+                  <a href="#none" class="page-item active"><span class="page-link">1</span></a>
+                  <a href="#none" class="page-item"><span class="page-link">2</span></a>
+                  <a href="#none" class="page-item"><span class="page-link">3</span></a>
+                  <a href="#none" class="page-item"><span class="page-link">4</span></a>
+                  <a href="#none" class="page-item"><span class="page-link">5</span></a>
+                  <a href="#none" class="page-item"><span class="page-next">다음페이지</span></a>
+                  <!-- [D] 마지막 페이지로 이동 버튼 추가-->
+                  <a href="#none" class="page-item"><span class="page-last">마지막 페이지</span></a>
+                </p>
+              </div>
+              <!-- [D 07.10] ad 상품 영역(ad-prd-list) 삭제 -->
+            </div>
+          </div>
+        </div>
+        <!-- [D 07.10] 플로팅바 삭제 -->
+        <!-- //modal 콘텐츠 -->
+      </div>
+    </div>
+  </div>
+  <!-- [D] tippy 연결 -->
+  <script src="../static/content/js/popper.min.js"></script>
+  <script src="../static/content/js/tippy-bundle.umd.min.js"></script>
+  <script>
+    // 장바구니 버튼 성공시, 실행되어야함
+    const toCartBtn = document.querySelectorAll('.prd-ctrl .btn-cart, .floating-bar .btn-wrap button.btn:not(.icon):not(.filled), .reorder-btns .btn:not(.filled)');
+    if (toCartBtn.length > 0) {
+      toCartBtn.forEach((btn) => {
+        tippy(btn, {
+          arrow: false,
+          appendTo: 'parent',
+          placement: 'top-start',
+          content: `<span>장바구니에 상품을 담았습니다.</span>
+                    <a href="#none" class="btn cta outlined xs icon-right icon-chevron-down">
+                        <span>장바구니 바로가기</span>
+                    </a>`,
+          trigger: 'click',
+          hideOnClick: false,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 4],
+          onShow(instance) {
+            setTimeout(() => {
+              instance.hide();
+            }, 2000);
+          }
+        });
+      });
+    }
+    console.log(document.querySelector('.table-agreement-info'));
+    // 주문수량
+    const quantityBox = document.querySelectorAll('.quantity-box');
+    if (quantityBox.length > 0) {
+      quantityBox.forEach((box, index) => {
+        let numEl = `
+                    <!-- [D] 수량할인 제품일때만 노출 -->
+                    <span class="flex quantity-guide">
+                        <span>10개 이상 <em class="c-purple">5%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>100개 이상 <em class="c-purple">25%</em></span>
+                        <span>1000개 이상 <em class="c-purple">25%</em></span>
+                        <span class="divider-vertical-line"></span>
+                        <span>10000개 이상 <em class="c-purple">25%</em></span>
+                        <span>100000개 이상 <em class="c-purple">25%</em></span>
+                    </span>
+                `
+        let numGuide = '';
+        let needGuide = ((box.closest('.user-action')?.querySelector('div.etc') != null) || (box.closest('td > .prd-ctrl, td > .quantity-wrap') && box.closest('.all-seller-list') == null && box.closest('.video') == null) || (box.closest('.product-amount') != null)) && (document.querySelector('.table-agreement-info') == null) ? true : false;
+        if (needGuide) {
+          numGuide += numEl
+        }
+        let hasInventory = false;
+        if (document.querySelector('.content-inner')?.textContent.includes('재고') || document.querySelector('.modal')?.textContent.includes('재고')) hasInventory = true;
+        let inventoryContent = !hasInventory ? `<span class="divider-vertical-line"></span>
+                    <span>재고 <em class="c-red">99,999+</em>개</span>` : '';
+        tippy(box, {
+          placement: 'top',
+          content: `<span class="flex">
+                    <span>최대 <em class="c-red">99,999</em>개</span>
+                    ${inventoryContent}
+                </span>` + numGuide,
+          animation: false,
+          interactive: true,
+          onClickOutside(instance) {
+            instance.hide();
+          },
+          zIndex: 3,
+          allowHTML: true,
+          offset: [0, 9],
+          theme: 'light-border',
+        });
+      });
+    }
+  </script>
+  <!-- [D] swiper 연결 -->
+  <script src="../static/content/js/swiper-bundle.min.js"></script>
+  <script src="../static/content/js/markup.js"></script>
+</body>
+
+</html>

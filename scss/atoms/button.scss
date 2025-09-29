@@ -1,0 +1,230 @@
+@use "../base/variables.scss" as var;
+@use "../base/mixins.scss" as *;
+
+.btn {
+    flex-shrink: 0;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 var(--button-px);
+    height: var(--button-height);
+    border-radius: 4px;
+    font-size: var(--button-fz, var(--body2));
+    letter-spacing: -0.02em;
+    font-weight: var(--button-fw, 500);
+    background-color: var(--button-bgc);
+    border: 1px solid var(--button-bdc);
+    color: var(--button-c);
+    max-width: 100%;
+    @include ellipse;
+    &:hover {
+        background-color: var(--button-bgc-hover);
+        border: 1px solid var(--button-bdc-hover);
+    }
+    &:active {
+        background-color: var(--button-bgc-active, var(--button-bgc-hover));
+        border: 1px solid var(--button-bdc-active, var(--button-bdc-hover));
+    }
+
+    // type
+    &.cta {
+        // min-width: var(--button-min-w, 70px);
+        --button-px: 10px;
+        --button-height: var(--item-height);
+        --button-bgc: #{var.$bfff};
+        --button-bdc: #9B9B9B;
+        --button-bgc-hover: #{var.$bgNormal};
+        --button-bdc-hover: #9B9B9B;
+        --button-bgc-active: #F0F0F0;
+        --button-c: #{var.$b333};
+        --button-icon-gap: 4px;
+
+        &.xs {
+            --button-px: 6px;
+            --button-height: 24px;
+        }
+        &.md {
+            --button-px: 14px;
+            --button-fz: var(--body1);
+            --button-fw: 600;
+            --button-height: 41px;
+            --button-icon-gap: 6px;
+        }
+        &.lg,
+        &.xl {
+            --button-fz: var(--body1);
+            --button-fw: 600;
+            --button-icon-gap: 8px;
+        }
+        &.lg {
+            --button-px: 20px;
+            --button-height: 47px;
+        }
+        &.xl {
+            --button-px: 24px;
+            --button-height: 64px;
+            --button-fz: var(--tab);
+        }
+
+        &.filled {
+            --button-bdc: #{var.$primary};
+            --button-bdc-hover: #{var.$primarySecondary};
+            --button-bgc: #{var.$primary};
+            --button-bgc-hover: #{var.$primarySecondary};
+            --button-bdc-active: #{var.$primaryStrong};
+            --button-bgc-active: #{var.$primaryStrong};
+            --button-c: #{var.$bfff};
+        }
+        &.outlined {
+            --button-bdc: #{var.$primary};
+            --button-bdc-hover: #{var.$primarySecondary};
+            --button-bdc-active: #{var.$primaryStrong};
+            --button-bgc-hover: #{var.$bfff};
+            --button-bgc-active: #{var.$bfff};
+            --button-c: #{var.$primary};
+            &:hover {
+                --button-c: #{var.$primarySecondary};
+            }
+            &:active {
+                --button-c: #{var.$primaryStrong};
+            }
+        }
+        &.secondary {
+            --button-bdc: #{var.$primary};
+            --button-bdc-hover: #{var.$primarySecondary};
+            --button-bdc-active: #{var.$primaryStrong};
+            --button-bgc: #{var.$primaryQuaternary};
+            --button-bgc-hover: #{var.$primaryQuaternary};
+            --button-bgc-active: #{var.$primaryQuaternary};
+            --button-c: #{var.$primary};
+            &:hover {
+                --button-c: #{var.$primarySecondary};
+            }
+            &:active {
+                --button-c: #{var.$primaryStrong};
+            }
+        }
+        &.gray {
+            --button-bdc: #{var.$b999};
+            --button-bdc-hover: #888;
+            --button-bgc: #{var.$b999};
+            --button-bgc-hover: #888;
+            --button-c: #{var.$bfff};
+            --button-bdc-active: #{var.$b777};
+            --button-bgc-active: #{var.$b777};
+        }
+        &.black {
+            --button-bdc: #{var.$b333};
+            --button-bdc-hover: #2C2C2C;
+            --button-bgc: #{var.$b333};
+            --button-bgc-hover: #2C2C2C;
+            --button-c: #{var.$bfff};
+            --button-bdc-active: #242424;
+            --button-bgc-active: #242424;
+        }
+        &.light-outline {
+            --button-bdc: #{var.$lineNormal};
+            --button-bdc-hover: #{var.$lineNormal};
+        }
+        // &.black-outline {
+        //     --button-bdc: #{var.$b333};
+        //     --button-bdc-hover: #{var.$b333};
+        // }
+
+        &.disabled,
+        &:disabled {
+            pointer-events: none;
+            cursor: default;
+            background-color: #{var.$disabled};
+            border-color: #{var.$bccc};
+            color: #{var.$b999};
+            &.filled {
+                border-color: #{var.$disabled};
+            }
+        }
+    }
+    &.text {
+        --button-px: 6px;
+        --button-icon-gap: 4px;
+        --button-height: 24px;
+        &.md {
+            --button-height: 29px;
+            --button-fz: var(--body1);
+        }
+        --button-bgc: transparent;
+        --button-bgc-hover: #{var.$bgStrong};
+        --button-c: #{var.$b333};
+        &.primary {
+            --button-bgc-hover: #{var.$primaryQuaternary};
+            --button-c: #{var.$primary};
+        }
+    }
+
+    &.icon {
+        width: calc(var(--button-icon-size) + 8px);
+        height: calc(var(--button-icon-size) + 8px);
+        --button-icon-size: 16px;
+        span {
+            @include sr-only;
+        }
+        --button-bgc: transparent;
+        --button-bgc-hover: #{var.$bgStrong};
+        --button-c: #{var.$b333};
+        &.primary {
+            --button-bgc-hover: #{var.$primaryQuaternary};
+            --button-c: #{var.$primary};
+        }
+        &.lg {
+            --button-icon-size: 24px !important;
+        }
+        &.xs {
+            --button-icon-size: 12px !important;
+        }
+        &.disabled,
+        &:disabled {
+            pointer-events: none;
+            --button-c: #{var.$b999};
+        }
+    }
+
+    // with icon
+    &[class*="icon-"] {
+        &:before {
+            content: '';
+            flex-shrink: 0;
+            display: inline-block;
+            margin-right: var(--button-icon-gap);
+            width: var(--button-icon-size, 12px);
+            height: var(--button-icon-size, 12px);
+            background-size: var(--button-icon-size, 12px);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: var(--icon-url);
+        }
+        &.icon-right:before {
+            order: 1;
+            margin-right: 0;
+            margin-left: var(--button-icon-gap);
+        }
+        &.md,
+        &.lg,
+        &.xl {
+            --button-icon-size: 16px;
+        }
+    }
+}
+
+.crud {
+    margin-top: var(--crud-mt, 60px);
+    button,
+    a {
+        flex: 1;
+        &:not(:first-child) {
+            margin-left: var(--item-gap);
+        }
+    }
+}
+a.btn {
+    line-height: calc(var(--button-height) - 2px);
+}
