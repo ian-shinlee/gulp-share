@@ -1,160 +1,68 @@
-const gulp = require("gulp");
-
-const path = require("path");
-const sass = require('gulp-sass')(require('sass'));
-const sourcemaps = require("gulp-sourcemaps");
-const Fiber = require("fibers");
-const autoprefixer = require("autoprefixer");
-const postcss = require("gulp-postcss");
-const browserSync = require("browser-sync").create();
-const reload = browserSync.reload;
-
-const ejs = require("gulp-ejs");
-const beautify = require("gulp-beautify");
-const del = require("del");
-const newer = require("gulp-newer");
-const imagemin = require("gulp-imagemin");
-const pngquant = require("imagemin-pngquant");
-
-gulp.task("browserSync", function () {
-  browserSync.init({
-    server: {
-      baseDir: "dist", // ★★★★ 서버에 띄울 폴더 위치 지정
-      directory: true,
-    },
-  });
-  gulp.watch("src/**/*").on("change", reload);
-});
-
-const apfBrwsowsers = [
-  "ie >= 10",
-  "ie_mob >= 10",
-  "ff >= 30",
-  "chrome >= 34",
-  "safari >= 7",
-  "opera >= 23",
-  "ios >= 7",
-  "android >= 4.3",
-];
-
-gulp.task("sass", function () {
-  const options = {
-    sass: {
-      silenceDeprecations: ['legacy-js-api'],
-      outputStyle: "compressed",
-      indentType: "space",
-      indentWidth: 2,
-      fiber: Fiber,
-    },
-    postcss: [
-      autoprefixer({
-        overrideBrowserslist: apfBrwsowsers,
-      }),
-    ],
-  };
-  return gulp
-    .src("src/static/content/scss/*.scss")
-    // .pipe(
-    //   sass({
-    //     includePaths: require("node-normalize-scss").includePaths,
-    //   })
-    // )
-    .pipe(sourcemaps.init())
-    .pipe(sass(options.sass).on("error", sass.logError))
-    .pipe(postcss(options.postcss))
-    .pipe(sourcemaps.write("./maps"))
-    .pipe(gulp.dest("dist/static/content/css"))
-    .pipe(browserSync.stream());
-});
-
-function taskImagemin(cb) {
-  return gulp
-    .src("src/static/content/image_origin/**/*")
-    .pipe(newer(path.join("src/static/content/image")))
-    .pipe(
-      imagemin(
-        [
-          imagemin.mozjpeg({ quality: 75, progressive: true }),
-          pngquant({
-            quality: [0.7, 0.7],
-          }),
-        ],
-        { verbose: true }
-      )
-    )
-    .pipe(gulp.dest("src/static/content/image"));
+{
+  "name": "ejs-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "gulp": "gulp",
+    "develop": "gulp",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.5",
+    "browser-sync": "^2.27.10",
+    "del": "^5.1.0",
+    "fibers": "^5.0.3",
+    "gulp": "^4.0.2",
+    "gulp-beautify": "^3.0.0",
+    "gulp-ejs": "^5.1.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-index": "^0.2.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "imagemin-pngquant": "^7.0.0"
+  },
+  "dependencies": {
+    "gulp-sass": "^5.1.0",
+    "node-normalize-scss": "^3.0.0",
+    "sass": "^1.80.4"
+  }
 }
 
-// 삭제후 다시 붙이기
-// async function cleanDist(cb) {
-//   await del("dist", { force: true }, copySrcToDist);
-// }
-function copySrcToDist(cb) {
-  return gulp
-    .src(
-      [
-        "src/html/*.html",
-        "src/html/old/*.html",
-        path.join("src/static/content", "**/*"),
-      ],
-      { base: "src/" }
-    )
-    .pipe(gulp.dest("dist/"));
-}
-function transpileEjsToHtml(cb) {
-  return gulp
-    .src("src/html/*")
-    .pipe(ejs())
-    .pipe(
-      beautify.html({
-        preserve_newlines: false,
-        indent_size: 2,
-        indent_char: " ",
-      })
-    )
-    .pipe(gulp.dest("dist/html"));
-}
-function updateJS(cb) {
-  return gulp
-    .src("src/static/content/js/*")
-    .pipe(gulp.dest("dist/static/content/js"));
-}
-// // index
-// const index = require("gulp-index");
-// function makeIndexPage(cb) {
-//   return gulp
-//     .src("src/html/*.html")
-//     .pipe(
-//       index({
-//         title: "마크업 sdfsdf산출물",
-//         // exJs: false,
-//         // html: true,
-//         // fold: true,
-//         // fileSort: "file",
-//         // groupSort: "asc",
-//       })
-//     )
-//     .pipe(gulp.dest("dist/")); // 인덱스 저장 경로
-// }
 
-gulp.task("watch", function () {
-  gulp.watch("src/html/**/*", transpileEjsToHtml);
-  // gulp.watch("src/html/*.html", makeIndexPage);
-  gulp.watch("src/static/content/js/**.js", updateJS);
-  gulp.watch("src/static/content/scss/**/**.scss", gulp.series("sass"));
-  gulp.watch("src/static/content/image_origin/**/*", taskImagemin);
-});
-
-gulp.task(
-  "default",
-  gulp.parallel(
-    transpileEjsToHtml,
-    "sass",
-    "watch",
-    "browserSync",
-    // cleanDist,
-    copySrcToDist,
-    taskImagemin,
-    // makeIndexPage
-  )
-);
+{
+  "name": "ejs-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "gulp": "gulp",
+    "develop": "gulp",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.5",
+    "browser-sync": "^2.27.10",
+    "del": "^5.1.0",
+    "fibers": "^5.0.3",
+    "gulp": "^4.0.2",
+    "gulp-beautify": "^3.0.0",
+    "gulp-ejs": "^5.1.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-index": "^0.2.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "imagemin-pngquant": "^7.0.0"
+  },
+  "dependencies": {
+    "gulp-sass": "^5.1.0",
+    "node-normalize-scss": "^3.0.0",
+    "sass": "^1.80.4"
+  }
+}
